@@ -1,15 +1,18 @@
 javascript:function f(){
 	
-	//function which given an array of input elements would fill them up 
-	//with the respective values
+	/*function which given an array of input elements would fill them up 
+	with the respective values*/
 	var processInputElements = function(inputs) {
 	
 		var emailRegx = /email/g;
 	
 		for(var i = 0; i < inputs.length; i++) {
 			var input = inputs[i];
-			var inputId = input.id;
-			if (input.type === 'email' || emailRegx.test(inputId)) {
+			
+			if (input.type === 'email' 
+				|| emailRegx.test(input.id) 
+				|| emailRegx.test(input.name)) {
+				
 				input.value = 'f@ke.com';
 			} else if (input.type === 'password') {
 				input.value = 'Password123';
@@ -19,7 +22,7 @@ javascript:function f(){
 		}
 	};
 	
-	//function which given an array of selects would choose a random option
+	/*function which given an array of selects would choose a random option*/
 	var processSelectElements = function(selects) {
 		for(var i = 0; i < selects.length; i++){
 			var dd = selects[i];
@@ -27,7 +30,7 @@ javascript:function f(){
 		}
 	};
 	
-	//lookup for the form elements to fill
+	/*lookup for the form elements to fill*/
     processInputElements(document.getElementsByTagName('input'));
     processSelectElements(document.getElementsByTagName('select'));
 }f();
