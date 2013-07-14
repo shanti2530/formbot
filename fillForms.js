@@ -5,7 +5,17 @@ javascript:function f(){
 	var processInputElements = function(inputs) {
 	
 		var emailRegx = /email/g;
-	
+
+        /*A function which given a length would return a string of characters*/
+        var getRandomText = function(len) {
+            var characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+            var output = "";
+            for (var i = 0; i < len; i++) {
+                output = output + characters.charAt(Math.random()*54);
+            }
+            return output;
+        }
+
 		for(var i = 0; i < inputs.length; i++) {
 			var input = inputs[i];
 			
@@ -17,7 +27,7 @@ javascript:function f(){
 			} else if (input.type === 'password') {
 				input.value = 'Password123';
 			} else if (input.type === 'text') {
-				input.value = Math.random().toString(36).slice(2, 7 + 2);   
+				input.value = getRandomText(7);
 			}
 		}
 	};
