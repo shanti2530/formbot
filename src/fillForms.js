@@ -51,6 +51,8 @@ javascript:function f(){
                     input.value = 'Password123';
                 } else if (eleContains(input, 'card')) {
                     input.value = '4444333322221111';
+                } else if (eleContains(input, 'cvv')) {
+                    input.value = '123';
                 } else if (input.type === 'text') {
                     input.value = getRandomText(7);
                 }
