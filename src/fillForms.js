@@ -18,17 +18,21 @@ javascript:function f(){
 
 		for(var i = 0; i < inputs.length; i++) {
 			var input = inputs[i];
-			
-			if (input.type === 'email' 
-				|| emailRegx.test(input.id) 
-				|| emailRegx.test(input.name)) {
-				
-				input.value = 'f@ke.com';
-			} else if (input.type === 'password') {
-				input.value = 'Password123';
-			} else if (input.type === 'text') {
-				input.value = getRandomText(7);
-			}
+
+            if (input.value != null && input.value.length > 0) {
+                /*we do not alter the value in the text box if it is not empty*/
+            } else {
+                if (input.type === 'email'
+                    || emailRegx.test(input.id)
+                    || emailRegx.test(input.name)) {
+
+                    input.value = 'f@ke.com';
+                } else if (input.type === 'password') {
+                    input.value = 'Password123';
+                } else if (input.type === 'text') {
+                    input.value = getRandomText(7);
+                }
+            }
 		}
 	};
 	
