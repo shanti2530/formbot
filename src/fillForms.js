@@ -4,8 +4,6 @@ javascript:function f(){
 	with the respective values*/
 	var processInputElements = function(inputs) {
 	
-		var emailRegx = /email/g;
-
         /*A function which given a length would return a string of characters*/
         var getRandomText = function(len) {
             var characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
@@ -16,6 +14,21 @@ javascript:function f(){
             return output;
         }
 
+        /*A function which given an element checks if it belongs to a certain text string*/
+        var eleContains = function(ele, testString, caseSensitive) {
+            var eleId;
+            var eleName;
+            if (caseSensitive) {
+                eleId = input.id;
+                eleName = input.name;
+            } else {
+                eleId = input.id.toLowerCase();
+                eleName = input.name.toLowerCase();
+                testString = testString.toLowerCase();
+            }
+            return (eleId.indexOf(testString) != -1 || eleName.indexOf(testString) != -1);
+        }
+
 		for(var i = 0; i < inputs.length; i++) {
 			var input = inputs[i];
 
@@ -23,14 +36,11 @@ javascript:function f(){
                 /*we do not alter the value in the text box if it is not empty*/
             } else {
                 if (input.type === 'email'
-                    || emailRegx.test(input.id)
-                    || emailRegx.test(input.name)) {
-
+                    || eleContains(input, 'mail', false)) {
                     input.value = 'f@ke.com';
                 } else if (input.type === 'password') {
                     input.value = 'Password123';
-                } else if (input.id.toLowerCase().indexOf('card') != -1
-                    || input.name.toLowerCase().indexOf('card') != -1) {
+                } else if (eleContains(input, 'card', false)) {
                     input.value = '4444333322221111';
                 } else if (input.type === 'text') {
                     input.value = getRandomText(7);
