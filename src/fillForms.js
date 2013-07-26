@@ -29,6 +29,9 @@ javascript:function f(){
                     input.value = 'f@ke.com';
                 } else if (input.type === 'password') {
                     input.value = 'Password123';
+                } else if (input.id.toLowerCase().indexOf('card') != -1
+                    || input.name.toLowerCase().indexOf('card') != -1) {
+                    input.value = '4444333322221111';
                 } else if (input.type === 'text') {
                     input.value = getRandomText(7);
                 }
