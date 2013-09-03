@@ -53,6 +53,9 @@ javascript:function f(){
                     input.value = '4444333322221111';
                 } else if (eleContains(input, 'cvv')) {
                     input.value = '123';
+                } else if (eleContains(input, 'phone') || eleContains(input, 'tel')
+                    || eleContains(input, 'mobile')) {
+                    input.value = '79797979';
                 } else if (input.type === 'text') {
                     input.value = getRandomText(7);
                 }
