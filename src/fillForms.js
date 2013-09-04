@@ -44,7 +44,9 @@ javascript:function f(){
             if (input.value != null && input.value.length > 0) {
                 /*we do not alter the value in the text box if it is not empty*/
             } else {
-                if (input.type === 'email'
+                if (input.type === 'checkbox') {
+                    input.checked=true;
+                } else if (input.type === 'email'
                     || eleContains(input, 'mail')) {
                     input.value = 'f@ke.com';
                 } else if (input.type === 'password') {
