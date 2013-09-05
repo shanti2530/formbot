@@ -40,13 +40,13 @@ javascript:function f(){
 
 		for(var i = 0; i < inputs.length; i++) {
 			var input = inputs[i];
-            console.log(input.value);
-            if (input.value != null && input.value.length > 0) {
+			if (input.type === 'checkbox') {
+				/*we tick all checkboxes found*/
+				input.checked = true;
+			} else if (input.value != null && input.value.length > 0) {
                 /*we do not alter the value in the text box if it is not empty*/
             } else {
-                if (input.type === 'checkbox') {
-                    input.checked=true;
-                } else if (input.type === 'email'
+                if (input.type === 'email'
                     || eleContains(input, 'mail')) {
                     input.value = 'f@ke.com';
                 } else if (input.type === 'password') {
@@ -55,7 +55,8 @@ javascript:function f(){
                     input.value = '4444333322221111';
                 } else if (eleContains(input, 'cvv')) {
                     input.value = '123';
-                } else if (eleContains(input, 'phone') || eleContains(input, 'tel')
+                } else if (eleContains(input, 'phone') 
+					|| eleContains(input, 'tel')
                     || eleContains(input, 'mobile')) {
                     input.value = '79797979';
                 } else if (input.type === 'text') {
