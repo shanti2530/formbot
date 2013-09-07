@@ -32,6 +32,7 @@ javascript:function f(){
         return false;
     };
 
+    /*A function that given an input tries to guess what type it is and populate its value accordingly*/
     var guessTextInput = function(element) {
 
         var EMAIL = 'f@ke.com';
