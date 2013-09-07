@@ -1,42 +1,40 @@
 javascript:function f(){
 	
-	/*function which given an array of input elements would fill them up 
+    /*A function that given a length would return a string of characters*/
+    var getRandomText = function(len) {
+        var characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+        var output = "";
+        for (var i = 0; i < len; i++) {
+            output = output + characters.charAt(Math.random()*54);
+        }
+        return output;
+    };
+
+    /*A function which given an element checks if it belongs to a certain text string*/
+    var eleContains = function(ele, testString) {
+        var eleId = input.id.toLowerCase();
+        var eleName = input.name.toLowerCase();
+        testString = testString.toLowerCase();
+        if (eleId.indexOf(testString) != -1 || eleName.indexOf(testString) != -1) {
+            return true;
+        } else {
+            var labels = document.getElementsByTagName("label");
+            for (var i = 0; i < labels.length; i++) {
+                if(labels[i].htmlFor != null && labels[i].htmlFor != ''
+                    && labels[i].htmlFor === input.id){
+                    return (labels[i].innerHTML.toLowerCase().indexOf(testString) != -1)
+                }
+            }
+            if (ele.parentNode.tagName === 'LABEL') {
+                return ele.parentNode.innerHTML.toLowerCase().indexOf(testString) != -1;
+            }
+        }
+        return false;
+    };
+
+	/*A function that given an array of input elements would fill them up 
 	with the respective values*/
 	var processInputElements = function(inputs) {
-	
-        /*A function which given a length would return a string of characters*/
-        var getRandomText = function(len) {
-            var characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-            var output = "";
-            for (var i = 0; i < len; i++) {
-                output = output + characters.charAt(Math.random()*54);
-            }
-            return output;
-        };
-
-        /*A function which given an element checks if it belongs to a certain text string*/
-        var eleContains = function(ele, testString) {
-            var eleId;
-            var eleName;
-            eleId = input.id.toLowerCase();
-            eleName = input.name.toLowerCase();
-            testString = testString.toLowerCase();
-            if (eleId.indexOf(testString) != -1 || eleName.indexOf(testString) != -1) {
-                return true;
-            } else {
-                var labels = document.getElementsByTagName("label");
-                for (var i = 0; i < labels.length; i++) {
-                    if(labels[i].htmlFor != null && labels[i].htmlFor != ''
-                        && labels[i].htmlFor === input.id){
-                        return (labels[i].innerHTML.toLowerCase().indexOf(testString) != -1)
-                    }
-                }
-                if (ele.parentNode.tagName === 'LABEL') {
-                    return ele.parentNode.innerHTML.toLowerCase().indexOf(testString) != -1;
-                }
-            }
-            return false;
-        };
 
 		for(var i = 0; i < inputs.length; i++) {
 			var input = inputs[i];
