@@ -54,7 +54,7 @@ javascript:function f(){
             || eleContains(element, 'tel')
             || eleContains(element, 'mobile')) {
             element.value = PHONE;
-        } else if (element.type === 'text') {
+        } else {
             element.value = getRandomText(7);
         }
     }
@@ -70,7 +70,7 @@ javascript:function f(){
 				input.checked = true;
 			} else if (input.value != null && input.value.length > 0) {
                 /*we do not alter the value in the text box if it is not empty*/
-            } else {
+            } else if (input.type === 'text'){
                 guessTextInput(input);
             }
 		}
