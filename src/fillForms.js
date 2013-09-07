@@ -105,7 +105,10 @@ javascript:function f(){
                 /*we do not alter the value in the text box if it is not empty*/
             } else {
                 var inputCheckerResult = inputChecker.checkInput(input);
-                input.value = defaults[inputCheckerResult].value;
+                
+                if (inputCheckerResult && defaults[inputCheckerResult]) {
+                    input.value = defaults[inputCheckerResult].value;
+                } 
             }
 		}
 	};
