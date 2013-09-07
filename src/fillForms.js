@@ -12,8 +12,8 @@ javascript:function f(){
 
     /*A function which given an element checks if it belongs to a certain text string*/
     var eleContains = function(ele, testString) {
-        var eleId = input.id.toLowerCase();
-        var eleName = input.name.toLowerCase();
+        var eleId = ele.id.toLowerCase();
+        var eleName = ele.name.toLowerCase();
         testString = testString.toLowerCase();
         if (eleId.indexOf(testString) != -1 || eleName.indexOf(testString) != -1) {
             return true;
@@ -32,6 +32,32 @@ javascript:function f(){
         return false;
     };
 
+    var guessTextInput = function(element) {
+
+        var EMAIL = 'f@ke.com';
+        var PASSWORD = 'Password123';
+        var CARD_NO = '4444333322221111';
+        var CVV = '123';
+        var PHONE = '79797979';
+
+        if (element.type === 'email'
+            || eleContains(element, 'mail')) {
+            element.value = EMAIL;
+        } else if (element.type === 'password') {
+            element.value = PASSWORD;
+        } else if (eleContains(element, 'card')) {
+            element.value = CARD_NO;
+        } else if (eleContains(element, 'cvv')) {
+            element.value = CVV;
+        } else if (eleContains(element, 'phone') 
+            || eleContains(element, 'tel')
+            || eleContains(element, 'mobile')) {
+            element.value = PHONE;
+        } else if (element.type === 'text') {
+            element.value = getRandomText(7);
+        }
+    }
+
 	/*A function that given an array of input elements would fill them up 
 	with the respective values*/
 	var processInputElements = function(inputs) {
@@ -44,22 +70,7 @@ javascript:function f(){
 			} else if (input.value != null && input.value.length > 0) {
                 /*we do not alter the value in the text box if it is not empty*/
             } else {
-                if (input.type === 'email'
-                    || eleContains(input, 'mail')) {
-                    input.value = 'f@ke.com';
-                } else if (input.type === 'password') {
-                    input.value = 'Password123';
-                } else if (eleContains(input, 'card')) {
-                    input.value = '4444333322221111';
-                } else if (eleContains(input, 'cvv')) {
-                    input.value = '123';
-                } else if (eleContains(input, 'phone') 
-					|| eleContains(input, 'tel')
-                    || eleContains(input, 'mobile')) {
-                    input.value = '79797979';
-                } else if (input.type === 'text') {
-                    input.value = getRandomText(7);
-                }
+                guessTextInput(input);
             }
 		}
 	};
