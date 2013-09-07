@@ -1,21 +1,20 @@
 javascript:function f(){
 	
+    /*The default object with which the fields will be filled up*/
     var defaults = {
         EMAIL: 'f@ke.com',
         PASSWORD: 'Password123',
         CARD_NO: '4444333322221111',
         CVV: '123',
-        PHONE: '79797979'
-    };
-
-    /*A function that given a length would return a string of characters*/
-    var getRandomText = function(len) {
-        var characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-        var output = "";
-        for (var i = 0; i < len; i++) {
-            output = output + characters.charAt(Math.random()*54);
+        PHONE: '79797979',
+        RANDOM_TEXT: function(len) {
+            var characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+            var output = "";
+            for (var i = 0; i < len; i++) {
+                output = output + characters.charAt(Math.random()*54);
+            }
+            return output;
         }
-        return output;
     };
 
     /*A function which given an element checks if it belongs to a certain text string*/
@@ -56,7 +55,7 @@ javascript:function f(){
             || eleContains(element, 'mobile')) {
             element.value = defaults.PHONE;
         } else {
-            element.value = getRandomText(7);
+            element.value = defaults.RANDOM_TEXT(7);
         }
     }
 
