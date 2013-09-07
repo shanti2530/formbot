@@ -1,5 +1,13 @@
 javascript:function f(){
 	
+    var defaults = {
+        EMAIL: 'f@ke.com',
+        PASSWORD: 'Password123',
+        CARD_NO: '4444333322221111',
+        CVV: '123',
+        PHONE: '79797979'
+    };
+
     /*A function that given a length would return a string of characters*/
     var getRandomText = function(len) {
         var characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
@@ -35,25 +43,18 @@ javascript:function f(){
     /*A function that given an input tries to guess what type it is and populate its value accordingly*/
     var guessTextInput = function(element) {
 
-        var EMAIL = 'f@ke.com';
-        var PASSWORD = 'Password123';
-        var CARD_NO = '4444333322221111';
-        var CVV = '123';
-        var PHONE = '79797979';
-
-        if (element.type === 'email'
-            || eleContains(element, 'mail')) {
-            element.value = EMAIL;
-        } else if (element.type === 'password') {
-            element.value = PASSWORD;
+        if (eleContains(element, 'password')) {
+            element.value = defaults.PASSWORD;
+        } else if (eleContains(element, 'mail')) {
+            element.value = defaults.EMAIL;
         } else if (eleContains(element, 'card')) {
-            element.value = CARD_NO;
+            element.value = defaults.CARD_NO;
         } else if (eleContains(element, 'cvv')) {
-            element.value = CVV;
+            element.value = defaults.CVV;
         } else if (eleContains(element, 'phone') 
             || eleContains(element, 'tel')
             || eleContains(element, 'mobile')) {
-            element.value = PHONE;
+            element.value = defaults.PHONE;
         } else {
             element.value = getRandomText(7);
         }
@@ -70,6 +71,10 @@ javascript:function f(){
 				input.checked = true;
 			} else if (input.value != null && input.value.length > 0) {
                 /*we do not alter the value in the text box if it is not empty*/
+            } else if (input.type === 'password') {
+                input.value = defaults.PASSWORD;
+            } else if (input.type === 'email') {
+                input.value = defaults.EMAIL;
             } else if (input.type === 'text'){
                 guessTextInput(input);
             }
