@@ -9,8 +9,13 @@ javascript:function f(){
                     output = output + characters.charAt(Math.random()*54);
                 }
                 return output;
+            },
+        getTimestamp:
+            function() {
+                var date = new Date();
+                return date.getTime();
             }
-    }
+    };
 
     /*The default object with which the fields will be filled up*/
     var defaults = {
@@ -19,9 +24,10 @@ javascript:function f(){
         "CARD_NO"  : {value:'4444333322221111'},
         "CVV"      : {value:'123'},
         "PHONE"    : {value:'79797979'},
-        "TEXT"     : {value: utils.randomText(7)}
-        }
-    ;
+        "TEXT"     : {value: utils.randomText(7)},
+        "USERNAME" : {value : 'u' + utils.getTimestamp()}
+            
+    };
 
     /*Checker text which the inputs should be matched to*/
     var inputChecker = {
@@ -31,7 +37,8 @@ javascript:function f(){
             {includes: ["card"], excludes: ["name"], type:"CARD_NO"},
             {includes: ["cvv"],  type:"CVV"},
             {includes: ["phone", "tel", "mobile"], type:"PHONE"},
-            {includes: ["text"],  type:"TEXT"},],
+            {includes: ["text"],  type:"TEXT"},
+            {includes: ["username", "userId", "user"], type:"USERNAME"}],
 
 
         //TODO: add excludes functionality
