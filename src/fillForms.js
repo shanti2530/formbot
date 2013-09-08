@@ -102,14 +102,23 @@ javascript:function f(){
             if (this.isEmpty(identifiedTextType) && !this.isEmpty(inputName)) {
                 identifiedTextType = this.checkText(inputName);
             }
+
+            //Check input label
+            if (this.isEmpty(identifiedTextType) && !this.isEmpty(inputId)) {
+                var labels = document.getElementsByTagName('LABEL');
+                for (var i = 0; i < labels.length; i++) {
+                    if (!this.isEmpty(labels[i].htmlFor) && labels[i].htmlFor === inputId) {
+                        identifiedTextType = this.checkText(labels[i].innerHTML);
+                        break;
+                    }
+                }
+            }
             
             //check input type
             var inputType = input.type;
             if (this.isEmpty(identifiedTextType) && !this.isEmpty(inputType)) {
                 identifiedTextType = this.checkText(inputType);
             }
-
-            //TODO: check input label
 
             return identifiedTextType;
         }
