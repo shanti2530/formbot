@@ -38,27 +38,47 @@ javascript:function f(){
             {includes: ["cvv"],  type:"CVV"},
             {includes: ["phone", "tel", "mobile"], type:"PHONE"},
             {includes: ["text"],  type:"TEXT"},
-            {includes: ["username", "userId", "user"], type:"USERNAME"}],
+            {includes: ["userId", "user"], type:"USERNAME"}],
+
+        isEmpty: function(variable) {
+            if (!variable || variable === '' || variable === 'undefined') {
+                return true;
+            }
+        },
 
         checkText: function(text) {
+
+            if (this.isEmpty(text)){
+                return;
+            }
+
             var inputType;
             var excluded = false;
 
+            /*First we try to match the text we have with one of the default includes*/
             for (var i = this.defaults.length - 1; i >= 0; i--) {
-                if (this.defaults[i].includes) {
-                    for (var j = this.defaults[i].includes.length - 1; j >= 0; j--) {
-                        if (text.toLowerCase().indexOf(this.defaults[i].includes[j]) != -1) {
-                            inputType = this.defaults[i].type;
-                            break;
-                        }
-                    }
+                if (this.isEmpty(this.defaults[i].includes)) {
+                    continue;
                 }
-                if (this.defaults[i].excludes) {
-                    for (var j = this.defaults[i].excludes.length - 1; j >= 0; j--) {
-                        if (text.toLowerCase().indexOf(this.defaults[i].excludes[j]) != -1) {
-                            excluded = true;
-                            break;
+
+                for (var j = this.defaults[i].includes.length - 1; j >= 0; j--) {
+                    if (text.toLowerCase().indexOf(this.defaults[i].includes[j]) != -1) {
+                        inputType = this.defaults[i].type;
+                        
+                        /*If we find a match with one of the includes we then check that the text
+                        does not also match one of the exluded of the same type*/
+
+                        if (this.isEmpty(this.defaults[i].excludes)) {
+                            continue;
                         }
+
+                        for (var j = this.defaults[i].excludes.length - 1; j >= 0; j--) {
+                            if (text.toLowerCase().indexOf(this.defaults[i].excludes[j]) != -1) {
+                                excluded = true;
+                                break;
+                            }
+                        }
+                        break;
                     }
                 }
             }
@@ -77,31 +97,20 @@ javascript:function f(){
                 identifiedTextType = this.checkText(inputId);
             }
 
-            if (identifiedTextType && identifiedTextType != undefined) {
-                return identifiedTextType;
-            }    
-            
             //check input name
             var inputName = input.name;
-            if (inputName) {
+            if (this.isEmpty(identifiedTextType) && !this.isEmpty(inputName)) {
                 identifiedTextType = this.checkText(inputName);
             }
             
-            if (identifiedTextType && identifiedTextType != undefined) {
-                return identifiedTextType;
-            }               
-            
             //check input type
             var inputType = input.type;
-            if (inputType) {
+            if (this.isEmpty(identifiedTextType) && !this.isEmpty(inputType)) {
                 identifiedTextType = this.checkText(inputType);
             }
 
-            if (identifiedTextType && identifiedTextType != undefined) {
-                return identifiedTextType;
-            }
-
             //TODO: check input label
+
             return identifiedTextType;
         }
     };
