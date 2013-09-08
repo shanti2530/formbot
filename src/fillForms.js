@@ -40,15 +40,30 @@ javascript:function f(){
             {includes: ["text"],  type:"TEXT"},
             {includes: ["username", "userId", "user"], type:"USERNAME"}],
 
-
-        //TODO: add excludes functionality
         checkText: function(text) {
+            var inputType;
+            var excluded = false;
+
             for (var i = this.defaults.length - 1; i >= 0; i--) {
-                for (var j = this.defaults[i].includes.length - 1; j >= 0; j--) {
-                    if (text.toLowerCase().indexOf(this.defaults[i].includes[j]) != -1) {
-                        return this.defaults[i].type;
+                if (this.defaults[i].includes) {
+                    for (var j = this.defaults[i].includes.length - 1; j >= 0; j--) {
+                        if (text.toLowerCase().indexOf(this.defaults[i].includes[j]) != -1) {
+                            inputType = this.defaults[i].type;
+                            break;
+                        }
                     }
                 }
+                if (this.defaults[i].excludes) {
+                    for (var j = this.defaults[i].excludes.length - 1; j >= 0; j--) {
+                        if (text.toLowerCase().indexOf(this.defaults[i].excludes[j]) != -1) {
+                            excluded = true;
+                            break;
+                        }
+                    }
+                }
+            }
+            if (!excluded) {
+                return inputType;
             }
         },
 
