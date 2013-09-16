@@ -42,19 +42,55 @@ javascript:function f(){
             {includes: ["url", "site"], type:"URL"},
             {includes: ["username", "userId", "user"], type:"USERNAME"}],
 
-        //TODO: add excludes functionality
+        isEmpty: function(variable) {
+            if (!variable || variable === '' || variable === 'undefined') {
+                return true;
+            }
+        },
+
         checkText: function(text) {
+
+            if (this.isEmpty(text)){
+                return;
+            }
+
+            var inputType;
+            var excluded = false;
+
+            /*First we try to match the text we have with one of the default includes*/
             for (var i = this.defaults.length - 1; i >= 0; i--) {
+                if (this.isEmpty(this.defaults[i].includes)) {
+                    continue;
+                }
                 for (var j = this.defaults[i].includes.length - 1; j >= 0; j--) {
+
                     if (text.toLowerCase().indexOf(this.defaults[i].includes[j]) != -1) {
-                        return this.defaults[i].type;
+                        inputType = this.defaults[i].type;
+
+                        /*If we find a match with one of the includes we then check that the text
+                        does not also match one of the exluded of the same type*/
+
+                        if (this.isEmpty(this.defaults[i].excludes)) {
+                            continue;
+                        }
+
+                        for (var j = this.defaults[i].excludes.length - 1; j >= 0; j--) {
+                            if (text.toLowerCase().indexOf(this.defaults[i].excludes[j]) != -1) {
+                                excluded = true;
+                                break;
+                            }
+                        }
+                        break;
                     }
                 }
+            }
+            if (!excluded) {
+                return inputType;
             }
         },
 
         checkInput: function(input) {
-            
+
             var identifiedTextType;
 
             //check input id
@@ -63,36 +99,34 @@ javascript:function f(){
                 identifiedTextType = this.checkText(inputId);
             }
 
-            if (identifiedTextType && identifiedTextType != undefined) {
-                return identifiedTextType;
-            }    
-            
             //check input name
             var inputName = input.name;
-            if (inputName) {
+            if (this.isEmpty(identifiedTextType) && !this.isEmpty(inputName)) {
                 identifiedTextType = this.checkText(inputName);
             }
-            
-            if (identifiedTextType && identifiedTextType != undefined) {
-                return identifiedTextType;
-            }               
-            
+
+            //Check input label
+            if (this.isEmpty(identifiedTextType) && !this.isEmpty(inputId)) {
+                var labels = document.getElementsByTagName('LABEL');
+                for (var i = 0; i < labels.length; i++) {
+                    if (!this.isEmpty(labels[i].htmlFor) && labels[i].htmlFor === inputId) {
+                        identifiedTextType = this.checkText(labels[i].innerHTML);
+                        break;
+                    }
+                }
+            }
+
             //check input type
             var inputType = input.type;
-            if (inputType) {
+            if (this.isEmpty(identifiedTextType) && !this.isEmpty(inputType)) {
                 identifiedTextType = this.checkText(inputType);
             }
 
-            if (identifiedTextType && identifiedTextType != undefined) {
-                return identifiedTextType;
-            }
-
-            //TODO: check input label
             return identifiedTextType;
         }
     };
 
-	/*A function that given an array of input elements would fill them up 
+	/*A function that given an array of input elements would fill them up
 	with the respective values*/
 	var processInputElements = function(inputs) {
 
@@ -106,7 +140,10 @@ javascript:function f(){
                 /*we do not alter the value in the text box if it is not empty*/
             } else {
                 var inputCheckerResult = inputChecker.checkInput(input);
-                input.value = defaults[inputCheckerResult].value;
+
+                if (inputCheckerResult && defaults[inputCheckerResult]) {
+                    input.value = defaults[inputCheckerResult].value;
+                }
             }
 		}
 	};
