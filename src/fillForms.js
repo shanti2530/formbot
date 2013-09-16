@@ -25,7 +25,8 @@ javascript:function f(){
         "CVV"      : {value:'123'},
         "PHONE"    : {value:'79797979'},
         "TEXT"     : {value: utils.randomText(7)},
-        "USERNAME" : {value : 'u' + utils.getTimestamp()}
+        "USERNAME" : {value : 'u' + utils.getTimestamp()},
+        "URL"      : {value: "http://www.fakeaddresshere.com"}
             
     };
 
@@ -38,8 +39,8 @@ javascript:function f(){
             {includes: ["cvv"],  type:"CVV"},
             {includes: ["phone", "tel", "mobile"], type:"PHONE"},
             {includes: ["text"],  type:"TEXT"},
+            {includes: ["url", "site"], type:"URL"},
             {includes: ["username", "userId", "user"], type:"USERNAME"}],
-
 
         //TODO: add excludes functionality
         checkText: function(text) {
