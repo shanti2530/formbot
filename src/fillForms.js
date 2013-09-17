@@ -25,7 +25,8 @@ javascript:function f(){
         "CVV"      : {value:'123'},
         "PHONE"    : {value:'79797979'},
         "TEXT"     : {value: utils.randomText(7)},
-        "USERNAME" : {value : 'u' + utils.getTimestamp()}
+        "USERNAME" : {value : 'u' + utils.getTimestamp()},
+        "URL"      : {value: "http://www.fakeaddresshere.com"}
             
     };
 
@@ -38,7 +39,8 @@ javascript:function f(){
             {includes: ["cvv"],  type:"CVV"},
             {includes: ["phone", "tel", "mobile"], type:"PHONE"},
             {includes: ["text"],  type:"TEXT"},
-            {includes: ["userId", "user"], type:"USERNAME"}],
+            {includes: ["url", "site"], type:"URL"},
+            {includes: ["username", "userId", "user"], type:"USERNAME"}],
 
         isEmpty: function(variable) {
             if (!variable || variable === '' || variable === 'undefined') {
@@ -60,11 +62,11 @@ javascript:function f(){
                 if (this.isEmpty(this.defaults[i].includes)) {
                     continue;
                 }
-
                 for (var j = this.defaults[i].includes.length - 1; j >= 0; j--) {
+
                     if (text.toLowerCase().indexOf(this.defaults[i].includes[j]) != -1) {
                         inputType = this.defaults[i].type;
-                        
+
                         /*If we find a match with one of the includes we then check that the text
                         does not also match one of the exluded of the same type*/
 
@@ -88,7 +90,7 @@ javascript:function f(){
         },
 
         checkInput: function(input) {
-            
+
             var identifiedTextType;
 
             //check input id
@@ -113,7 +115,7 @@ javascript:function f(){
                     }
                 }
             }
-            
+
             //check input type
             var inputType = input.type;
             if (this.isEmpty(identifiedTextType) && !this.isEmpty(inputType)) {
@@ -124,7 +126,7 @@ javascript:function f(){
         }
     };
 
-	/*A function that given an array of input elements would fill them up 
+	/*A function that given an array of input elements would fill them up
 	with the respective values*/
 	var processInputElements = function(inputs) {
 
@@ -138,10 +140,10 @@ javascript:function f(){
                 /*we do not alter the value in the text box if it is not empty*/
             } else {
                 var inputCheckerResult = inputChecker.checkInput(input);
-                
+
                 if (inputCheckerResult && defaults[inputCheckerResult]) {
                     input.value = defaults[inputCheckerResult].value;
-                } 
+                }
             }
 		}
 	};
