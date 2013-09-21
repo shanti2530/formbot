@@ -40,7 +40,7 @@ javascript:function f(){
         defaults: [
             {includes: ["mail"], type:"EMAIL"},
             {includes: ["pass"], type:"PASSWORD"},
-            {includes: ["card"], excludes: ["name"], type:"CARD_NO"},
+            {includes: ["card"], excludes: ["name", "code"], type:"CARD_NO"},
             {includes: ["cvv"],  type:"CVV"},
             {includes: ["phone", "tel", "mobile"], type:"PHONE"},
             {includes: ["text"],  type:"TEXT"},
