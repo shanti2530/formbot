@@ -10,6 +10,10 @@ javascript:function f(){
                 }
                 return output;
             },
+        randomNumber:
+            function() {
+                return Math.floor((Math.random()*99) +1);
+            },
         getTimestamp:
             function() {
                 var date = new Date();
@@ -25,8 +29,9 @@ javascript:function f(){
         "CVV"      : {value:'123'},
         "PHONE"    : {value:'79797979'},
         "TEXT"     : {value: utils.randomText(7)},
-        "USERNAME" : {value : 'u' + utils.getTimestamp()},
-        "URL"      : {value: "http://www.fakeaddresshere.com"}
+        "USERNAME" : {value: 'u' + utils.getTimestamp()},
+        "URL"      : {value: "http://www.fakeaddresshere.com"},
+        "NUMBER"   : {value: utils.randomNumber()}
             
     };
 
@@ -40,7 +45,8 @@ javascript:function f(){
             {includes: ["phone", "tel", "mobile"], type:"PHONE"},
             {includes: ["text"],  type:"TEXT"},
             {includes: ["url", "site"], type:"URL"},
-            {includes: ["username", "userId", "user"], type:"USERNAME"}],
+            {includes: ["username", "userId", "user"], type:"USERNAME"},
+            {includes: ["number"], type:"NUMBER"}],
 
         isEmpty: function(variable) {
             if (!variable || variable === '' || variable === 'undefined') {
