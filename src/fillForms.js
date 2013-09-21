@@ -163,7 +163,10 @@ javascript:function f(){
 	var processSelectElements = function(selects) {
 		for(var i = 0; i < selects.length; i++){
 			var dd = selects[i];
-			dd.selectedIndex = Math.random() * (selects.length - 1) + 1;
+            /*Only change select elements which are not disabled*/
+            if (!dd.disabled) {
+    			dd.selectedIndex = Math.random() * (selects.length - 1) + 1;
+            }
 		}
 	};
 	
