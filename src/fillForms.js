@@ -139,6 +139,11 @@ javascript:function f(){
 		for(var i = 0; i < inputs.length; i++) {
 			var input = inputs[i];
 
+            /*Inputs which are disabled should not be considered*/
+            if (input.disabled) {
+                continue;
+            }
+
             if (input.type === 'checkbox') {
 				/*tick all checkboxes found*/
 				input.checked = true;
