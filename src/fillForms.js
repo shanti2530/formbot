@@ -54,8 +54,8 @@ function f(){
             {includes: ["phone", "tel", "mobile"], type:"PHONE"},
             {includes: ["url", "site"], type:"URL"},
             {includes: ["username", "userId", "user"], type:"USERNAME"},
-            {includes: ["text"],  type:"TEXT"},
-            {includes: ["number"], type:"NUMBER"}],
+            {includes: ["number"], type:"NUMBER"},
+            {includes: ["text"],  type:"TEXT"}],
 
         isEmpty: function(variable) {
             if (!variable || variable === '' || variable === 'undefined') {
