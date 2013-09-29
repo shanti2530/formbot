@@ -1,4 +1,4 @@
-javascript:function f(){
+function f(){
 	
     var utils = {
         randomText: 

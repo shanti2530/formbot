@@ -4,14 +4,12 @@ module.exports = function(grunt) {
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
         uglify: {
-            my_target: {
-                files: {
-                    'dest/fillForms.min.js': ['src/fillForms.js']
-                }
-            },
+            files: {
+                'dest/fillForms.min.js': ['src/fillForms.js']
+            }
             options: {
-                mangle: false
-                // banner: "javascript:"
+                mangle: false,
+                banner: "javascript:"
             }
         },
         watch: {
