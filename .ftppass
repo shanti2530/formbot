@@ -1,6 +1,0 @@
-{
-  "mariaServer": {
-    "username": "ftp_username",
-    "password": "ftp_password"
-  }
-}

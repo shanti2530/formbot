@@ -10,19 +10,8 @@ module.exports = function(grunt) {
                 }
             },
             options: {
-                mangle: false,
-                banner: "javascript:"
-            }
-        },
-        'ftp_upload': {
-            build: {
-                auth: {
-                    host: 'www.mariacamilleri.com',
-                    port: 21,
-                    authKey: 'mariaServer'
-                },
-                src: ['dest/fillForms.min.js'],
-                dest: '/www/sideprojects/bookmarklets'
+                mangle: false
+                // banner: "javascript:"
             }
         },
         watch: {
