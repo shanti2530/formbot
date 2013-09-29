@@ -35,7 +35,10 @@ javascript:function f(){
             
     };
 
-    /*Checker text which the inputs should be matched to*/
+    /*Checker text which the inputs should be matched to
+        The values which are assigned have a priority. The first in the list
+        has the most priority over the others in the list
+    */
     var inputChecker = {
         defaults: [
             {includes: ["mail"], type:"EMAIL"},
@@ -43,9 +46,9 @@ javascript:function f(){
             {includes: ["card"], excludes: ["name", "code"], type:"CARD_NO"},
             {includes: ["cvv"],  type:"CVV"},
             {includes: ["phone", "tel", "mobile"], type:"PHONE"},
-            {includes: ["text"],  type:"TEXT"},
             {includes: ["url", "site"], type:"URL"},
             {includes: ["username", "userId", "user"], type:"USERNAME"},
+            {includes: ["text"],  type:"TEXT"},
             {includes: ["number"], type:"NUMBER"}],
 
         isEmpty: function(variable) {
