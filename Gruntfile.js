@@ -10,7 +10,8 @@ module.exports = function(grunt) {
                 }
             },
             options: {
-                mangle: false
+                mangle: false,
+                banner: "javascript:"
             }
         },
         'ftp_upload': {
