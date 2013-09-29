@@ -21,19 +21,25 @@ function f(){
             }
     };
 
-    /*The default object with which the fields will be filled up*/
-    var defaults = {
-        "EMAIL"    : {value:'f@ke.com'},
-        "PASSWORD" : {value:'Password123'},
-        "CARD_NO"  : {value:'4444333322221111'},
-        "CVV"      : {value:'123'},
-        "PHONE"    : {value:'79797979'},
-        "TEXT"     : {value: utils.randomText(7)},
-        "USERNAME" : {value: 'u' + utils.getTimestamp()},
-        "URL"      : {value: "http://www.fakeaddresshere.com"},
-        "NUMBER"   : {value: utils.randomNumber()}
-            
-    };
+    var getDefaultValue = function(inputType, maxLength) {
+        if (!maxLength) {
+            maxLength = 7;
+        }
+
+        /*The default object with which the fields will be filled up*/
+        var defaults1 = {
+            "EMAIL"    : {value:'f@ke.com'},
+            "PASSWORD" : {value:'Password123'},
+            "CARD_NO"  : {value:'4444333322221111'},
+            "CVV"      : {value:'123'},
+            "PHONE"    : {value:'79797979'},
+            "TEXT"     : {value: utils.randomText(maxLength)},
+            "USERNAME" : {value: 'u' + utils.getTimestamp()},
+            "URL"      : {value: "http://www.fakeaddresshere.com"},
+            "NUMBER"   : {value: utils.randomNumber()}
+        };
+        return defaults1[inputType].value;
+    }
 
     /*Checker text which the inputs should be matched to
         The values which are assigned have a priority. The first in the list
@@ -155,8 +161,18 @@ function f(){
             } else {
                 var inputCheckerResult = inputChecker.checkInput(input);
 
-                if (inputCheckerResult && defaults[inputCheckerResult]) {
-                    input.value = defaults[inputCheckerResult].value;
+                /**Checking for the max length that is allowed by this input
+                 if not defined the value is very large and therefore we do not want to use it **/
+                var maxLength = 7;
+
+                if (input.maxLength && input.maxLength < 7) {
+                    maxLength = input.maxLength;
+                }
+
+                var defaultValue = getDefaultValue(inputCheckerResult, maxLength);
+
+                if (inputCheckerResult && defaultValue) {
+                    input.value = defaultValue;
                 }
             }
 		}
