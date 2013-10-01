@@ -6,7 +6,7 @@ module.exports = function(grunt) {
         uglify: {
             files: {
                 'dest/fillForms.min.js': ['src/fillForms.js']
-            }
+            },
             options: {
                 mangle: false,
                 banner: "javascript:"
@@ -25,9 +25,6 @@ module.exports = function(grunt) {
 
     // Load the plugin that provides the "uglify" task.
     grunt.loadNpmTasks('grunt-contrib-uglify');
-
-    //Load the plugin that uploads the minified version of the bookmarklet to a hosting server
-    grunt.loadNpmTasks('grunt-ftp-upload');
 
     //load the plugin that runs predefined tasks whenever a watched file is added, changed or removed.
     grunt.loadNpmTasks('grunt-contrib-watch');
