@@ -148,33 +148,34 @@ function f(){
 		for(var i = 0; i < inputs.length; i++) {
 			var input = inputs[i];
 
-            /*Inputs which are disabled should not be considered*/
-            if (input.disabled) {
-                continue;
-            }
+			/*Only the supported input types are considered for prefilling
+			skip any others*/
+			if (input.type === 'checkbox' || input.type === 'text' || input.type === 'number' || input.type === 'password') {
+			
+				if (input.type === 'checkbox') {
+					/*tick all checkboxes found*/
+					input.checked = true;
+				} else if (input.value && input.value.length > 0) {
+					/*we do not alter the value in the text box if it is not empty*/
+				} else {
+					var inputCheckerResult = inputChecker.checkInput(input);
 
-            if (input.type === 'checkbox') {
-				/*tick all checkboxes found*/
-				input.checked = true;
-			} else if (input.value && input.value.length > 0) {
-                /*we do not alter the value in the text box if it is not empty*/
-            } else {
-                var inputCheckerResult = inputChecker.checkInput(input);
+					/**Checking for the max length that is allowed by this input
+					 if not defined the value is very large and therefore we do not want to use it **/
+					var maxLength = 7;
 
-                /**Checking for the max length that is allowed by this input
-                 if not defined the value is very large and therefore we do not want to use it **/
-                var maxLength = 7;
+					if (input.maxLength && input.maxLength < 7) {
+						maxLength = input.maxLength;
+					}
 
-                if (input.maxLength && input.maxLength < 7) {
-                    maxLength = input.maxLength;
-                }
+					var defaultValue = getDefaultValue(inputCheckerResult, maxLength);
 
-                var defaultValue = getDefaultValue(inputCheckerResult, maxLength);
-
-                if (inputCheckerResult && defaultValue) {
-                    input.value = defaultValue;
-                }
-            }
+					if (inputCheckerResult && defaultValue) {
+						input.value = defaultValue;
+					}
+				}
+			}
+			
 		}
 	};
 	
