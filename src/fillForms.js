@@ -27,7 +27,7 @@ function f(){
         }
 
         /*The default object with which the fields will be filled up*/
-        var defaults1 = {
+        var defaults = {
             "EMAIL"    : {value:'f@ke.com'},
             "PASSWORD" : {value:'Password123'},
             "CARD_NO"  : {value:'4444333322221111'},
@@ -38,7 +38,7 @@ function f(){
             "URL"      : {value: "http://www.fakeaddresshere.com"},
             "NUMBER"   : {value: utils.randomNumber()}
         };
-        return defaults1[inputType].value;
+        return defaults[inputType].value;
     }
 
     /*Checker text which the inputs should be matched to
