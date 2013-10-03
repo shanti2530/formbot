@@ -186,6 +186,8 @@ function f(){
             /*Only change select elements which are not disabled*/
             if (!dd.disabled) {
     			dd.selectedIndex = Math.random() * (selects.length - 1) + 1;
+                // Triggers the change event
+                dd.dispatchEvent(new Event('change'));
             }
 		}
 	};
