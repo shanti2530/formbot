@@ -192,7 +192,19 @@ function f(){
 		}
 	};
 	
+	/*function which given an array of text areas would insert random text*/
+	var processTextAreaElements = function(textAreas) {
+		for (var i = 0; i < textAreas.length; i++) {
+			var txtArea = textAreas[i];
+			
+			if (!txtArea.disabled) {
+				txtArea.value = utils.randomText(20);
+			}
+		}
+	}
+	
 	/*lookup for the form elements to fill*/
     processInputElements(document.getElementsByTagName('input'));
     processSelectElements(document.getElementsByTagName('select'));
+	processTextAreaElements(document.getElementsByTagName('textarea'));
 }f();
