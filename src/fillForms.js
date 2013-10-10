@@ -53,7 +53,7 @@ function f(){
             {includes: ["cvv"],  type:"CVV"},
             {includes: ["phone", "tel", "mobile"], type:"PHONE"},
             {includes: ["url", "site"], type:"URL"},
-            {includes: ["username", "userId", "user"], type:"USERNAME"},
+            {includes: ["username", "userId"], type:"USERNAME"},
             {includes: ["number", "amount"], type:"NUMBER"},
             {includes: ["text"],  type:"TEXT"}],
 
