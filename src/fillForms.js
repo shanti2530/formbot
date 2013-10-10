@@ -54,7 +54,7 @@ function f(){
             {includes: ["phone", "tel", "mobile"], type:"PHONE"},
             {includes: ["url", "site"], type:"URL"},
             {includes: ["username", "userId", "user"], type:"USERNAME"},
-            {includes: ["number"], type:"NUMBER"},
+            {includes: ["number", "amount"], type:"NUMBER"},
             {includes: ["text"],  type:"TEXT"}],
 
         isEmpty: function(variable) {
