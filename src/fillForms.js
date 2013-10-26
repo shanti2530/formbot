@@ -1,5 +1,5 @@
 function f(){
-	
+    
     var utils = {
         randomText: 
             function(len) {
@@ -23,6 +23,17 @@ function f(){
             function() {
                 var date = new Date();
                 return date.toISOString();
+            },
+        getDateString:
+            function() {
+                var date = new Date();
+                var retDate = "";
+                retDate = retDate + date.getFullYear(); 
+                retDate = retDate + "-";
+                retDate = retDate + (parseInt(date.getMonth()) +1);
+                retDate = retDate + "-";
+                retDate = retDate + date.getDate();
+                return retDate;
             }
     };
 
@@ -42,7 +53,8 @@ function f(){
             "USERNAME" : {value: 'u' + utils.getTimestamp()},
             "URL"      : {value: "http://www.fakeaddresshere.com"},
             "NUMBER"   : {value: utils.randomNumber()},
-            "DATETIME" : {value: utils.getDateTime()}
+            "DATETIME" : {value: utils.getDateTime()},
+            "DATE"     : {value: utils.getDateString()}
         };
         return defaults[inputType].value;
     }
@@ -61,6 +73,7 @@ function f(){
             {includes: ["url", "site"], type:"URL"},
             {includes: ["username", "userId"], type:"USERNAME"},
             {includes: ["datetime"], type:"DATETIME"},
+            {includes: ["date"], type:"DATE"},
             {includes: ["number", "amount"], type:"NUMBER"},
             {includes: ["text"],  type:"TEXT"}],
 
@@ -140,7 +153,6 @@ function f(){
 
             //check input type
             var inputType = input.type;
-            alert(inputType);
             if (this.isEmpty(identifiedTextType) && !this.isEmpty(inputType)) {
                 identifiedTextType = this.checkText(inputType);
             }
@@ -154,65 +166,64 @@ function f(){
         }
     };
 
-	/*A function that given an array of input elements would fill them up
-	with the respective values*/
-	var processInputElements = function(inputs) {
+    /*A function that given an array of input elements would fill them up
+    with the respective values*/
+    var processInputElements = function(inputs) {
 
-		for(var i = 0; i < inputs.length; i++) {
-			var input = inputs[i];
+        for(var i = 0; i < inputs.length; i++) {
+            var input = inputs[i];
 
-			if (input.type === 'checkbox') {
-				/*tick all checkboxes found*/
-				input.checked = true;
-			} else if (input.value && input.value.length > 0) {
-				/*we do not alter the value in the text box if it is not empty*/
-			} else {
-				var inputCheckerResult = inputChecker.checkInput(input);
+            if (input.type === 'checkbox') {
+                /*tick all checkboxes found*/
+                input.checked = true;
+            } else if (input.value && input.value.length > 0) {
+                /*we do not alter the value in the text box if it is not empty*/
+            } else {
+                var inputCheckerResult = inputChecker.checkInput(input);
 
-				/**Checking for the max length that is allowed by this input
-				 if not defined the value is very large and therefore we do not want to use it **/
-				var maxLength = 7;
+                /**Checking for the max length that is allowed by this input
+                 if not defined the value is very large and therefore we do not want to use it **/
+                var maxLength = 7;
 
-				if (input.maxLength && input.maxLength < 7) {
-					maxLength = input.maxLength;
-				}
+                if (input.maxLength && input.maxLength < 7) {
+                    maxLength = input.maxLength;
+                }
 
-				var defaultValue = getDefaultValue(inputCheckerResult, maxLength);
-                alert(defaultValue + " aa " + input.value);
-				if (inputCheckerResult && defaultValue) {
-					input.value = defaultValue;
-				}
-			}
-			
-		}
-	};
-	
-	/*function which given an array of selects would choose a random option*/
-	var processSelectElements = function(selects) {
-		for(var i = 0; i < selects.length; i++){
-			var dd = selects[i];
+                var defaultValue = getDefaultValue(inputCheckerResult, maxLength);
+                if (inputCheckerResult && defaultValue) {
+                    input.value = defaultValue;
+                }
+            }
+            
+        }
+    };
+    
+    /*function which given an array of selects would choose a random option*/
+    var processSelectElements = function(selects) {
+        for(var i = 0; i < selects.length; i++){
+            var dd = selects[i];
             /*Only change select elements which are not disabled*/
             if (!dd.disabled) {
-    			dd.selectedIndex = Math.random() * (selects.length - 1) + 1;
+                dd.selectedIndex = Math.random() * (selects.length - 1) + 1;
                 // Triggers the change event
                 dd.dispatchEvent(new Event('change'));
             }
-		}
-	};
-	
-	/*function which given an array of text areas would insert random text*/
-	var processTextAreaElements = function(textAreas) {
-		for (var i = 0; i < textAreas.length; i++) {
-			var txtArea = textAreas[i];
-			
-			if (!txtArea.disabled) {
-				txtArea.value = utils.randomText(20);
-			}
-		}
-	}
-	
-	/*lookup for the form elements to fill*/
+        }
+    };
+    
+    /*function which given an array of text areas would insert random text*/
+    var processTextAreaElements = function(textAreas) {
+        for (var i = 0; i < textAreas.length; i++) {
+            var txtArea = textAreas[i];
+            
+            if (!txtArea.disabled) {
+                txtArea.value = utils.randomText(20);
+            }
+        }
+    }
+    
+    /*lookup for the form elements to fill*/
     processInputElements(document.getElementsByTagName('input'));
     processSelectElements(document.getElementsByTagName('select'));
-	processTextAreaElements(document.getElementsByTagName('textarea'));
+    processTextAreaElements(document.getElementsByTagName('textarea'));
 }f();
