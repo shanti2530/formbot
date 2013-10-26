@@ -18,6 +18,11 @@ function f(){
             function() {
                 var date = new Date();
                 return date.getTime();
+            },
+        getDateTime:
+            function() {
+                var date = new Date();
+                return date.toISOString();
             }
     };
 
@@ -36,7 +41,8 @@ function f(){
             "TEXT"     : {value: utils.randomText(maxLength)},
             "USERNAME" : {value: 'u' + utils.getTimestamp()},
             "URL"      : {value: "http://www.fakeaddresshere.com"},
-            "NUMBER"   : {value: utils.randomNumber()}
+            "NUMBER"   : {value: utils.randomNumber()},
+            "DATETIME" : {value: utils.getDateTime()}
         };
         return defaults[inputType].value;
     }
@@ -54,6 +60,7 @@ function f(){
             {includes: ["phone", "tel", "mobile"], type:"PHONE"},
             {includes: ["url", "site"], type:"URL"},
             {includes: ["username", "userId"], type:"USERNAME"},
+            {includes: ["datetime"], type:"DATETIME"},
             {includes: ["number", "amount"], type:"NUMBER"},
             {includes: ["text"],  type:"TEXT"}],
 
@@ -133,12 +140,13 @@ function f(){
 
             //check input type
             var inputType = input.type;
+            alert(inputType);
             if (this.isEmpty(identifiedTextType) && !this.isEmpty(inputType)) {
                 identifiedTextType = this.checkText(inputType);
             }
 
             //if we were unable to match an input with a type then always default to text
-            if (identifiedTextType === undefined) {
+            if (this.isEmpty(identifiedTextType)) {
                 identifiedTextType = "TEXT";
             }
 
@@ -170,7 +178,7 @@ function f(){
 				}
 
 				var defaultValue = getDefaultValue(inputCheckerResult, maxLength);
-
+                alert(defaultValue + " aa " + input.value);
 				if (inputCheckerResult && defaultValue) {
 					input.value = defaultValue;
 				}
