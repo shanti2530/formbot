@@ -26,14 +26,9 @@ function f(){
             },
         getDateString:
             function() {
-                var date = new Date();
-                var retDate = "";
-                retDate = retDate + date.getFullYear(); 
-                retDate = retDate + "-";
-                retDate = retDate + (parseInt(date.getMonth()) +1);
-                retDate = retDate + "-";
-                retDate = retDate + date.getDate();
-                return retDate;
+                if (typeof moment == 'function') {
+                    return moment().format('YYYY-MM-DD');
+                }
             }
     };
 
