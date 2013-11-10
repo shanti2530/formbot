@@ -24,10 +24,10 @@ function f(){
                 var date = new Date();
                 return date.toISOString();
             },
-        getDateString:
-            function() {
+        getDateFormat:
+            function(format) {
                 if (typeof moment == 'function') {
-                    return moment().format('YYYY-MM-DD');
+                    return moment().format(format);
                 }
             }
     };
@@ -49,7 +49,8 @@ function f(){
             "URL"      : {value: "http://www.fakeaddresshere.com"},
             "NUMBER"   : {value: utils.randomNumber()},
             "DATETIME" : {value: utils.getDateTime()},
-            "DATE"     : {value: utils.getDateString()}
+            "DATE"     : {value: utils.getDateFormat("YYYY-MM-DD")},
+            "MONTH"    : {value: utils.getDateFormat("YYYY-MM")}
         };
         return defaults[inputType].value;
     }
@@ -69,6 +70,7 @@ function f(){
             {includes: ["username", "userId"], type:"USERNAME"},
             {includes: ["datetime"], type:"DATETIME"},
             {includes: ["date"], type:"DATE"},
+            {includes: ["month"], type:"MONTH"},
             {includes: ["number", "amount"], type:"NUMBER"},
             {includes: ["text"],  type:"TEXT"}],
 
