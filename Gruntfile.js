@@ -6,7 +6,7 @@ module.exports = function(grunt) {
         uglify: {
             my_target: {
 				files: {
-					'dest/fillForms.min.js': ['src/fillForms.js']
+					'dest/fillFormsBuilder.min.js': ['src/fillForms.js']
 				}
 			},
             options: {
@@ -14,10 +14,19 @@ module.exports = function(grunt) {
                 banner: "javascript:"
             }
         },
+        concat: {
+            options: {
+              separator: ';',
+            },
+            dist: {
+              src: ['bower_components/momentjs/min/moment.min.js', 'dest/fillFormsBuilder.min.js'],
+              dest: 'dest/fillForms.min.js',
+            },
+          },
         watch: {
             scripts: {
                 files: ['**/*.js'],
-                tasks: ['uglify'],
+                tasks: ['uglify', 'concat'],
                 options: {
                 spawn: false,
             },
@@ -27,6 +36,8 @@ module.exports = function(grunt) {
 
     // Load the plugin that provides the "uglify" task.
     grunt.loadNpmTasks('grunt-contrib-uglify');
+
+    grunt.loadNpmTasks('grunt-contrib-concat');
 
     //load the plugin that runs predefined tasks whenever a watched file is added, changed or removed.
     grunt.loadNpmTasks('grunt-contrib-watch');

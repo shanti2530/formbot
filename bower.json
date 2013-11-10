@@ -7,5 +7,8 @@
   ],
   "description": "A generic form filler bookmarklet",
   "license": "MIT",
-  "private": true
+  "private": true,
+  "dependencies": {
+    "momentjs": "~2.4.0"
+  }
 }
