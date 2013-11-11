@@ -14,11 +14,6 @@ function f(){
             function() {
                 return Math.floor((Math.random()*99) +1);
             },
-        getDateTime:
-            function() {
-                var date = new Date();
-                return date.toISOString();
-            },
         getDateFormat:
             function(format) {
                 if (typeof moment == 'function') {
@@ -43,9 +38,10 @@ function f(){
             "USERNAME" : {value: 'u' + utils.getDateFormat("X")},
             "URL"      : {value: "http://www.fakeaddresshere.com"},
             "NUMBER"   : {value: utils.randomNumber()},
-            "DATETIME" : {value: utils.getDateTime()},
+            "DATETIME" : {value: utils.getDateFormat("YYYY-MM-DDTHH:mm")},
             "DATE"     : {value: utils.getDateFormat("YYYY-MM-DD")},
             "TIME"     : {value: utils.getDateFormat("HH:mm")},
+            "WEEK"     : {value: utils.getDateFormat("GGGG-[W]WW")},
             "MONTH"    : {value: utils.getDateFormat("YYYY-MM")}
         };
         return defaults[inputType].value;
@@ -68,6 +64,7 @@ function f(){
             {includes: ["date"], type:"DATE"},
             {includes: ["time"], type:"TIME"},
             {includes: ["month"], type:"MONTH"},
+            {includes: ["week"], type:"WEEK"},
             {includes: ["number", "amount"], type:"NUMBER"},
             {includes: ["text"],  type:"TEXT"}],
 
