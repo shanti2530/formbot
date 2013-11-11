@@ -14,11 +14,6 @@ function f(){
             function() {
                 return Math.floor((Math.random()*99) +1);
             },
-        getTimestamp:
-            function() {
-                var date = new Date();
-                return date.getTime();
-            },
         getDateTime:
             function() {
                 var date = new Date();
@@ -45,7 +40,7 @@ function f(){
             "CVV"      : {value:'123'},
             "PHONE"    : {value:'79797979'},
             "TEXT"     : {value: utils.randomText(maxLength)},
-            "USERNAME" : {value: 'u' + utils.getTimestamp()},
+            "USERNAME" : {value: 'u' + utils.getDateFormat("X")},
             "URL"      : {value: "http://www.fakeaddresshere.com"},
             "NUMBER"   : {value: utils.randomNumber()},
             "DATETIME" : {value: utils.getDateTime()},
