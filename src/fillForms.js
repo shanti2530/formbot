@@ -65,7 +65,7 @@ function f(){
             {includes: ["time"], type:"TIME"},
             {includes: ["month"], type:"MONTH"},
             {includes: ["week"], type:"WEEK"},
-            {includes: ["number", "amount"], type:"NUMBER"},
+            {includes: ["number", "amount", "range"], type:"NUMBER"},
             {includes: ["text"],  type:"TEXT"}],
 
         isEmpty: function(variable) {
