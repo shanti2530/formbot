@@ -50,6 +50,7 @@ function f(){
             "NUMBER"   : {value: utils.randomNumber()},
             "DATETIME" : {value: utils.getDateTime()},
             "DATE"     : {value: utils.getDateFormat("YYYY-MM-DD")},
+            "TIME"     : {value: utils.getDateFormat("HH:mm")},
             "MONTH"    : {value: utils.getDateFormat("YYYY-MM")}
         };
         return defaults[inputType].value;
@@ -70,6 +71,7 @@ function f(){
             {includes: ["username", "userId"], type:"USERNAME"},
             {includes: ["datetime"], type:"DATETIME"},
             {includes: ["date"], type:"DATE"},
+            {includes: ["time"], type:"TIME"},
             {includes: ["month"], type:"MONTH"},
             {includes: ["number", "amount"], type:"NUMBER"},
             {includes: ["text"],  type:"TEXT"}],
