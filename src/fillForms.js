@@ -167,7 +167,8 @@ function f(){
             if (input.type === 'checkbox') {
                 /*tick all checkboxes found*/
                 input.checked = true;
-            } else if (input.value && input.value.length > 0) {
+            } else if (input.value && input.value.length > 0
+				|| input.type === 'hidden') {
                 /*we do not alter the value in the text box if it is not empty*/
             } else {
                 var inputCheckerResult = inputChecker.checkInput(input);
