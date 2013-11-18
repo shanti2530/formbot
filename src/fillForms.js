@@ -164,11 +164,10 @@ function f(){
         for(var i = 0; i < inputs.length; i++) {
             var input = inputs[i];
 
-            if (input.type === 'checkbox') {
-                /*tick all checkboxes found*/
+			if (input.type === 'checkbox' || input.type === 'radio') {
+                /*tick all checkboxes or radio bottons found*/
                 input.checked = true;
-            } else if (input.value && input.value.length > 0
-				|| input.type === 'hidden') {
+            } else if (input.value && input.value.length > 0 || input.type === 'hidden') {
                 /*we do not alter the value in the text box if it is not empty*/
             } else {
                 var inputCheckerResult = inputChecker.checkInput(input);
