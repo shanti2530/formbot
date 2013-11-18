@@ -194,10 +194,28 @@ function f(){
         for(var i = 0; i < selects.length; i++){
             var dd = selects[i];
             /*Only change select elements which are not disabled*/
+
             if (!dd.disabled) {
-                dd.selectedIndex = Math.random() * (selects.length - 1) + 1;
-                // Triggers the change event
-                dd.dispatchEvent(new Event('change'));
+
+                /*
+                  randomize, but go to the next option if the currently-selected one 
+                  is disabled.
+                */
+                var selectedIndex = Math.floor(Math.random() * (dd.options.length - 1) + 1);
+                /*attemptCounter - used 'just in case' all options are disabled. This will avoid a deadlock.*/
+                var attemptCounter = 0;
+                while (dd.options[selectedIndex].disabled 
+                       && (attemptCounter++ < dd.options.length)) {
+                    selectedIndex = (selectedIndex+1) % (dd.options.length-1);
+                }
+
+                // make sure we did not exhaust all possibile options
+                if (attemptCounter < dd.options.length) {
+                    dd.selectedIndex = selectedIndex;
+                    
+                    // Triggers the change event
+                    dd.dispatchEvent(new Event('change'));
+                }
             }
         }
     };
