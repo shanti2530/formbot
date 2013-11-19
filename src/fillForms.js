@@ -29,7 +29,7 @@ function f(){
 
         /*The default object with which the fields will be filled up*/
         var defaults = {
-            "EMAIL"    : {value:'f@ke.com'},
+            "EMAIL"    : {value:'john.doe@example.com'},
             "PASSWORD" : {value:'Password123'},
             "CARD_NO"  : {value:'4444333322221111'},
             "CVV"      : {value:'123'},
