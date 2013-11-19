@@ -199,17 +199,18 @@ function f(){
 
                 /*
                   randomize, but go to the next option if the currently-selected one 
-                  is disabled.
+                  is disabled or has an empty/unspecified value.
                 */
                 var selectedIndex = Math.floor(Math.random() * (dd.options.length - 1) + 1);
                 /*attemptCounter - used 'just in case' all options are disabled. This will avoid a deadlock.*/
                 var attemptCounter = 0;
-                while (dd.options[selectedIndex].disabled 
+                while (dd.options[selectedIndex].disabled && dd.options[selectedIndex].value.length === 0
                        && (attemptCounter++ < dd.options.length)) {
                     selectedIndex = (selectedIndex+1) % (dd.options.length-1);
                 }
 
-                // make sure we did not exhaust all possibile options
+                // make sure we did not exhaust all possibile options. If we did, that means that there are no 
+                // <options> to choose from!
                 if (attemptCounter < dd.options.length) {
                     dd.selectedIndex = selectedIndex;
                     
