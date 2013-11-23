@@ -164,10 +164,13 @@ function f(){
         for(var i = 0; i < inputs.length; i++) {
             var input = inputs[i];
 
-			if (input.type === 'checkbox' || input.type === 'radio') {
+            if (input.type === 'radio' || input.type === 'hidden') {
+                /*hidden inputs should not be altered .. they are hidden for a reason*/
+                /*radio buttons are handled separately in the function processRadioButtonGroupElements*/
+            } else if (input.type === 'checkbox') {
                 /*tick all checkboxes or radio bottons found*/
                 input.checked = true;
-            } else if (input.value && input.value.length > 0 || input.type === 'hidden') {
+            } else if (input.value && input.value.length > 0) {
                 /*we do not alter the value in the text box if it is not empty*/
             } else {
                 var inputCheckerResult = inputChecker.checkInput(input);
@@ -188,6 +191,26 @@ function f(){
             
         }
     };
+
+    /*A function which processes groups of radio buttons,
+      the reason to treating radio buttons seperately from other inputs
+      is that we have to take care that only one radio button is selected per group
+      and that if one is already selected, then we do not chnage the group*/
+    var processRadioButtonGroupElements = function(radios) {
+        for (var i = 0; i < radios.length; i++) {
+            //get the radio group name 
+            var group = radios[i].name;
+            
+            //check if for this specific group there is no radio button checked already
+            var groupRadios = document.querySelectorAll('input[name=' + group + ']:checked');
+            
+            //if one is already checked .. then skip this radio button
+            //else check it
+            if (groupRadios.length < 1) {
+                radios[i].checked = true;
+            }
+        };
+    }
     
     /*function which given an array of selects would choose a random option*/
     var processSelectElements = function(selects) {
@@ -214,6 +237,7 @@ function f(){
     }
     
     /*lookup for the form elements to fill*/
+    processRadioButtonGroupElements(document.querySelectorAll('input[type=radio]'));
     processInputElements(document.getElementsByTagName('input'));
     processSelectElements(document.getElementsByTagName('select'));
     processTextAreaElements(document.getElementsByTagName('textarea'));
