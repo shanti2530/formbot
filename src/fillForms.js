@@ -131,6 +131,12 @@ function f(){
                 identifiedTextType = this.checkText(inputName);
             }
 
+            //check input placeholder
+            var inputPlaceholder = input.placeholder;
+            if (this.isEmpty(identifiedTextType) && !this.isEmpty(inputPlaceholder)) {
+                identifiedTextType = this.checkText(inputPlaceholder);
+            }
+
             //Check input label
             if (this.isEmpty(identifiedTextType) && !this.isEmpty(inputId)) {
                 var labels = document.getElementsByTagName('LABEL');
