@@ -218,7 +218,8 @@ function f(){
             var dd = selects[i];
             /*Only change select elements which are not disabled*/
             if (!dd.disabled) {
-                dd.selectedIndex = Math.random() * (selects.length - 1) + 1;
+                //get the first option which have a value assigned to them
+                dd.selectedIndex = dd.querySelector('option[value]:not([value=""])').index;
                 // Triggers the change event
                 dd.dispatchEvent(new Event('change'));
             }
