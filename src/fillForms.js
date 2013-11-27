@@ -168,7 +168,7 @@ function f(){
                 /*hidden inputs should not be altered .. they are hidden for a reason*/
                 /*radio buttons are handled separately in the function processRadioButtonGroupElements*/
             } else if (input.type === 'checkbox') {
-                /*tick all checkboxes or radio bottons found*/
+                /*tick all checkboxes bottons found*/
                 input.checked = true;
             } else if (input.value && input.value.length > 0) {
                 /*we do not alter the value in the text box if it is not empty*/
@@ -216,13 +216,10 @@ function f(){
     var processSelectElements = function(selects) {
         for(var i = 0; i < selects.length; i++){
             var dd = selects[i];
-            /*Only change select elements which are not disabled*/
-            if (!dd.disabled) {
-                //get the first option which have a value assigned to them
-                dd.selectedIndex = dd.querySelector('option[value]:not([value=""])').index;
-                // Triggers the change event
-                dd.dispatchEvent(new Event('change'));
-            }
+            //get the first option which have a value assigned to them
+            dd.selectedIndex = dd.querySelector('option[value]:not([value=""])').index;
+            // Triggers the change event
+            dd.dispatchEvent(new Event('change'));
         }
     };
     
@@ -230,16 +227,13 @@ function f(){
     var processTextAreaElements = function(textAreas) {
         for (var i = 0; i < textAreas.length; i++) {
             var txtArea = textAreas[i];
-            
-            if (!txtArea.disabled) {
-                txtArea.value = utils.randomText(20);
-            }
+            txtArea.value = utils.randomText(20);
         }
     }
     
     /*lookup for the form elements to fill*/
-    processRadioButtonGroupElements(document.querySelectorAll('input[type=radio]'));
-    processInputElements(document.getElementsByTagName('input'));
-    processSelectElements(document.getElementsByTagName('select'));
-    processTextAreaElements(document.getElementsByTagName('textarea'));
+    processRadioButtonGroupElements(document.querySelectorAll('input[type=radio]:not([disabled])'));
+    processInputElements(document.querySelectorAll('input:not([disabled]):not([type="radio"])'));
+    processSelectElements(document.querySelectorAll('select:not([disabled])'));
+    processTextAreaElements(document.querySelectorAll('textarea:not([disabled])'));
 }f();
