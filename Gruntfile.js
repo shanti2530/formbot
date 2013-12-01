@@ -27,14 +27,12 @@ module.exports = function(grunt) {
             },
             dist: {
               src: ['bower_components/momentjs/min/moment.min.js', 'tmp/fillFormsUglified.js'],
-              // src: ['tmp/fillFormsUglified.js'],
               dest: 'dest/fillForms.min.js',
             },
           },
         watch: {
             scripts: {
                 files: ['**/*.js'],
-                // tasks: ['includes'],
                 tasks: ['includes','uglify', 'concat'],
                 options: {
                 spawn: false,
