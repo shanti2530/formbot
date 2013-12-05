@@ -5,7 +5,7 @@ module.exports = function(grunt) {
         pkg: grunt.file.readJSON('package.json'),
         includes: {
             files: {
-                src: ["src/fillForms.js", "src/assets/utils.js"],
+                src: ["src/fillForms.js"],
                 dest: "tmp",
                 flatten: true
             }
