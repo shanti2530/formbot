@@ -1,0 +1,14 @@
+{
+  "name": "Form Filler",
+  "version": "0.1.0",
+  "homepage": "https://github.com/shanti2530/bookmarklets",
+  "authors": [
+    "maria camilleri <mariacamilleri@gmail.com>"
+  ],
+  "description": "A generic form filler bookmarklet",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "momentjs": "~2.4.0"
+  }
+}
