@@ -1,8 +1,5 @@
 var getDefaultValue = function(inputType, maxLength) {
-    if (!maxLength) {
-        maxLength = 7;
-    }
-
+	
     /*The default object with which the fields will be filled up*/
     var defaults = {
         "EMAIL"    : {value:'f@ke.com'},
