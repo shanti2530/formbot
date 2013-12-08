@@ -2,6 +2,7 @@
   "name": "Form Filler",
   "description": "Fill any form",
   "version": "1.0",
+  "options_page": "options.html",
   "permissions": [
     "activeTab"
   ],
