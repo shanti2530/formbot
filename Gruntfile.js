@@ -32,10 +32,16 @@ module.exports = function(grunt) {
               dest: 'dest/fillForms.min.js',
             },
           },
+		jshint: {
+			all: ['src/**/*.js'],
+			options: {
+				jshintrc: ".jshintrc"
+			}
+		},
         watch: {
             scripts: {
                 files: ['**/*.js'],
-                tasks: ['includes','uglify', 'concat'],
+                tasks: ['jshint','includes','uglify', 'concat'],
                 options: {
                 spawn: false,
             },
