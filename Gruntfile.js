@@ -1,5 +1,7 @@
 module.exports = function(grunt) {
 
+	require("load-grunt-tasks")(grunt);
+
     // Project configuration.
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
@@ -40,17 +42,6 @@ module.exports = function(grunt) {
           },
         },
     });
-
-    // Load the plugin that provides the "uglify" task.
-    grunt.loadNpmTasks('grunt-contrib-uglify');
-
-    grunt.loadNpmTasks('grunt-contrib-concat');
-
-    //adds the possiblity to include files in other files
-    grunt.loadNpmTasks('grunt-includes');
-
-    //load the plugin that runs predefined tasks whenever a watched file is added, changed or removed.
-    grunt.loadNpmTasks('grunt-contrib-watch');
 
     // Default task(s).
     grunt.registerTask('default', ['watch']);
