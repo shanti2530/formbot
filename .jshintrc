@@ -22,6 +22,8 @@
 	"utils": true,
 	"getDefaultValue": true,
 	"Event": true,
-	"moment": true
+	"moment": true,
+	"chrome": true,
+	"console": true
   }
 }

@@ -18,5 +18,24 @@ var getDefaultValue = function(inputType, maxLength) {
         'WEEK'     : {value: utils.getDateFormat('GGGG-[W]WW')},
         'MONTH'    : {value: utils.getDateFormat('YYYY-MM')}
     };
-    return defaults[inputType].value;
+	
+	var getValue = function(inputType) {
+		
+		chrome.storage.sync.get(inputType, function(result) {
+			
+			console.log(result[inputType]);
+			
+			//object is empty
+			if ((Object.getOwnPropertyNames(result).length > 0) ||
+				result[inputType] === undefined) {
+				
+				return defaults[inputType].value;
+			} else {
+				
+				return result[inputType];
+			}
+		});
+	};
+	
+    return getValue(inputType);
 };
