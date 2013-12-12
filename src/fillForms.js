@@ -1,29 +1,33 @@
 function f(){
-        
+	'use strict';
+	
+	/* jshint ignore:start */
     include "assets/utils.js"
 
     include "assets/defaultvalues.js"
-
+	/* jshint ignore:end */
+	
     /*Checker text which the inputs should be matched to
         The values which are assigned have a priority. The first in the list
         has the most priority over the others in the list
     */
     var inputChecker = {
         defaults: [
-            {includes: ["mail"], type:"EMAIL"},
-            {includes: ["pass"], type:"PASSWORD"},
-            {includes: ["card"], excludes: ["name", "code"], type:"CARD_NO"},
-            {includes: ["cvv"],  type:"CVV"},
-            {includes: ["phone", "tel", "mobile"], type:"PHONE"},
-            {includes: ["url", "site"], type:"URL"},
-            {includes: ["username", "userId"], type:"USERNAME"},
-            {includes: ["datetime"], type:"DATETIME"},
-            {includes: ["date"], type:"DATE"},
-            {includes: ["time"], type:"TIME"},
-            {includes: ["month"], type:"MONTH"},
-            {includes: ["week"], type:"WEEK"},
-            {includes: ["number", "amount", "range"], type:"NUMBER"},
-            {includes: ["text"],  type:"TEXT"}],
+            {includes: ['mail'], type:'EMAIL'},
+            {includes: ['pass'], type:'PASSWORD'},
+            {includes: ['card'], excludes: ['name', 'code'], type:'CARD_NO'},
+            {includes: ['cvv'],  type:'CVV'},
+            {includes: ['phone', 'tel', 'mobile'], type:'PHONE'},
+            {includes: ['url', 'site'], type:'URL'},
+            {includes: ['username', 'userId'], type:'USERNAME'},
+            {includes: ['datetime'], type:'DATETIME'},
+            {includes: ['date'], type:'DATE'},
+            {includes: ['time'], type:'TIME'},
+            {includes: ['month'], type:'MONTH'},
+            {includes: ['week'], type:'WEEK'},
+            {includes: ['number', 'amount', 'range'], type:'NUMBER'},
+            {includes: ['text'],  type:'TEXT'}
+		],
 
         isEmpty: function(variable) {
             if (!variable || variable === '' || variable === 'undefined') {
@@ -47,7 +51,7 @@ function f(){
                 }
                 for (var j = this.defaults[i].includes.length - 1; j >= 0; j--) {
 
-                    if (text.toLowerCase().indexOf(this.defaults[i].includes[j]) != -1) {
+                    if (text.toLowerCase().indexOf(this.defaults[i].includes[j]) !== -1) {
                         inputType = this.defaults[i].type;
 
                         /*If we find a match with one of the includes we then check that the text
@@ -57,8 +61,8 @@ function f(){
                             continue;
                         }
 
-                        for (var j = this.defaults[i].excludes.length - 1; j >= 0; j--) {
-                            if (text.toLowerCase().indexOf(this.defaults[i].excludes[j]) != -1) {
+                        for (var k = this.defaults[i].excludes.length - 1; k >= 0; j--) {
+                            if (text.toLowerCase().indexOf(this.defaults[i].excludes[k]) !== -1) {
                                 excluded = true;
                                 break;
                             }
@@ -113,7 +117,7 @@ function f(){
 
             //if we were unable to match an input with a type then always default to text
             if (this.isEmpty(identifiedTextType)) {
-                identifiedTextType = "TEXT";
+                identifiedTextType = 'TEXT';
             }
 
             return identifiedTextType;
@@ -172,8 +176,8 @@ function f(){
             if (groupRadios.length < 1) {
                 radios[i].checked = true;
             }
-        };
-    }
+        }
+    };
     
     /*function which given an array of selects would choose a random option*/
     var processSelectElements = function(selects) {
@@ -192,11 +196,12 @@ function f(){
             var txtArea = textAreas[i];
             txtArea.value = utils.randomText(20);
         }
-    }
+    };
     
     /*lookup for the form elements to fill*/
     processRadioButtonGroupElements(document.querySelectorAll('input[type=radio]:not([disabled])'));
     processInputElements(document.querySelectorAll('input:not([disabled]):not([type="radio"])'));
     processSelectElements(document.querySelectorAll('select:not([disabled])'));
     processTextAreaElements(document.querySelectorAll('textarea:not([disabled])'));
-}f();
+}
+f();
