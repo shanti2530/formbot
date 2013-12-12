@@ -2,9 +2,9 @@ function f(){
 	'use strict';
 	
 	/* jshint ignore:start */
-    include 'assets/utils.js'
+    include "assets/utils.js"
 
-    include 'assets/defaultvalues.js'
+    include "assets/defaultvalues.js"
 	/* jshint ignore:end */
 	
     /*Checker text which the inputs should be matched to
