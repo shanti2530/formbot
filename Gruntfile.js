@@ -38,10 +38,16 @@ module.exports = function(grunt) {
 				jshintrc: ".jshintrc"
 			}
 		},
+        copy: {
+            extension: {
+                src: 'dest/fillForms.min.js',
+                dest: 'chrome-extension/fillForms.min.js',
+            },
+        },
         watch: {
             scripts: {
                 files: ['**/*.js'],
-                tasks: ['jshint','includes','uglify', 'concat'],
+                tasks: ['jshint','includes','uglify', 'concat', 'copy'],
                 options: {
 					spawn: false
             },
