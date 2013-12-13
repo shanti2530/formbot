@@ -10,14 +10,10 @@
     "scripts": ["background.js"],
     "persistent": false
   },
-  "content_scripts": [
-	{
-		"js": ["content.js"]
-	}
-  ],
   "browser_action": {
-    "default_title": "Fill forms on page",
-    "default_popup": "popup.html"
+    "default_title": "Fill forms on page"
+    // "default_popup": "popup.html"
   },
+  "web_accessible_resources": ["fillForms.min.js"],
   "manifest_version": 2
 }
