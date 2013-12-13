@@ -8,12 +8,10 @@ function fillForms(){
 	/* jshint ignore:end */
 	
     var getDefaultValue = function (inputType, maxLength, input) {
-        console.log(inputType);
         chrome.extension.sendMessage({method: 'getInputValue',
                                       inputType: inputType,
                                       maxLength: maxLength},
             function(response) {
-                console.log(response);
                 fillInput(input, response.data);
             }
         );
