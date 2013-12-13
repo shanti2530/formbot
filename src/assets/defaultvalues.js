@@ -1,6 +1,6 @@
 var getDefaultValue = function(inputType, maxLength) {
 	'use strict';
-	
+
     /*The default object with which the fields will be filled up*/
     var defaults = {
         'EMAIL'    : {value:'f@ke.com'},
@@ -22,8 +22,6 @@ var getDefaultValue = function(inputType, maxLength) {
 	var getValue = function(inputType) {
 		
 		chrome.storage.sync.get(inputType, function(result) {
-			
-			console.log(result[inputType]);
 			
 			//object is empty
 			if ((Object.getOwnPropertyNames(result).length > 0) ||

@@ -7,13 +7,11 @@
     "activeTab", "storage"
   ],
   "background": {
-    "scripts": ["background.js"],
-    "persistent": false
+    "scripts": ["scripts/moment.min.js", "background.js"],
+    "persistent": true
   },
   "browser_action": {
     "default_title": "Fill forms on page"
-    // "default_popup": "popup.html"
   },
-  "web_accessible_resources": ["fillForms.min.js"],
   "manifest_version": 2
 }

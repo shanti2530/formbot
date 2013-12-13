@@ -40,8 +40,10 @@ module.exports = function(grunt) {
 		},
         copy: {
             extension: {
-                src: 'dest/fillForms.min.js',
-                dest: 'chrome-extension/fillForms.min.js',
+                files: [
+                    {src: 'dest/fillForms.min.js', dest: 'chrome-extension/scripts/fillForms.min.js'},
+                    {src: 'bower_components/momentjs/min/moment.min.js', dest: 'chrome-extension/scripts/moment.min.js'}
+                ]
             },
         },
         watch: {

@@ -1,12 +1,28 @@
-function f(){
+function fillForms(){
 	'use strict';
 	
 	/* jshint ignore:start */
     include "assets/utils.js"
 
-    include "assets/defaultvalues.js"
+    // include "assets/defaultvalues.js"
 	/* jshint ignore:end */
 	
+    var getDefaultValue = function (inputType, maxLength, input) {
+        console.log(inputType);
+        chrome.extension.sendMessage({method: 'getInputValue',
+                                      inputType: inputType,
+                                      maxLength: maxLength},
+            function(response) {
+                console.log(response);
+                fillInput(input, response.data);
+            }
+        );
+    };
+
+    var fillInput = function(input, data) {
+        input.value = data;
+    };
+
     /*Checker text which the inputs should be matched to
         The values which are assigned have a priority. The first in the list
         has the most priority over the others in the list
@@ -150,10 +166,11 @@ function f(){
                     maxLength = input.maxLength;
                 }
 
-                var defaultValue = getDefaultValue(inputCheckerResult, maxLength);
-                if (inputCheckerResult && defaultValue) {
-                    input.value = defaultValue;
-                }
+                // getDefaultValue(inputCheckerResult, maxLength);
+                getDefaultValue(inputCheckerResult, maxLength, input);
+                // if (inputCheckerResult && defaultValue) {
+                //     input.value = defaultValue;
+                // }
             }
             
         }
@@ -204,4 +221,4 @@ function f(){
     processSelectElements(document.querySelectorAll('select:not([disabled])'));
     processTextAreaElements(document.querySelectorAll('textarea:not([disabled])'));
 }
-f();
+fillForms();

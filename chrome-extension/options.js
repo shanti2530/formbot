@@ -10,18 +10,7 @@ window.onload = function() {
 			var elementName = element.name.toUpperCase();
 			var elementValue = element.value;
 			
-			//store in an object to be stored by the browser
-			var data = {};
-			data[elementName] = elementValue;
-			
-			chrome.storage.sync.set(data, 
-				function() {
-					console.log("Saved " + elementName + " !");
-				});
-			
-			// chrome.storage.sync.get(elementName, function(result) {
-				// console.log(result);
-			// });
+			localStorage[elementName] = elementValue;
 		}
 	})
 
