@@ -5,18 +5,17 @@ module.exports = function(grunt) {
     // Project configuration.
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
+        
         includes: {
             files: {
                 src: ["src/fillForms.js"],
                 dest: "tmp",
-                flatten: true
+                flatten: true    
             }
         },
         uglify: {
-            my_target: {
 				files: {
 					'tmp/fillFormsUglified.js': ['tmp/fillForms.js']
-				}
 			},
             options: {
                 mangle: false,
@@ -27,37 +26,45 @@ module.exports = function(grunt) {
             options: {
               separator: ';',
             },
-            dist: {
+            bookmarklet: {
               src: ['bower_components/momentjs/min/moment.min.js', 'tmp/fillFormsUglified.js'],
               dest: 'dest/fillForms.min.js',
             },
           },
 		jshint: {
-			all: ['src/**/*.js'],
+			bookmarklet: ['src/**/*.js'],
+            chromeextension: ['chrome-extension/*.js'],
 			options: {
 				jshintrc: ".jshintrc"
 			}
 		},
         copy: {
-            extension: {
+            chromeextension: {
                 files: [
-                    {src: 'dest/fillForms.min.js', dest: 'chrome-extension/scripts/fillForms.min.js'},
-                    {src: 'bower_components/momentjs/min/moment.min.js', dest: 'chrome-extension/scripts/moment.min.js'}
+                    {src: 'dest/fillForms.min.js', dest: 'chromeextension/scripts/fillForms.min.js'},
+                    {src: 'bower_components/momentjs/min/moment.min.js', dest: 'chromeextension/scripts/moment.min.js'}
                 ]
             },
         },
         watch: {
-            scripts: {
+            bookmarklet: {
                 files: ['**/*.js'],
-                tasks: ['jshint','includes','uglify', 'concat', 'copy'],
+                tasks: ['jshint:bookmarklet','includes','uglify', 'concat:bookmarklet'],
                 options: {
 					spawn: false
+                },
             },
-          },
+            chromeextension: {
+                files: ['**/*.js'],
+                tasks: ['jshint','includes','uglify', 'copy:chromeextension'],
+                options: {
+                    spawn: false
+                },
+            }
         },
     });
 
     // Default task(s).
-    grunt.registerTask('default', ['watch']);
-
+    grunt.registerTask('bookmarklet', ['watch:bookmarklet']);
+    grunt.registerTask('chromeextension', ['watch:chromeextension']);
 };

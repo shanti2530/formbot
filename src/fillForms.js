@@ -3,8 +3,6 @@ function fillForms(){
 	
 	/* jshint ignore:start */
     include "assets/utils.js"
-
-    // include "assets/defaultvalues.js"
 	/* jshint ignore:end */
 	
     var getDefaultValue = function (inputType, maxLength, input) {

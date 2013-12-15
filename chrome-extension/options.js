@@ -1,4 +1,5 @@
 window.onload = function() {
+	'use strict';
 
 	//save all inputs in chrome's local storage upon change
 	Array.prototype.slice.call(document.querySelectorAll('input')).forEach(function(el) {
@@ -11,9 +12,6 @@ window.onload = function() {
 			var elementValue = element.value;
 			
 			localStorage[elementName] = elementValue;
-		}
-	})
-
-	
-}
-
+		};
+	});
+};
