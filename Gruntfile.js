@@ -7,16 +7,25 @@ module.exports = function(grunt) {
         pkg: grunt.file.readJSON('package.json'),
         
         includes: {
-            files: {
+            bookmarklet: {
                 src: ["src/fillForms.js"],
                 dest: "tmp",
-                flatten: true    
+                flatten: true,
+                options: {includePath: 'src/assets/bookmarklet'}
+            },
+            chromeextension: {
+                src: ["src/fillForms.js"],
+                dest: "tmp",
+                flatten: true,
+                options: {includePath: 'src/assets/chrome-extension'}
             }
         },
         uglify: {
-				files: {
-					'tmp/fillFormsUglified.js': ['tmp/fillForms.js']
-			},
+			my_target:{
+                files: {
+    				'tmp/fillFormsUglified.js': ['tmp/fillForms.js']
+    			}
+            },
             options: {
                 mangle: false,
                 banner: "javascript:"
@@ -24,11 +33,11 @@ module.exports = function(grunt) {
         },
         concat: {
             options: {
-              separator: ';',
+                separator: ';',
             },
             bookmarklet: {
-              src: ['bower_components/momentjs/min/moment.min.js', 'tmp/fillFormsUglified.js'],
-              dest: 'dest/fillForms.min.js',
+                src: ['bower_components/momentjs/min/moment.min.js', 'tmp/fillFormsUglified.js'],
+                dest: 'dest/fillForms.min.js',
             },
           },
 		jshint: {
@@ -39,29 +48,35 @@ module.exports = function(grunt) {
 			}
 		},
         copy: {
-            chromeextension: {
+            init: {
                 files: [
-                    {src: 'dest/fillForms.min.js', dest: 'chromeextension/scripts/fillForms.min.js'},
-                    {src: 'bower_components/momentjs/min/moment.min.js', dest: 'chromeextension/scripts/moment.min.js'}
+                    {src: 'src/assets/utils.js', dest: 'src/assets/chrome-extension/utils.js'},
+                    {src: 'src/assets/utils.js', dest: 'src/assets/bookmarklet/utils.js'}
                 ]
             },
+            chromeextension: {
+                files: [
+                    {src: 'dest/fillForms.min.js', dest: 'chrome-extension/scripts/fillForms.min.js'},
+                    {src: 'bower_components/momentjs/min/moment.min.js', dest: 'chrome-extension/scripts/moment.min.js'}
+                ]
+            }
         },
         watch: {
             bookmarklet: {
                 files: ['**/*.js'],
-                tasks: ['jshint:bookmarklet','includes','uglify', 'concat:bookmarklet'],
+                tasks: ['jshint:bookmarklet', 'copy:init', 'includes:bookmarklet','uglify', 'concat:bookmarklet'],
                 options: {
 					spawn: false
                 },
             },
             chromeextension: {
                 files: ['**/*.js'],
-                tasks: ['jshint','includes','uglify', 'copy:chromeextension'],
+                tasks: ['jshint','copy:init', 'includes:chromeextension','uglify', 'copy:chromeextension'],
                 options: {
                     spawn: false
                 },
             }
-        },
+        }
     });
 
     // Default task(s).

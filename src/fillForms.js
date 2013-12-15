@@ -2,23 +2,11 @@ function fillForms(){
 	'use strict';
 	
 	/* jshint ignore:start */
-    include "assets/utils.js"
+    include "utils.js"
+
+    include "defaultvalues.js"
 	/* jshint ignore:end */
 	
-    var getDefaultValue = function (inputType, maxLength, input) {
-        chrome.extension.sendMessage({method: 'getInputValue',
-                                      inputType: inputType,
-                                      maxLength: maxLength},
-            function(response) {
-                fillInput(input, response.data);
-            }
-        );
-    };
-
-    var fillInput = function(input, data) {
-        input.value = data;
-    };
-
     /*Checker text which the inputs should be matched to
         The values which are assigned have a priority. The first in the list
         has the most priority over the others in the list

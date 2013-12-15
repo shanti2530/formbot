@@ -19,21 +19,5 @@ var getDefaultValue = function(inputType, maxLength) {
         'MONTH'    : {value: utils.getDateFormat('YYYY-MM')}
     };
 	
-	var getValue = function(inputType) {
-		
-		chrome.storage.sync.get(inputType, function(result) {
-			
-			//object is empty
-			if ((Object.getOwnPropertyNames(result).length > 0) ||
-				result[inputType] === undefined) {
-				
-				return defaults[inputType].value;
-			} else {
-				
-				return result[inputType];
-			}
-		});
-	};
-	
-    return getValue(inputType);
+    return defaults[inputType].value;
 };
