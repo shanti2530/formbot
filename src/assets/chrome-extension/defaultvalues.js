@@ -5,7 +5,7 @@ var fillInput = function(input, data) {
 
 var getDefaultValue = function (inputType, maxLength, input) {
 	'use strict';
-    chrome.extension.sendMessage({method: 'getInput Value',
+    chrome.extension.sendMessage({method: 'getInputValue',
                                   inputType: inputType,
                                   maxLength: maxLength},
         function(response) {
