@@ -37,8 +37,12 @@ module.exports = function(grunt) {
             },
             bookmarklet: {
                 src: ['bower_components/momentjs/min/moment.min.js', 'tmp/fillFormsUglified.js'],
-                dest: 'dest/fillForms.min.js',
+                dest: 'dest/fillForms.min.js'
             },
+            chromeextension: {
+                src: ['tmp/fillFormsUglified.js'],
+                dest: 'dest/fillForms.min.js'
+            }
           },
 		jshint: {
 			bookmarklet: ['src/**/*.js'],
@@ -56,7 +60,7 @@ module.exports = function(grunt) {
             },
             chromeextension: {
                 files: [
-                    {src: 'dest/fillForms.min.js', dest: 'chrome-extension/scripts/fillForms.min.js'},
+                    {src: 'tmp/fillFormsUglified.js', dest: 'chrome-extension/scripts/fillForms.min.js'},
                     {src: 'bower_components/momentjs/min/moment.min.js', dest: 'chrome-extension/scripts/moment.min.js'}
                 ]
             }
