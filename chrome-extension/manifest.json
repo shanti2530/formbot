@@ -1,0 +1,17 @@
+{
+  "name": "Form Filler",
+  "description": "Fill any form",
+  "version": "1.0",
+  "options_page": "options.html",
+  "permissions": [
+    "activeTab", "storage"
+  ],
+  "background": {
+    "scripts": ["scripts/moment.min.js", "background.js"],
+    "persistent": true
+  },
+  "browser_action": {
+    "default_title": "Fill forms on page"
+  },
+  "manifest_version": 2
+}

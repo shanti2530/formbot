@@ -8,6 +8,7 @@
     "grunt-contrib-concat": "~0.3.0",
     "grunt-includes": "~0.3.6",
     "load-grunt-tasks": "~0.2.0",
-    "grunt-contrib-jshint": "~0.7.2"
+    "grunt-contrib-jshint": "~0.7.2",
+    "grunt-contrib-copy": "~0.4.1"
   }
 }

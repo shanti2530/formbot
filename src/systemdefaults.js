@@ -1,6 +1,5 @@
-var getDefaultValue = function(inputType, maxLength) {
-	'use strict';
-	
+var getSystemDefault = function(inputType, maxLength) {
+    'use strict';
     /*The default object with which the fields will be filled up*/
     var defaults = {
         'EMAIL'    : {value:'f@ke.com'},
@@ -18,5 +17,6 @@ var getDefaultValue = function(inputType, maxLength) {
         'WEEK'     : {value: utils.getDateFormat('GGGG-[W]WW')},
         'MONTH'    : {value: utils.getDateFormat('YYYY-MM')}
     };
+
     return defaults[inputType].value;
 };

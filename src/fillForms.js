@@ -1,10 +1,10 @@
-function f(){
+function fillForms(){
 	'use strict';
 	
 	/* jshint ignore:start */
-    include "assets/utils.js"
+    include "utils.js"
 
-    include "assets/defaultvalues.js"
+    include "defaultvalues.js"
 	/* jshint ignore:end */
 	
     /*Checker text which the inputs should be matched to
@@ -150,10 +150,11 @@ function f(){
                     maxLength = input.maxLength;
                 }
 
-                var defaultValue = getDefaultValue(inputCheckerResult, maxLength);
-                if (inputCheckerResult && defaultValue) {
-                    input.value = defaultValue;
-                }
+                // getDefaultValue(inputCheckerResult, maxLength);
+                input.value = getDefaultValue(inputCheckerResult, maxLength, input);
+                // if (inputCheckerResult && defaultValue) {
+                //     input.value = defaultValue;
+                // }
             }
             
         }
@@ -204,4 +205,4 @@ function f(){
     processSelectElements(document.querySelectorAll('select:not([disabled])'));
     processTextAreaElements(document.querySelectorAll('textarea:not([disabled])'));
 }
-f();
+fillForms();
