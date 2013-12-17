@@ -17,13 +17,14 @@
   "strict": true,
   "trailing": true,
   "smarttabs": true,
-  "exported": ["getDefaultValue", "utils"],
+  "exported": ["getDefaultValue", "utils", "getSystemDefault"],
   "globals": {
-	"utils": true,
-	"getDefaultValue": true,
-	"Event": true,
-	"moment": true,
-	"chrome": true,
-	"console": true
+  	"utils": true,
+  	"getDefaultValue": true,
+    "getSystemDefault": true,
+  	"Event": true,
+  	"moment": true,
+  	"chrome": true,
+  	"console": true
   }
 }

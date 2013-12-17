@@ -9,7 +9,16 @@ var getDefaultValue = function (inputType, maxLength, input) {
                                   inputType: inputType,
                                   maxLength: maxLength},
         function(response) {
-            fillInput(input, response.data);
-        }
+
+              /* jshint ignore:start */
+              include "systemdefaults.js"
+              /* jshint ignore:end */
+
+                if (response.data) {
+                    fillInput(input, response.data);
+                } else {
+                    fillInput(input, getSystemDefault(inputType, maxLength));
+                }
+            }
     );
 };

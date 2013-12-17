@@ -151,7 +151,7 @@ function fillForms(){
                 }
 
                 // getDefaultValue(inputCheckerResult, maxLength);
-                getDefaultValue(inputCheckerResult, maxLength, input);
+                input.value = getDefaultValue(inputCheckerResult, maxLength, input);
                 // if (inputCheckerResult && defaultValue) {
                 //     input.value = defaultValue;
                 // }
