@@ -1,0 +1,1 @@
+javascript:(function(){document.body.appendChild(document.createElement('script')).src='//raw.github.com/shanti2530/bookmarklets/master/dist/bookmarklet/fillForms.min.js';})();
