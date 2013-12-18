@@ -6,7 +6,6 @@ function fillForms(){
 
     include "defaultvalues.js"
 
-    include "analytics.js"
 	/* jshint ignore:end */
 	
     /*Checker text which the inputs should be matched to
