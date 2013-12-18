@@ -5,7 +5,5 @@ var getDefaultValue = function(inputType, maxLength) {
     include "systemdefaults.js"
     /* jshint ignore:end */
 
-    console.log(inputType, getSystemDefault(inputType, maxLength));
-
     return getSystemDefault(inputType, maxLength);
 };
