@@ -22,6 +22,7 @@
   	"utils": true,
   	"getDefaultValue": true,
     "getSystemDefault": true,
+    "ga": true,
   	"Event": true,
   	"moment": true,
   	"chrome": true,
