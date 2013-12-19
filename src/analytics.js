@@ -3,5 +3,6 @@
 m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-ga('create', 'UA-44998061-1', 'shanti2530.github.io');
-ga('send', 'event', 'bookmarklet');
+ga('create', 'UA-44998061-1', 'shanti2530.github.io', {'name': 'formFiller'});
+ga('set', 'location', '/bookmarklet/' + location.host + location.pathname);
+ga('formFiller.send', 'event', 'bookmarklet');
