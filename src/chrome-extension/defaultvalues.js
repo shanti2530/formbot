@@ -13,8 +13,7 @@ var getDefaultValue = function (inputType, maxLength, input) {
               /* jshint ignore:start */
               include "systemdefaults.js"
               /* jshint ignore:end */
-
-                if (response.data) {
+                if (response.data !== undefined) {
                     fillInput(input, response.data);
                 } else {
                     fillInput(input, getSystemDefault(inputType, maxLength));
