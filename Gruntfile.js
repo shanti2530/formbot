@@ -35,9 +35,8 @@ module.exports = function(grunt) {
                 files: [
                     {src: 'gen/chrome-extension/fillForms.min.js', dest: 'dist/chrome-extension/fillForms.min.js'},
                     {src: 'gen/chrome-extension/fillForms.min.js', dest: 'chrome-extension/scripts/fillForms.min.js'},
-                    {src: 'bower_components/momentjs/min/moment.min.js', dest: 'chrome-extension/scripts/moment.min.js'},
-                    {src: 'gen/chrome-extension/systemdefaults.js', dest: 'chrome-extension/scripts/systemdefaults.js'},
-                    {src: 'gen/chrome-extension/utils.js', dest: 'chrome-extension/scripts/utils.js'}
+                    {src: 'gen/chrome-extension/background.js', dest: 'chrome-extension/background.js'},
+                    {src: 'bower_components/momentjs/min/moment.min.js', dest: 'chrome-extension/scripts/moment.min.js'}
                 ]
             }
         },
@@ -50,11 +49,6 @@ module.exports = function(grunt) {
             chromeextension: {
                 src: ["gen/chrome-extension/*.js"],
                 dest: "gen/chrome-extension",
-                flatten: true
-            },
-            chromeextensionBack: {
-                src: ["chrome-extension/background.js"],
-                dest: "chrome-extension/background.js",
                 flatten: true
             }
         },
@@ -92,7 +86,6 @@ module.exports = function(grunt) {
                         'includes:chromeextension', 
                         'uglify:chromeextension', 
                         'copy:chromeextensiondist', 
-                        'includes:chromeextensionBack', 
                         'jshint:chromeextension'],
                 options: {
                     spawn: false
