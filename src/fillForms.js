@@ -7,6 +7,8 @@ function fillForms(){
     include "defaultvalues.js"
 
     include "analytics.js"
+
+    include "defaulttypes.js"
 	/* jshint ignore:end */
 	
     /*Checker text which the inputs should be matched to
@@ -15,20 +17,20 @@ function fillForms(){
     */
     var inputChecker = {
         defaults: [
-            {includes: ['mail'], type:'EMAIL'},
-            {includes: ['pass'], type:'PASSWORD'},
-            {includes: ['card'], excludes: ['name', 'code'], type:'CARD_NO'},
-            {includes: ['cvv'],  type:'CVV'},
-            {includes: ['phone', 'tel', 'mobile'], type:'PHONE'},
-            {includes: ['url', 'site'], type:'URL'},
-            {includes: ['username', 'userId'], type:'USERNAME'},
-            {includes: ['datetime'], type:'DATETIME'},
-            {includes: ['date'], type:'DATE'},
-            {includes: ['time'], type:'TIME'},
-            {includes: ['month'], type:'MONTH'},
-            {includes: ['week'], type:'WEEK'},
-            {includes: ['number', 'amount', 'range'], type:'NUMBER'},
-            {includes: ['text'],  type:'TEXT'}
+            {includes: ['mail'], type: defaultType[0]},
+            {includes: ['pass'], type: defaultType[1]},
+            {includes: ['card'], excludes: ['name', 'code'], type: defaultType[2]},
+            {includes: ['cvv'],  type: defaultType[3]},
+            {includes: ['phone', 'tel', 'mobile'], type: defaultType[4]},
+            {includes: ['url', 'site'], type: defaultType[5]},
+            {includes: ['username', 'userId'], type: defaultType[6]},
+            {includes: ['datetime'], type: defaultType[7]},
+            {includes: ['date'], type: defaultType[8]},
+            {includes: ['time'], type: defaultType[9]},
+            {includes: ['month'], type: defaultType[10]},
+            {includes: ['week'], type: defaultType[11]},
+            {includes: ['number', 'amount', 'range'], type: defaultType[12]},
+            {includes: ['text'],  type: defaultType[13]}
 		],
 
         isEmpty: function(variable) {

@@ -5,24 +5,35 @@ chrome.browserAction.onClicked.addListener(function() {
 	chrome.tabs.executeScript(null, {file: 'scripts/fillForms.min.js'});
 });
 
+function loadValues() {
+	'use strict';
+	/* jshint ignore:start */
+	include "utils.js"
+	include "systemdefaults.js"
+	include "defaulttypes.js"
+	/* jshint ignore:end */
+
+	//try to get the input value from the user defined values
+	for (var i = 0; i < defaultType.length; i++) {
+		var type = defaultType[i];
+		var val = localStorage[type];
+		
+		//if not found in the local storage then set the system default value
+		if (val === undefined) {
+			localStorage[type] = getSystemDefault(type, 15);
+		}
+	}
+
+}
+loadValues();
+
 chrome.runtime.onMessage.addListener(
 	function(request, sender, sendResponse) {
 			'use strict';
 		    if (request.method === 'getInputValue') {
 
-				/* jshint ignore:start */
-				include "utils.js"
-
-				include "systemdefaults.js"
-				/* jshint ignore:end */
-
 				//try to get the input value from the user defined values
 				var val = localStorage[request.inputType];
-
-				//if not found in the local storage then get the system default value
-				if (val === undefined) {
-					val = getSystemDefault(request.inputType, request.maxLength);
-				}
 
 				sendResponse({data: val});
 		    }
