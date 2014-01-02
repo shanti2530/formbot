@@ -36,6 +36,8 @@ module.exports = function(grunt) {
                     {src: 'gen/chrome-extension/fillForms.min.js', dest: 'dist/chrome-extension/fillForms.min.js'},
                     {src: 'gen/chrome-extension/fillForms.min.js', dest: 'chrome-extension/scripts/fillForms.min.js'},
                     {src: 'bower_components/momentjs/min/moment.min.js', dest: 'chrome-extension/scripts/moment.min.js'},
+                    {src: 'gen/chrome-extension/systemdefaults.js', dest: 'chrome-extension/scripts/systemdefaults.js'},
+                    {src: 'gen/chrome-extension/utils.js', dest: 'chrome-extension/scripts/utils.js'}
                 ]
             }
         },
@@ -48,6 +50,11 @@ module.exports = function(grunt) {
             chromeextension: {
                 src: ["gen/chrome-extension/*.js"],
                 dest: "gen/chrome-extension",
+                flatten: true
+            },
+            chromeextensionBack: {
+                src: ["chrome-extension/background.js"],
+                dest: "chrome-extension/background.js",
                 flatten: true
             }
         },
@@ -70,14 +77,23 @@ module.exports = function(grunt) {
         watch: {
             bookmarklet: {
                 files: ['**/*.js'],
-                tasks: ['copy:bookmarklet', 'includes:bookmarklet', 'uglify:bookmarklet', 'copy:bookmarkletdist', 'jshint:bookmarklet'],
+                tasks: ['copy:bookmarklet', 
+                        'includes:bookmarklet', 
+                        'uglify:bookmarklet', 
+                        'copy:bookmarkletdist', 
+                        'jshint:bookmarklet'],
                 options: {
                     spawn: false
                 },
             },
             chromeextension: {
                 files: ['**/*.js'],
-                tasks: ['copy:chromeextension', 'includes:chromeextension', 'uglify:chromeextension', 'copy:chromeextensiondist', 'jshint:chromeextension'],
+                tasks: ['copy:chromeextension', 
+                        'includes:chromeextension', 
+                        'uglify:chromeextension', 
+                        'copy:chromeextensiondist', 
+                        'includes:chromeextensionBack', 
+                        'jshint:chromeextension'],
                 options: {
                     spawn: false
                 },
