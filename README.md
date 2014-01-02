@@ -28,3 +28,5 @@ Checkboxes are by default checked
 *Dropdowns*
 
 A random option is selected
+
+[![githalytics.com alpha](https://cruel-carlota.pagodabox.com/f6e46786c478dcb8467309126dd19dd5 "githalytics.com")](http://githalytics.com/shanti2530/bookmarklets)
