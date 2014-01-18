@@ -23,7 +23,8 @@ module.exports = function(grunt) {
             chromeextension: { 
                 files: [
                     {src: 'src/*.js', dest: 'gen/chrome-extension/', flatten: true, expand:true, filter: 'isFile'},
-                    {src: 'src/chrome-extension/*.js', dest: 'gen/chrome-extension/', flatten: true, expand:true, filter: 'isFile'}
+                    {src: 'src/chrome-extension/*.*', dest: 'gen/chrome-extension/', flatten: true, expand:true, filter: 'isFile'},
+                    {src: 'src/chrome-extension/scripts/*.js', dest: 'gen/chrome-extension/scripts/', flatten: true, expand:true, filter: 'isFile'}
                 ]
             },
             bookmarkletdist: {
@@ -33,10 +34,13 @@ module.exports = function(grunt) {
             },
             chromeextensiondist: {
                 files: [
-                    {src: 'gen/chrome-extension/fillForms.min.js', dest: 'dist/chrome-extension/fillForms.min.js'},
-                    {src: 'gen/chrome-extension/fillForms.min.js', dest: 'chrome-extension/scripts/fillForms.min.js'},
-                    {src: 'gen/chrome-extension/background.js', dest: 'chrome-extension/background.js'},
-                    {src: 'bower_components/momentjs/min/moment.min.js', dest: 'chrome-extension/scripts/moment.min.js'}
+                    {src: 'gen/chrome-extension/fillForms.min.js', dest: 'dist/chrome-extension/scripts/fillForms.min.js'},
+                    {src: 'gen/chrome-extension/*.html', dest: 'dist/chrome-extension/', flatten: true, expand: true},
+                    {src: 'gen/chrome-extension/*.json', dest: 'dist/chrome-extension/', flatten: true, expand: true},
+                    {src: 'gen/chrome-extension/background.js', dest: 'dist/chrome-extension/background.js'},
+                    {src: 'gen/chrome-extension/options.js', dest: 'dist/chrome-extension/options.js'},
+                    {src: 'gen/chrome-extension/scripts/*.js', dest: 'dist/chrome-extension/scripts/', flatten: true, expand: true},
+                    {src: 'bower_components/momentjs/min/moment.min.js', dest: 'dist/chrome-extension/scripts/moment.min.js'}
                 ]
             }
         },
