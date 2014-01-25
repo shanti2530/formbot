@@ -65,7 +65,7 @@ function loadValues() {
 	/* jshint ignore:end */
 
 	//try to get the input value from the user defined values
-	var defaultsArray = getDefaults();
+	var defaultsArray = Object.keys(getDefaults());
 	for (var i = 0; i < defaultsArray.length; i++) {
 		var type = defaultsArray[i];
 		var val = localStorage[type];

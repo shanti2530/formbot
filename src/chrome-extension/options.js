@@ -11,7 +11,7 @@ window.onload = function() {
 			if(element.type !== 'radio') {
 				var elementName = element.name.toUpperCase();
 				var elementValue = element.value;
-				
+				//save the value in the input to the local storage	
 				localStorage[elementName] = elementValue;
 			}
 		};
