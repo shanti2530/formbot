@@ -37,6 +37,7 @@ module.exports = function(grunt) {
                     {src: 'gen/chrome-extension/fillForms.min.js', dest: 'dist/chrome-extension/scripts/fillForms.min.js'},
                     {src: 'gen/chrome-extension/*.html', dest: 'dist/chrome-extension/', flatten: true, expand: true},
                     {src: 'gen/chrome-extension/*.json', dest: 'dist/chrome-extension/', flatten: true, expand: true},
+                    {src: 'gen/chrome-extension/*.css', dest: 'dist/chrome-extension/', flatten: true, expand: true},
                     {src: 'gen/chrome-extension/background.js', dest: 'dist/chrome-extension/background.js'},
                     {src: 'gen/chrome-extension/options.js', dest: 'dist/chrome-extension/options.js'},
                     {src: 'gen/chrome-extension/scripts/*.js', dest: 'dist/chrome-extension/scripts/', flatten: true, expand: true},
@@ -85,7 +86,7 @@ module.exports = function(grunt) {
                 },
             },
             chromeextension: {
-                files: ['**/*.js'],
+                files: ['**/*.js', '**/*.html', '**/*.css'],
                 tasks: ['copy:chromeextension', 
                         'includes:chromeextension', 
                         'uglify:chromeextension', 

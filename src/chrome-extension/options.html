@@ -1,66 +1,74 @@
 <html>
 	<head>
 		<script type="text/javascript" src="options.js"></script>
+		<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+		<link href='options.css' rel='stylesheet' type='text/css'>
 	</head>
 	<body>
-		<h3>Form filler options page
-		<br />
-		<br />
-		<div>
-			Email
-			<input type="email" name="email"/>
+		<h2>Form filler options page</h2>
+
+		<div class="section">
+			<h3>Username</h3>
+			<input type="radio" name="username" />Generate unique username <br />
+			<input type="radio" name="username" />Use username specified below <br />
+			<input type="username" name="username"/>
 		</div>
-		<div>
-			Username
-			<input type="text" name="username"/>
-		</div>
-		<div>
-			Password
+		<div class="section">
+			<h3>Password</h3>
+			<input type="radio" name="password" />Generate random password (print password in console) <br />
+			<input type="radio" name="password" />Use password specified below <br />
 			<input type="text" name="password"/>
 		</div>
-		<div>
-			Card Number
-			<input type="text" name="card_no"/>
+		<div class="section">
+			<h3>Domain</h3>
+			<input type="radio" name="domain" />Generate random domain <br />
+			<input type="radio" name="domain" />Use domain specified below <br />
+			<input type="text" name="domain"/>
 		</div>
-		<div>
-			CVV
-			<input type="text" name="cvv"/>
+		<div class="section">
+			<h3>Email</h3>
+			<input type="radio" name="email" />Generate unique email using the domain specified <br />
+			<input type="radio" name="email" />Use email specified below with the domain specified<br />
+			<input type="email" name="email"/>
 		</div>
-		<div>
-			Phone
+		<div class="section">
+			<h3>Card Number</h3>
+			<input type="radio" name="card" />Generate random card number <br />
+			<input type="radio" name="card" />Use card number specified below <br />
+			<input type="text" name="card"/>
+		</div>
+		<div class="section">
+			<h3>VCC</h3>
+			<input type="radio" name="cvv" />Generate random cvv <br />
+			<input type="radio" name="cvv" />Use cvv specified below <br />
+			<input type="cvv" name="cvv"/>
+		</div>
+		<div class="section">
+			<h3>Phone number</h3>
+			<input type="radio" name="phone" />Generate random phone number <br />
+			<input type="radio" name="phone" />Use phone number specified below <br />
 			<input type="text" name="phone"/>
 		</div>
-		<div>
-			Url
-			<input type="url" name="url"/>
-		</div>
-		<div>
-			Number
+		<div class="section">
+			<h3>Number</h3>
+			<input type="radio" name="number" />Generate random number <br />
+			<input type="radio" name="number" />Use number specified below <br />
 			<input type="number" name="number"/>
 		</div>
-		<div>
-			Date time
-			<input type="datetime" name="datetime"/>
+		<div class="section">
+			<h3>Date & Time</h3>
+			<input type="radio" name="date" />Generate random date <br />
+			<input type="radio" name="date" />User today's date <br />
+			<input type="radio" name="date" />Use date specified below <br />
+			<input type="datetime" name="date"/>
 		</div>
-		<div>
-			Date
-			<input type="date" name="date"/>
-		</div>
-		<div>
-			Time
-			<input type="time" name="time"/>
-		</div>
-		<div>
-			Week
-			<input type="week" name="week"/>
-		</div>
-		<div>
-			Month
-			<input type="month" name="month"/>
-		</div>
-		<div>
-			Text
+		<div class="section">
+			<h3>Text</h3>
+			<input type="radio" name="text" />Generate random text <br />
+			<input type="radio" name="text" />Use text specified below <br />
 			<input type="text" name="text"/>
 		</div>
+
+
 	</body>
 </html>
