@@ -8,14 +8,19 @@ window.onload = function() {
 			//get the element and its data
 			var element = event.srcElement;
 			
-			var elementName = element.name.toUpperCase();
-			var elementValue = element.value;
-			
-			localStorage[elementName] = elementValue;
+			if(element.type != 'radio') {
+				var elementName = element.name.toUpperCase();
+				var elementValue = element.value;
+				
+				localStorage[elementName] = elementValue;
+			}
 		};
 
 		//fill up the options page with the system default values
-		var elementName = el.name.toUpperCase();
-		el.value = localStorage[elementName];
+		if(element.type != 'radio') {
+			var elementName = el.name.toUpperCase();
+			el.value = localStorage[elementName];
+		}
+
 	});
 };
