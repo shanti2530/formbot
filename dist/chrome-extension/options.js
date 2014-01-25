@@ -8,7 +8,7 @@ window.onload = function() {
 			//get the element and its data
 			var element = event.srcElement;
 			
-			if(element.type != 'radio') {
+			if(element.type !== 'radio') {
 				var elementName = element.name.toUpperCase();
 				var elementValue = element.value;
 				
@@ -17,7 +17,7 @@ window.onload = function() {
 		};
 
 		//fill up the options page with the system default values
-		if(element.type != 'radio') {
+		if(el.type !== 'radio') {
 			var elementName = el.name.toUpperCase();
 			el.value = localStorage[elementName];
 		}
