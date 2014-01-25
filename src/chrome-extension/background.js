@@ -13,14 +13,14 @@ function loadValues() {
 	/* jshint ignore:end */
 
 	//try to get the input value from the user defined values
-	var defaultsArray = Object.keys(defaults);
+	var defaultsArray = getDefaults();
 	for (var i = 0; i < defaultsArray.length; i++) {
 		var type = defaultsArray[i];
 		var val = localStorage[type];
 		
 		//if not found in the local storage then set the system default value
 		if (val === undefined) {
-			localStorage[type] = getSystemDefault(type, 15);
+			localStorage[type] = getSystemDefault(type, 7);
 		}
 	}
 
