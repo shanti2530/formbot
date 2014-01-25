@@ -6,9 +6,9 @@ function fillForms(){
 
     include "defaultvalues.js"
 
-    include "analytics.js"
+    include "systemdefaults.js"
 
-    include "defaulttypes.js"
+    include "analytics.js"
 	/* jshint ignore:end */
 	
     /*Checker text which the inputs should be matched to
@@ -16,22 +16,6 @@ function fillForms(){
         has the most priority over the others in the list
     */
     var inputChecker = {
-        defaults: [
-            {includes: ['mail'], type: defaultType[0]},
-            {includes: ['pass'], type: defaultType[1]},
-            {includes: ['card'], excludes: ['name', 'code'], type: defaultType[2]},
-            {includes: ['cvv'],  type: defaultType[3]},
-            {includes: ['phone', 'tel', 'mobile'], type: defaultType[4]},
-            {includes: ['url', 'site'], type: defaultType[5]},
-            {includes: ['username', 'userId'], type: defaultType[6]},
-            {includes: ['datetime'], type: defaultType[7]},
-            {includes: ['date'], type: defaultType[8]},
-            {includes: ['time'], type: defaultType[9]},
-            {includes: ['month'], type: defaultType[10]},
-            {includes: ['week'], type: defaultType[11]},
-            {includes: ['number', 'amount', 'range'], type: defaultType[12]},
-            {includes: ['text'],  type: defaultType[13]}
-		],
 
         isEmpty: function(variable) {
             if (!variable || variable === '' || variable === 'undefined') {
@@ -49,24 +33,25 @@ function fillForms(){
             var excluded = false;
 
             /*First we try to match the text we have with one of the default includes*/
-            for (var i = this.defaults.length - 1; i >= 0; i--) {
-                if (this.isEmpty(this.defaults[i].includes)) {
+            var defaultsArray = Object.keys(defaults);
+            for (var i = defaultsArray.length - 1; i >= 0; i--) {
+                if (this.isEmpty(defaultsArray[i].includes)) {
                     continue;
                 }
-                for (var j = this.defaults[i].includes.length - 1; j >= 0; j--) {
+                for (var j = defaultsArray[i].includes.length - 1; j >= 0; j--) {
 
-                    if (text.toLowerCase().indexOf(this.defaults[i].includes[j]) !== -1) {
-                        inputType = this.defaults[i].type;
+                    if (text.toLowerCase().indexOf(defaultsArray[i].includes[j]) !== -1) {
+                        inputType = defaultsArray[i].type;
 
                         /*If we find a match with one of the includes we then check that the text
                         does not also match one of the exluded of the same type*/
 
-                        if (this.isEmpty(this.defaults[i].excludes)) {
+                        if (this.isEmpty(defaultsArray[i].excludes)) {
                             continue;
                         }
 
-                        for (var k = this.defaults[i].excludes.length - 1; k >= 0; j--) {
-                            if (text.toLowerCase().indexOf(this.defaults[i].excludes[k]) !== -1) {
+                        for (var k = defaultsArray[i].excludes.length - 1; k >= 0; j--) {
+                            if (text.toLowerCase().indexOf(defaultsArray[i].excludes[k]) !== -1) {
                                 excluded = true;
                                 break;
                             }

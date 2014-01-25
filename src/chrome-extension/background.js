@@ -10,12 +10,12 @@ function loadValues() {
 	/* jshint ignore:start */
 	include "utils.js"
 	include "systemdefaults.js"
-	include "defaulttypes.js"
 	/* jshint ignore:end */
 
 	//try to get the input value from the user defined values
-	for (var i = 0; i < defaultType.length; i++) {
-		var type = defaultType[i];
+	var defaultsArray = Object.keys(defaults);
+	for (var i = 0; i < defaultsArray.length; i++) {
+		var type = defaultsArray[i];
 		var val = localStorage[type];
 		
 		//if not found in the local storage then set the system default value
