@@ -39,10 +39,11 @@ function fillForms(){
                 if (this.isEmpty(defaults[defaultsArray[i]].includes)) {
                     continue;
                 }
-                for (var j = defaults[defaultsArray[i]].includes.length - 1; j >= 0; j--) {
 
+                for (var j = defaults[defaultsArray[i]].includes.length; j >= 0; j--) {
+                    
                     if (text.toLowerCase().indexOf(defaults[defaultsArray[i]].includes[j]) !== -1) {
-                        inputType = defaults[defaultsArray[i]].type;
+                        inputType = defaultsArray[i];
 
                         /*If we find a match with one of the includes we then check that the text
                         does not also match one of the exluded of the same type*/
@@ -76,6 +77,12 @@ function fillForms(){
                 identifiedTextType = this.checkText(inputId);
             }
 
+            //check input type
+            var inputType = input.type;
+            if (this.isEmpty(identifiedTextType) && !this.isEmpty(inputType)) {
+                identifiedTextType = this.checkText(inputType);
+            }
+
             //check input name
             var inputName = input.name;
             if (this.isEmpty(identifiedTextType) && !this.isEmpty(inputName)) {
@@ -97,12 +104,6 @@ function fillForms(){
                         break;
                     }
                 }
-            }
-
-            //check input type
-            var inputType = input.type;
-            if (this.isEmpty(identifiedTextType) && !this.isEmpty(inputType)) {
-                identifiedTextType = this.checkText(inputType);
             }
 
             //if we were unable to match an input with a type then always default to text
@@ -139,7 +140,6 @@ function fillForms(){
                 if (input.maxLength && input.maxLength < 7) {
                     maxLength = input.maxLength;
                 }
-
                 input.value = getDefaultValue(inputCheckerResult, maxLength, input);
             }
             
