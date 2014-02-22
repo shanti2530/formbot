@@ -51,7 +51,7 @@ window.onload = function() {
 						el.checked = true;
 					} else {
 						el.checked = false;
-					}	
+					}
 				}
 			} else {
 				var indexDefault = el.id.indexOf('Default');
