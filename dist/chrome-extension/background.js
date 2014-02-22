@@ -72,10 +72,9 @@ function loadValues() {
 		
 		//if not found in the local storage then set the system default value
 		if (val === undefined) {
-			localStorage[type] = getSystemDefault(type, 7);
+			localStorage[type] = JSON.stringify({unique: false, defaultValue: getSystemDefault(type, 7)});
 		}
 	}
-
 }
 loadValues();
 

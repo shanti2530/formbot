@@ -11,16 +11,19 @@ window.onload = function() {
 			if(element.type !== 'radio') {
 				var elementName = element.name.toUpperCase();
 				var elementValue = element.value;
+				
 				//save the value in the input to the local storage	
-				localStorage[elementName] = elementValue;
+				localStorage[elementName] = JSON.stringify({unique: false, defaultValue: elementValue});
 			}
 		};
 
 		//fill up the options page with the system default values
 		if(el.type !== 'radio') {
 			var elementName = el.name.toUpperCase();
-			el.value = localStorage[elementName];
+			if(localStorage[elementName]) {
+				var elementDetails = JSON.parse(localStorage[elementName]);
+				el.value = elementDetails.defaultValue;
+			}
 		}
-
 	});
 };
