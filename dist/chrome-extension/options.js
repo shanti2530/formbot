@@ -11,9 +11,11 @@ window.onload = function() {
 			if(element.type !== 'radio') {
 				var elementName = element.name.toUpperCase();
 				var elementValue = element.value;
+
+				var elementUnique = document.getElementsByName(element.name + 'Unique')[0];
 				
 				//save the value in the input to the local storage	
-				localStorage[elementName] = JSON.stringify({unique: false, defaultValue: elementValue});
+				localStorage[elementName] = JSON.stringify({unique: elementUnique.checked, defaultValue: elementValue});
 			}
 		};
 
