@@ -99,7 +99,19 @@ module.exports = function(grunt) {
         }
     });
 
+    grunt.registerTask('bookmarkletBuild', ['copy:bookmarklet', 
+                                            'includes:bookmarklet', 
+                                            'uglify:bookmarklet', 
+                                            'copy:bookmarkletdist', 
+                                            'jshint:bookmarklet']);
+
+    grunt.registerTask('chromeextensionBuild', ['copy:chromeextension', 
+                                                'includes:chromeextension', 
+                                                'uglify:chromeextension', 
+                                                'copy:chromeextensiondist', 
+                                                'jshint:chromeextension']);
+
     // Default task(s).
-    grunt.registerTask('bookmarklet', ['watch:bookmarklet']);
-    grunt.registerTask('chromeextension', ['watch:chromeextension']);
+    grunt.registerTask('bookmarklet', ['bookmarkletBuild','watch:bookmarklet']);
+    grunt.registerTask('chromeextension', ['chromeextensionBuild','watch:chromeextension']);
 };
