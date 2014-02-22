@@ -12,10 +12,24 @@ window.onload = function() {
 				var elementName = element.name.toUpperCase();
 				var elementValue = element.value;
 
-				var elementUnique = document.getElementsByName(element.name + 'Unique')[0];
+				var elementUnique = document.getElementById(element.id + 'Unique');
 				
 				//save the value in the input to the local storage	
 				localStorage[elementName] = JSON.stringify({unique: elementUnique.checked, defaultValue: elementValue});
+			} else {
+
+				//we need to determine if either the defualt or unique checkbox has changed
+				var indexUnique = element.id.indexOf('Unique');
+				if(indexUnique > -1) {
+					var elementName = element.id.substring(0, indexUnique).toUpperCase();
+					localStorage[elementName] = JSON.stringify({unique: element.checked,
+																defaultValue: JSON.parse(localStorage[elementName]).defaultValue});
+				} else {
+					var indexDefault = element.id.indexOf('Default');
+					var elementName = element.id.substring(0, indexDefault).toUpperCase();
+					localStorage[elementName] = JSON.stringify({unique: !element.checked,
+																defaultValue: JSON.parse(localStorage[elementName]).defaultValue});
+				}
 			}
 		};
 
@@ -25,6 +39,31 @@ window.onload = function() {
 			if(localStorage[elementName]) {
 				var elementDetails = JSON.parse(localStorage[elementName]);
 				el.value = elementDetails.defaultValue;
+			}
+		} else {
+			// in case of the radio buttons .. we need to check the unique boolean attribute
+			var indexUnique = el.id.indexOf('Unique');
+			if(indexUnique > -1) {
+				var elementName = el.id.substring(0, indexUnique).toUpperCase();
+				if(localStorage[elementName]) {
+					var isUnique = JSON.parse(localStorage[elementName]).unique;
+					if(isUnique) {
+						el.checked = true;
+					} else {
+						el.checked = false;
+					}	
+				}
+			} else {
+				var indexDefault = el.id.indexOf('Default');
+				var elementName = el.id.substring(0, indexDefault).toUpperCase();
+				if(localStorage[elementName]) {
+					var isUnique = JSON.parse(localStorage[elementName]).unique;
+					if(isUnique) {
+						el.checked = false;
+					} else {
+						el.checked = true;
+					}
+				}
 			}
 		}
 	});
