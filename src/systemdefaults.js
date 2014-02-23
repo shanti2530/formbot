@@ -9,6 +9,7 @@ var getDefaults = function(maxLength) {
         'CVV'      : {value:'123', includes: ['cvv']},
         'PHONE'    : {value:'79797979', includes: ['phone', 'tel', 'mobile']},
         'USERNAME' : {value: 'u' + utils.getDateFormat('X'), includes: ['username', 'userId']},
+        'DOMAIN'   : {value: 'fakeaddresshere.com', includes: ['domain']},
         'URL'      : {value: 'http://www.fakeaddresshere.com', includes: ['url', 'site']},
         'NUMBER'   : {value: utils.randomNumber(), includes: ['number', 'amount', 'range']},
         'DATETIME' : {value: utils.getDateFormat('YYYY-MM-DDTHH:mm'), includes: ['datetime']},
