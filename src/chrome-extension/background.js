@@ -20,7 +20,7 @@ function loadValues() {
 		
 		//if not found in the local storage then set the system default value
 		if (val === undefined) {
-			localStorage[type] = JSON.stringify({unique: false, defaultValue: getSystemDefault(type, 7)});
+			localStorage[type] = JSON.stringify({unique: false, defaultValue: getSystemDefault(type, 7), uniqueValue: getUniqueValue(type)});
 		}
 	}
 }
@@ -31,10 +31,16 @@ chrome.runtime.onMessage.addListener(
 			'use strict';
 		    if (request.method === 'getInputValue') {
 
-				//try to get the input value from the user defined values
-				var val = localStorage[request.inputType];
+				//get the input value from the local storage
+				var val = JSON.parse(localStorage[request.inputType]);
+				if(val) {
+					if(val.unique) {
+						sendResponse({data: val.uniqueValue});
+					} else {
+						sendResponse({data: val.defaultValue});
+					}
+				}
 
-				sendResponse({data: val});
 		    }
 		}
 );
