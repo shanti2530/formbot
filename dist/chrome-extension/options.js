@@ -1,70 +1,62 @@
 window.onload = function() {
 	'use strict';
 
-	//save all inputs in chrome's local storage upon change
-	Array.prototype.slice.call(document.querySelectorAll('input')).forEach(function(el) {
+	//all text inputs (which in this case are all inputs except radio buttons) 
+	Array.prototype.slice.call(document.querySelectorAll('input:not([type=radio])')).forEach(function(el) {
+
+		var elementName = el.name.toUpperCase();
+
+		//fill the inputs with the default values already stored in the local storage
+		if(localStorage[elementName]) {
+			var elementDetails = JSON.parse(localStorage[elementName]);
+			el.value = elementDetails.defaultValue;
+		}
+
+		//save all inputs in chrome's local storage upon change
 		el.onchange = function(event) {
 
 			//get the element and its data
 			var element = event.srcElement;
+
+			var elementValue = element.value;
+			var elementLocalStorage = JSON.parse(localStorage[elementName]);
 			
-			if(element.type !== 'radio') {
-				var elementName = element.name.toUpperCase();
-				var elementValue = element.value;
-
-				var elementUnique = document.getElementById(element.id + 'Unique');
-				
-				//save the value in the input to the local storage	
-				localStorage[elementName] = JSON.stringify({unique: elementUnique.checked, defaultValue: elementValue});
-			} else {
-
-				//we need to determine if either the defualt or unique checkbox has changed
-				var indexUnique = element.id.indexOf('Unique');
-				if(indexUnique > -1) {
-					var elementName = element.id.substring(0, indexUnique).toUpperCase();
-					localStorage[elementName] = JSON.stringify({unique: element.checked,
-																defaultValue: JSON.parse(localStorage[elementName]).defaultValue});
-				} else {
-					var indexDefault = element.id.indexOf('Default');
-					var elementName = element.id.substring(0, indexDefault).toUpperCase();
-					localStorage[elementName] = JSON.stringify({unique: !element.checked,
-																defaultValue: JSON.parse(localStorage[elementName]).defaultValue});
-				}
-			}
+			//save the value in the input to the local storage	
+			localStorage[elementName] = JSON.stringify({unique: elementLocalStorage.unique, defaultValue: elementValue});
 		};
+	});
 
-		//fill up the options page with the system default values
-		if(el.type !== 'radio') {
-			var elementName = el.name.toUpperCase();
-			if(localStorage[elementName]) {
-				var elementDetails = JSON.parse(localStorage[elementName]);
-				el.value = elementDetails.defaultValue;
-			}
-		} else {
-			// in case of the radio buttons .. we need to check the unique boolean attribute
-			var indexUnique = el.id.indexOf('Unique');
-			if(indexUnique > -1) {
-				var elementName = el.id.substring(0, indexUnique).toUpperCase();
-				if(localStorage[elementName]) {
-					var isUnique = JSON.parse(localStorage[elementName]).unique;
-					if(isUnique) {
-						el.checked = true;
-					} else {
-						el.checked = false;
-					}
-				}
-			} else {
-				var indexDefault = el.id.indexOf('Default');
-				var elementName = el.id.substring(0, indexDefault).toUpperCase();
-				if(localStorage[elementName]) {
-					var isUnique = JSON.parse(localStorage[elementName]).unique;
-					if(isUnique) {
-						el.checked = false;
-					} else {
-						el.checked = true;
-					}
-				}
-			}
-		}
+	//all unique radio buttons in options form
+	Array.prototype.slice.call(document.querySelectorAll('input[type=radio][id$=Unique]')).forEach(function(el) {
+
+		//check radio buttons according to local storage
+		var radioName = el.id.substring(0, el.id.indexOf('Unique')).toUpperCase();
+		var radioLocalStorage = JSON.parse(localStorage[radioName]);
+		el.checked = radioLocalStorage.unique;
+
+		//save changes made to the local storage
+		el.onchange = function(event) {
+			var radio = event.srcElement;
+			var radioChecked = radio.checked;
+			//update checked value in local storage
+			radioLocalStorage = JSON.stringify({unique: radioChecked, defaultValue: radioLocalStorage.defaultValue});
+		};
+	});
+
+	//all default radio buttons in options form
+	Array.prototype.slice.call(document.querySelectorAll('input[type=radio][id$=Default]')).forEach(function(el) {
+
+		//check radio buttons according to local storage
+		var radioName = el.id.substring(0, el.id.indexOf('Default')).toUpperCase();
+		var radioLocalStorage = JSON.parse(localStorage[radioName]);
+		el.checked = !radioLocalStorage.unique;
+
+		//save changes made to the local storage
+		el.onchange = function(event) {
+			var radio = event.srcElement;
+			var radioChecked = radio.checked;
+			//update checked value in local storage
+			radioLocalStorage = JSON.stringify({unique: !radioChecked, defaultValue: radioLocalStorage.defaultValue});
+		};
 	});
 };
