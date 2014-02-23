@@ -24,7 +24,9 @@ window.onload = function() {
 				var elementLocalStorage = JSON.parse(localStorage[elementName]);
 				
 				//save the value in the input to the local storage	
-				localStorage[elementName] = JSON.stringify({unique: elementLocalStorage.unique, defaultValue: elementValue});
+				localStorage[elementName] = JSON.stringify({unique: elementLocalStorage.unique,
+															defaultValue: elementValue,
+															uniqueValue: elementLocalStorage.uniqueValue});
 			}
 		};
 	});
@@ -43,8 +45,10 @@ window.onload = function() {
 			el.onchange = function(event) {
 				var radio = event.srcElement;
 				var radioChecked = radio.checked;
-				//update checked value in local storage
-				radioLocalStorage = JSON.stringify({unique: radioChecked, defaultValue: radioLocalStorage.defaultValue});
+
+				localStorage[radioName] = JSON.stringify({unique: radioChecked,
+														  defaultValue: radioLocalStorage.defaultValue,
+														  uniqueValue: radioLocalStorage.uniqueValue});
 			};
 		}
 	});
@@ -65,7 +69,9 @@ window.onload = function() {
 				var radio = event.srcElement;
 				var radioChecked = radio.checked;
 				//update checked value in local storage
-				radioLocalStorage = JSON.stringify({unique: !radioChecked, defaultValue: radioLocalStorage.defaultValue});
+				localStorage[radioName] = JSON.stringify({unique: !radioChecked,
+														  defaultValue: radioLocalStorage.defaultValue,
+														  uniqueValue: radioLocalStorage.uniqueValue});
 			};
 		}
 	});
