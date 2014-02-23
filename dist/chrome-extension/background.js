@@ -51,7 +51,7 @@ function loadValues() {
 	        'TIME'     : {defaultValue: utils.getDateFormat('HH:mm'), includes: ['time']},
 	        'WEEK'     : {defaultValue: utils.getDateFormat('GGGG-[W]WW'), includes: ['week']},
 	        'MONTH'    : {defaultValue: utils.getDateFormat('YYYY-MM'), includes: ['month']},
-	        'TEXT'     : {defaultValue: 'Some text', includes: ['text']}
+	        'TEXT'     : {defaultValue: 'Lorem', includes: ['text']}
 	    };
 	    return defaults;
 	};
@@ -163,7 +163,7 @@ chrome.runtime.onMessage.addListener(
 			        'TIME'     : {defaultValue: utils.getDateFormat('HH:mm'), includes: ['time']},
 			        'WEEK'     : {defaultValue: utils.getDateFormat('GGGG-[W]WW'), includes: ['week']},
 			        'MONTH'    : {defaultValue: utils.getDateFormat('YYYY-MM'), includes: ['month']},
-			        'TEXT'     : {defaultValue: 'Some text', includes: ['text']}
+			        'TEXT'     : {defaultValue: 'Lorem', includes: ['text']}
 			    };
 			    return defaults;
 			};
