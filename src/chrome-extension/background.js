@@ -43,7 +43,6 @@ chrome.runtime.onMessage.addListener(
 				var val = JSON.parse(localStorage[request.inputType]);
 				if(val) {
 					if(val.unique) {
-						var uniqueFunction = window[val.uniqueValue];
 						sendResponse({data: getUniqueValue(request.inputType)});
 					} else {
 						sendResponse({data: val.defaultValue});

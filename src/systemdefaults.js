@@ -42,7 +42,7 @@ var getUniqueValue = function(inputType) {
         case 'CARD_NO':
             return '4444333322221111';
         case 'CVV':
-            return utils.randomNumber();
+            return utils.randomNumber(100, 999);
         case 'PHONE':
             return '79797979';
         case 'USERNAME':
@@ -50,7 +50,7 @@ var getUniqueValue = function(inputType) {
         case 'URL':
             return 'http://' + utils.randomText(10) + '.com';
         case 'NUMBER':
-            return utils.randomNumber();
+            return utils.randomNumber(1,99);
         case 'DATETIME':
             return utils.getDateFormat('YYYY-MM-DDTHH:mm');
         case 'DATE':
