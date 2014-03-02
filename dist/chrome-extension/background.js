@@ -20,9 +20,9 @@ function loadValues() {
 	            return output;
 	        },
 	    randomNumber:
-	        function() {
+	        function(min, max) {
 				'use strict';
-	            return Math.floor((Math.random()*99) +1);
+	            return Math.floor(Math.random() * (max - min + 1)) + min;
 	        },
 	    getDateFormat:
 	        function(format) {
@@ -76,15 +76,15 @@ function loadValues() {
 	        case 'CARD_NO':
 	            return '4444333322221111';
 	        case 'CVV':
-	            return utils.randomNumber();
+	            return utils.randomNumber(100, 999);
 	        case 'PHONE':
-	            return '79797979';
+	            return utils.randomNumber(10000000, 99999999);
 	        case 'USERNAME':
 	            return 'u' + utils.getDateFormat('X');
 	        case 'URL':
 	            return 'http://' + utils.randomText(10) + '.com';
 	        case 'NUMBER':
-	            return utils.randomNumber();
+	            return utils.randomNumber(1,99);
 	        case 'DATETIME':
 	            return utils.getDateFormat('YYYY-MM-DDTHH:mm');
 	        case 'DATE':
@@ -132,9 +132,9 @@ chrome.runtime.onMessage.addListener(
 			            return output;
 			        },
 			    randomNumber:
-			        function() {
+			        function(min, max) {
 						'use strict';
-			            return Math.floor((Math.random()*99) +1);
+			            return Math.floor(Math.random() * (max - min + 1)) + min;
 			        },
 			    getDateFormat:
 			        function(format) {
@@ -188,15 +188,15 @@ chrome.runtime.onMessage.addListener(
 			        case 'CARD_NO':
 			            return '4444333322221111';
 			        case 'CVV':
-			            return utils.randomNumber();
+			            return utils.randomNumber(100, 999);
 			        case 'PHONE':
-			            return '79797979';
+			            return utils.randomNumber(10000000, 99999999);
 			        case 'USERNAME':
 			            return 'u' + utils.getDateFormat('X');
 			        case 'URL':
 			            return 'http://' + utils.randomText(10) + '.com';
 			        case 'NUMBER':
-			            return utils.randomNumber();
+			            return utils.randomNumber(1,99);
 			        case 'DATETIME':
 			            return utils.getDateFormat('YYYY-MM-DDTHH:mm');
 			        case 'DATE':
@@ -217,9 +217,6 @@ chrome.runtime.onMessage.addListener(
 				var val = JSON.parse(localStorage[request.inputType]);
 				if(val) {
 					if(val.unique) {
-						console.log(val.uniqueValue);
-						var uniqueFunction = window[val.uniqueValue];
-						console.log(uniqueFunction);
 						sendResponse({data: getUniqueValue(request.inputType)});
 					} else {
 						sendResponse({data: val.defaultValue});
