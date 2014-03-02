@@ -20,6 +20,9 @@ var getDefaultValue = function (inputType, maxLength, input) {
         function(response) {
 
                 if (response.data !== undefined) {
+                    if(response.unique){
+                        console.log(inputType + ': ' + response.data);
+                    }
                     fillInput(input, response.data);
                 }
             }
