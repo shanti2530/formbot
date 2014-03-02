@@ -44,7 +44,7 @@ var getUniqueValue = function(inputType) {
         case 'CVV':
             return utils.randomNumber(100, 999);
         case 'PHONE':
-            return '79797979';
+            return utils.randomNumber(10000000, 99999999);
         case 'USERNAME':
             return 'u' + utils.getDateFormat('X');
         case 'URL':
