@@ -17,7 +17,7 @@
   "strict": true,
   "trailing": true,
   "smarttabs": true,
-  "exported": ["getDefaultValue", "utils", "getSystemDefault", "fillForms", "defaultType", "getDefaults"],
+  "exported": ["getDefaultValue", "utils", "getSystemDefault", "fillForms", "defaultType", "getDefaults", "getUniqueValue"],
   "globals": {
   	"utils": true,
   	"getDefaultValue": true,
@@ -25,6 +25,7 @@
     "fillForms": true,
     "defaultType": true,
     "getDefaults": true,
+    "getUniqueValue": true,
     "ga": true,
   	"Event": true,
   	"moment": true,

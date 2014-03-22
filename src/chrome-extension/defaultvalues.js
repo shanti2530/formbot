@@ -1,6 +1,15 @@
 var fillInput = function(input, data) {
 	'use strict';
     input.value = data;
+
+    //trigger change event after the value is updated
+    if ('createEvent' in document) {
+        var evt = document.createEvent('HTMLEvents');
+        evt.initEvent('change', true, false);
+        input.dispatchEvent(evt);
+    } else {
+        input.fireEvent('onchange');
+    }
 };
 
 var getDefaultValue = function (inputType, maxLength, input) {
@@ -11,6 +20,9 @@ var getDefaultValue = function (inputType, maxLength, input) {
         function(response) {
 
                 if (response.data !== undefined) {
+                    if(response.unique){
+                        console.log(inputType + ': ' + response.data);
+                    }
                     fillInput(input, response.data);
                 }
             }
