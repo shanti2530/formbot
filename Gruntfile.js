@@ -7,29 +7,17 @@ module.exports = function(grunt) {
         pkg: grunt.file.readJSON('package.json'),
         
         jshint: {
-            bookmarklet: ['src/bookmarklet/*.js', 'src/*.js'],
             chromeextension: ['src/chrome-extension/*.js', 'src/*.js', 'chrome-extension/*.js'],
             options: {
                 jshintrc: ".jshintrc"
             }
         },
         copy: {
-            bookmarklet: { 
-                files: [
-                    {src: 'src/*.js', dest: 'gen/bookmarklet/', flatten: true, expand:true, filter: 'isFile'},
-                    {src: 'src/bookmarklet/*.js', dest: 'gen/bookmarklet/', flatten: true, expand:true, filter: 'isFile'}
-                ]
-            },
             chromeextension: { 
                 files: [
                     {src: 'src/*.js', dest: 'gen/chrome-extension/', flatten: true, expand:true, filter: 'isFile'},
                     {src: 'src/chrome-extension/*.*', dest: 'gen/chrome-extension/', flatten: true, expand:true, filter: 'isFile'},
                     {src: 'src/chrome-extension/scripts/*.js', dest: 'gen/chrome-extension/scripts/', flatten: true, expand:true, filter: 'isFile'}
-                ]
-            },
-            bookmarkletdist: {
-                files: [
-                    {src: 'gen/bookmarklet/fillForms.min.js', dest: 'dist/bookmarklet/fillForms.min.js'}
                 ]
             },
             chromeextensiondist: {
@@ -46,11 +34,6 @@ module.exports = function(grunt) {
             }
         },
         includes: {
-            bookmarklet: {
-                src: ["gen/bookmarklet/*.js"],
-                dest: "gen/bookmarklet",
-                flatten: true
-            },
             chromeextension: {
                 src: ["gen/chrome-extension/*.js"],
                 dest: "gen/chrome-extension",
@@ -58,11 +41,6 @@ module.exports = function(grunt) {
             }
         },
         uglify: {
-			bookmarklet:{
-                files: {
-    				'gen/bookmarklet/fillForms.min.js': ['bower_components/momentjs/min/moment.min.js','gen/bookmarklet/fillForms.js']
-    			}
-            },
             chromeextension: {
                 files: {
                     'gen/chrome-extension/fillForms.min.js': ['gen/chrome-extension/fillForms.js']
@@ -74,17 +52,6 @@ module.exports = function(grunt) {
             }
         },
         watch: {
-            bookmarklet: {
-                files: ['**/*.js'],
-                tasks: ['copy:bookmarklet', 
-                        'includes:bookmarklet', 
-                        'uglify:bookmarklet', 
-                        'copy:bookmarkletdist', 
-                        'jshint:bookmarklet'],
-                options: {
-                    spawn: false
-                },
-            },
             chromeextension: {
                 files: ['**/*.js', '**/*.html', '**/*.css'],
                 tasks: ['copy:chromeextension', 
@@ -99,12 +66,6 @@ module.exports = function(grunt) {
         }
     });
 
-    grunt.registerTask('bookmarkletBuild', ['copy:bookmarklet', 
-                                            'includes:bookmarklet', 
-                                            'uglify:bookmarklet', 
-                                            'copy:bookmarkletdist', 
-                                            'jshint:bookmarklet']);
-
     grunt.registerTask('chromeextensionBuild', ['copy:chromeextension', 
                                                 'includes:chromeextension', 
                                                 'uglify:chromeextension', 
@@ -112,6 +73,5 @@ module.exports = function(grunt) {
                                                 'jshint:chromeextension']);
 
     // Default task(s).
-    grunt.registerTask('bookmarklet', ['bookmarkletBuild','watch:bookmarklet']);
     grunt.registerTask('chromeextension', ['chromeextensionBuild','watch:chromeextension']);
 };
