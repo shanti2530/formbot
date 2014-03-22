@@ -499,7 +499,13 @@
   min-width: 4em;
 }
 .chrome-bootstrap input[type='text'],
-.chrome-bootstrap input[type='search'] {
+.chrome-bootstrap input[type='search'],
+.chrome-bootstrap input[type='email'],
+.chrome-bootstrap input[type='number'],
+.chrome-bootstrap input[type='datetime'],
+.chrome-bootstrap input[type='tel'],
+.chrome-bootstrap input[type='password']
+.chrome-bootstrap input[type='url'] {
   border: 1px solid #BFBFBF;
   border-radius: 2px;
   box-sizing: border-box;
