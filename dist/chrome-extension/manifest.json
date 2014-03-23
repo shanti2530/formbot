@@ -1,7 +1,7 @@
 {
   "name": "Form Filler",
   "description": "Fill any form",
-  "version": "1.0",
+  "version": "0.1.2",
   "options_page": "options.html",
   "permissions": [
     "activeTab", "storage"
