@@ -6,3 +6,9 @@ body {
 .container {
 	margin-left: 20px;
 }
+
+footer {
+	margin: 20px 0px;
+	font-style: italic;
+	color: grey;
+}
