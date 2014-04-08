@@ -15,7 +15,7 @@ module.exports = function(grunt) {
         copy: {
             chromeextension: { 
                 files: [
-                    {src: 'src/*.js', dest: 'gen/chrome-extension/', flatten: true, expand:true, filter: 'isFile'},
+                    {src: 'src/*', dest: 'gen/chrome-extension/', flatten: true, expand:true, filter: 'isFile'},
                     {src: 'src/chrome-extension/*.*', dest: 'gen/chrome-extension/', flatten: true, expand:true, filter: 'isFile'},
                     {src: 'src/chrome-extension/scripts/*.js', dest: 'gen/chrome-extension/scripts/', flatten: true, expand:true, filter: 'isFile'}
                 ]
@@ -26,6 +26,7 @@ module.exports = function(grunt) {
                     {src: 'gen/chrome-extension/*.html', dest: 'dist/chrome-extension/', flatten: true, expand: true},
                     {src: 'gen/chrome-extension/*.json', dest: 'dist/chrome-extension/', flatten: true, expand: true},
                     {src: 'gen/chrome-extension/*.css', dest: 'dist/chrome-extension/', flatten: true, expand: true},
+                    {src: 'gen/chrome-extension/*.png', dest: 'dist/chrome-extension/', flatten: true, expand: true},
                     {src: 'gen/chrome-extension/background.js', dest: 'dist/chrome-extension/background.js'},
                     {src: 'gen/chrome-extension/options.js', dest: 'dist/chrome-extension/options.js'},
                     {src: 'gen/chrome-extension/scripts/*.js', dest: 'dist/chrome-extension/scripts/', flatten: true, expand: true},
