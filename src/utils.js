@@ -21,15 +21,15 @@ var utils = {
                 return moment().format(format);
             }
         },
+    isEmpty: function(variable) {
+        'use strict';
+        if (!variable || variable === '' || variable === 'undefined') {
+            return true;
+        }
+    },
     contains:
         function (array, needle) {
             'use strict';
-            // var indexOf;
-            // if(typeof Array.prototype.indexOf === 'function') {
-            //     indexOf = Array.prototype.indexOf;
-            // } else {
-                // indexOf = function(needle) {
-
             if (!array || array === undefined || array.length === 0) {
                 return false;
             }
@@ -40,8 +40,5 @@ var utils = {
                 }
             }
             return false;
-                // };
-            // }
-            // return indexOf.call(this, needle);
         }
 };

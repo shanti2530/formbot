@@ -17,14 +17,8 @@ function fillForms(){
     */
     var inputChecker = {
 
-        isEmpty: function(variable) {
-            if (!variable || variable === '' || variable === 'undefined') {
-                return true;
-            }
-        },
-
         checkText: function(text) {
-            if (this.isEmpty(text)){
+            if (utils.isEmpty(text)){
                 return;
             }
 
@@ -56,45 +50,45 @@ function fillForms(){
             var inputId = input.id;
             if (inputId) {
                 defaultType = this.checkText(inputId);
-                if (!this.isEmpty(defaultType)) {
+                if (!utils.isEmpty(defaultType)) {
                     return defaultType;
                 }
             }
 
             //check input type
             var inputType = input.type;
-            if (!this.isEmpty(inputType)) {
+            if (!utils.isEmpty(inputType)) {
                 defaultType = this.checkText(inputType);
-                if (!this.isEmpty(defaultType)) {
+                if (!utils.isEmpty(defaultType)) {
                     return defaultType;
                 }
             }
 
             //check input name
             var inputName = input.name;
-            if (!this.isEmpty(inputName)) {
+            if (!utils.isEmpty(inputName)) {
                 defaultType = this.checkText(inputName);
-                if (!this.isEmpty(defaultType)) {
+                if (!utils.isEmpty(defaultType)) {
                     return defaultType;
                 }
             }
 
             //check input placeholder
             var inputPlaceholder = input.placeholder;
-            if (!this.isEmpty(inputPlaceholder)) {
+            if (!utils.isEmpty(inputPlaceholder)) {
                 defaultType = this.checkText(inputPlaceholder);
-                if (!this.isEmpty(defaultType)) {
+                if (!utils.isEmpty(defaultType)) {
                     return defaultType;
                 }
             }
 
             //Check input label
-            if (!this.isEmpty(inputId)) {
+            if (!utils.isEmpty(inputId)) {
                 var labels = document.getElementsByTagName('LABEL');
                 for (var i = 0; i < labels.length; i++) {
-                    if (!this.isEmpty(labels[i].htmlFor) && labels[i].htmlFor === inputId) {
+                    if (!utils.isEmpty(labels[i].htmlFor) && labels[i].htmlFor === inputId) {
                         defaultType = this.checkText(labels[i].innerHTML);
-                        if (!this.isEmpty(defaultType)) {
+                        if (!utils.isEmpty(defaultType)) {
                             return defaultType;
                         }
                     }
