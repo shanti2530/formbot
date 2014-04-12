@@ -25,7 +25,11 @@ var getDefaults = function() {
 var getSystemDefault = function(inputType) {
     'use strict';
     var defaults = getDefaults();
-    return defaults[inputType].defaultValue;
+    for (var d in defaults) {
+        if (defaults[d].name === inputType) {
+            return defaults[d].value.defaultValue;
+        }
+    }
 };
 
 var getUniqueValue = function(inputType) {

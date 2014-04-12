@@ -48,49 +48,6 @@ function fillForms(){
             }
         },
 
-
-
-
-
-
-
-            // var inputType;
-            // var excluded = false;
-
-            /*First we try to match the text we have with one of the default includes*/
-            // var defaultsArray = Object.keys(getDefaults());
-            // var defaults = getDefaults();
-            // for (var i = defaultsArray.length - 1; i >= 0; i--) {
-            //     if (this.isEmpty(defaults[defaultsArray[i]].includes)) {
-            //         continue;
-            //     }
-
-            //     for (var j = defaults[defaultsArray[i]].includes.length; j >= 0; j--) {
-                    
-            //         if (text.toLowerCase().indexOf(defaults[defaultsArray[i]].includes[j]) !== -1) {
-            //             inputType = defaultsArray[i];
-
-            //             If we find a match with one of the includes we then check that the text
-            //             does not also match one of the exluded of the same type
-
-            //             if (this.isEmpty(defaults[defaultsArray[i]].excludes)) {
-            //                 continue;
-            //             }
-
-            //             for (var k = defaults[defaultsArray[i]].excludes.length - 1; k >= 0; j--) {
-            //                 if (text.toLowerCase().indexOf(defaults[defaultsArray[i]].excludes[k]) !== -1) {
-            //                     excluded = true;
-            //                     break;
-            //                 }
-            //             }
-            //             break;
-            //         }
-            //     }
-            // }
-            // if (!excluded) {
-            //     return inputType;
-            // }
-
         checkInput: function(input) {
 
             var defaultType;
