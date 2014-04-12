@@ -24,94 +24,128 @@ function fillForms(){
         },
 
         checkText: function(text) {
-
             if (this.isEmpty(text)){
                 return;
             }
 
-            var inputType;
-            var excluded = false;
-
-            /*First we try to match the text we have with one of the default includes*/
-            var defaultsArray = Object.keys(getDefaults());
             var defaults = getDefaults();
-            for (var i = defaultsArray.length - 1; i >= 0; i--) {
-                if (this.isEmpty(defaults[defaultsArray[i]].includes)) {
-                    continue;
-                }
+            //loop through all the system defaults to check if the text provided could be found
+            for (var d in defaults) {
+                var contains = utils.contains(defaults[d].value.includes, text);
+                //if we find something
+                if (contains) {
+                    //we need to make sure that the text provided is not in the excluded list
+                    var excludedContains = utils.contains(defaults[d].value.excludes, text);
 
-                for (var j = defaults[defaultsArray[i]].includes.length; j >= 0; j--) {
-                    
-                    if (text.toLowerCase().indexOf(defaults[defaultsArray[i]].includes[j]) !== -1) {
-                        inputType = defaultsArray[i];
-
-                        /*If we find a match with one of the includes we then check that the text
-                        does not also match one of the exluded of the same type*/
-
-                        if (this.isEmpty(defaults[defaultsArray[i]].excludes)) {
-                            continue;
-                        }
-
-                        for (var k = defaults[defaultsArray[i]].excludes.length - 1; k >= 0; j--) {
-                            if (text.toLowerCase().indexOf(defaults[defaultsArray[i]].excludes[k]) !== -1) {
-                                excluded = true;
-                                break;
-                            }
-                        }
-                        break;
+                    //if it is also in the excluded list we need to ignore it
+                    if(excludedContains) {
+                        continue;
+                    } else {
+                        // if we did not find it in the excluded list .. then this is our type .. we are ready
+                        return defaults[d].name;
                     }
                 }
             }
-            if (!excluded) {
-                return inputType;
-            }
         },
+
+
+
+
+
+
+
+            // var inputType;
+            // var excluded = false;
+
+            /*First we try to match the text we have with one of the default includes*/
+            // var defaultsArray = Object.keys(getDefaults());
+            // var defaults = getDefaults();
+            // for (var i = defaultsArray.length - 1; i >= 0; i--) {
+            //     if (this.isEmpty(defaults[defaultsArray[i]].includes)) {
+            //         continue;
+            //     }
+
+            //     for (var j = defaults[defaultsArray[i]].includes.length; j >= 0; j--) {
+                    
+            //         if (text.toLowerCase().indexOf(defaults[defaultsArray[i]].includes[j]) !== -1) {
+            //             inputType = defaultsArray[i];
+
+            //             If we find a match with one of the includes we then check that the text
+            //             does not also match one of the exluded of the same type
+
+            //             if (this.isEmpty(defaults[defaultsArray[i]].excludes)) {
+            //                 continue;
+            //             }
+
+            //             for (var k = defaults[defaultsArray[i]].excludes.length - 1; k >= 0; j--) {
+            //                 if (text.toLowerCase().indexOf(defaults[defaultsArray[i]].excludes[k]) !== -1) {
+            //                     excluded = true;
+            //                     break;
+            //                 }
+            //             }
+            //             break;
+            //         }
+            //     }
+            // }
+            // if (!excluded) {
+            //     return inputType;
+            // }
 
         checkInput: function(input) {
 
-            var identifiedTextType;
+            var defaultType;
 
             //check input id
             var inputId = input.id;
             if (inputId) {
-                identifiedTextType = this.checkText(inputId);
+                defaultType = this.checkText(inputId);
+                if (!this.isEmpty(defaultType)) {
+                    return defaultType;
+                }
             }
 
             //check input type
             var inputType = input.type;
-            if (this.isEmpty(identifiedTextType) && !this.isEmpty(inputType)) {
-                identifiedTextType = this.checkText(inputType);
+            if (!this.isEmpty(inputType)) {
+                defaultType = this.checkText(inputType);
+                if (!this.isEmpty(defaultType)) {
+                    return defaultType;
+                }
             }
 
             //check input name
             var inputName = input.name;
-            if (this.isEmpty(identifiedTextType) && !this.isEmpty(inputName)) {
-                identifiedTextType = this.checkText(inputName);
+            if (!this.isEmpty(inputName)) {
+                defaultType = this.checkText(inputName);
+                if (!this.isEmpty(defaultType)) {
+                    return defaultType;
+                }
             }
 
             //check input placeholder
             var inputPlaceholder = input.placeholder;
-            if (this.isEmpty(identifiedTextType) && !this.isEmpty(inputPlaceholder)) {
-                identifiedTextType = this.checkText(inputPlaceholder);
+            if (!this.isEmpty(inputPlaceholder)) {
+                defaultType = this.checkText(inputPlaceholder);
+                if (!this.isEmpty(defaultType)) {
+                    return defaultType;
+                }
             }
 
             //Check input label
-            if (this.isEmpty(identifiedTextType) && !this.isEmpty(inputId)) {
+            if (!this.isEmpty(inputId)) {
                 var labels = document.getElementsByTagName('LABEL');
                 for (var i = 0; i < labels.length; i++) {
                     if (!this.isEmpty(labels[i].htmlFor) && labels[i].htmlFor === inputId) {
-                        identifiedTextType = this.checkText(labels[i].innerHTML);
-                        break;
+                        defaultType = this.checkText(labels[i].innerHTML);
+                        if (!this.isEmpty(defaultType)) {
+                            return defaultType;
+                        }
                     }
                 }
             }
 
-            //if we were unable to match an input with a type then always default to text
-            if (this.isEmpty(identifiedTextType)) {
-                identifiedTextType = 'TEXT';
-            }
-
-            return identifiedTextType;
+            //if we are here then we were unable to match an input with a type then always default to text
+            return 'TEXT';
         }
     };
 

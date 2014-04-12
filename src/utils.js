@@ -21,23 +21,27 @@ var utils = {
                 return moment().format(format);
             }
         },
-    indexOf: 
-        function (needle) {
-            if(typeof Array.prototype.indexOf === 'function') {
-                indexOf = Array.prototype.indexOf;
-            } else {
-                indexOf = function(needle) {
-                    var i = -1, index = -1;
+    contains:
+        function (array, needle) {
+            'use strict';
+            // var indexOf;
+            // if(typeof Array.prototype.indexOf === 'function') {
+            //     indexOf = Array.prototype.indexOf;
+            // } else {
+                // indexOf = function(needle) {
 
-                    for(i = 0; i < this.length; i++) {
-                        if(this[i] === needle) {
-                            index = i;
-                            break;
-                        }
-                    }
-                    return index;
-                };
+            if (!array || array === undefined || array.length === 0) {
+                return false;
             }
-        return indexOf.call(this, needle);
+
+            for(var i = 0; i < array.length; i++) {
+                if(needle.toLowerCase().indexOf(array[i]) > -1) {
+                    return true;
+                }
+            }
+            return false;
+                // };
+            // }
+            // return indexOf.call(this, needle);
         }
 };
