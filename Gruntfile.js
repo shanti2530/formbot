@@ -54,7 +54,7 @@ module.exports = function(grunt) {
         },
         watch: {
             chromeextension: {
-                files: ['**/*.js', '**/*.html', '**/*.css'],
+                files: ['**/*.js', '**/*.html', '**/*.css', '**/*.json'],
                 tasks: ['copy:chromeextension', 
                         'includes:chromeextension', 
                         'uglify:chromeextension', 
