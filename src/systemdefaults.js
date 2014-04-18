@@ -6,7 +6,7 @@ var getDefaults = function() {
         {name:'EMAIL',    value: {defaultValue:'f@ke.com', includes: ['mail']}},
         {name:'PASSWORD', value: {defaultValue:'Password123', includes: ['pass']}},
         {name:'CARD_NO',  value: {defaultValue:'4444333322221111', includes: ['card'], excludes: ['name', 'code']}},
-        {name:'CVV',      value:{defaultValue:'123', includes: ['cvv']}},
+        {name:'CVV',      value:{defaultValue:'123', includes: ['cvv', 'cvc', 'cv2']}},
         {name:'PHONE',    value:{defaultValue:'79797979', includes: ['phone', 'tel', 'mobile']}},
         {name:'USERNAME', value:{defaultValue: 'john', includes: ['username', 'userId']}},
         {name:'DOMAIN',   value:{defaultValue: 'fakeaddresshere.com', includes: ['domain']}},
