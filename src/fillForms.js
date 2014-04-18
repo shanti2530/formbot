@@ -107,8 +107,8 @@ function fillForms(){
         for(var i = 0; i < inputs.length; i++) {
             var input = inputs[i];
 
-            if (input.type === 'radio' || input.type === 'hidden' || input.type === 'button' 
-                || input.type === 'submit' || input.type === 'file') {
+            if (input.type === 'radio' || input.type === 'hidden' || input.type === 'button' ||
+                input.type === 'submit' || input.type === 'file') {
                 /*hidden inputs should not be altered .. they are hidden for a reason*/
                 /*radio buttons are handled separately in the function processRadioButtonGroupElements*/
                 /*buttons/submit inputs could not be prefilled therefore we skip them*/
@@ -158,8 +158,11 @@ function fillForms(){
     var processSelectElements = function(selects) {
         for(var i = 0; i < selects.length; i++){
             var dd = selects[i];
-            //get the first option which have a value assigned to them
-            dd.selectedIndex = dd.querySelector('option[value]:not([value=""])').index;
+            
+            //get a random valid option
+            var allValidOptions = dd.querySelectorAll('option[value]:not([value=""])');
+            dd.selectedIndex = allValidOptions[Math.floor(Math.random() * allValidOptions.length)].index;
+            
             // Triggers the change event
             dd.dispatchEvent(new Event('change'));
         }
