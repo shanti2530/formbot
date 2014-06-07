@@ -31,11 +31,9 @@ function fillForms(){
                     //we need to make sure that the text provided is not in the excluded list
                     var excludedContains = utils.contains(defaults[d].value.excludes, text);
 
-                    //if it is also in the excluded list we need to ignore it
-                    if(excludedContains) {
-                        continue;
-                    } else {
-                        // if we did not find it in the excluded list .. then this is our type .. we are ready
+                   //if it is also in the excluded list we need to ignore it
+                   //else if we did not find it in the excluded list .. then this is our type .. we are ready
+                    if(!excludedContains) {
                         return defaults[d].name;
                     }
                 }
