@@ -16,17 +16,19 @@ module.exports = function(grunt) {
             chromeextension: { 
                 files: [
                     {src: 'src/*', dest: 'gen/chrome-extension/', flatten: true, expand:true, filter: 'isFile'},
-                    {src: 'src/chrome-extension/*.*', dest: 'gen/chrome-extension/', flatten: true, expand:true, filter: 'isFile'},
+                    {src: 'src/chrome-extension/*.js', dest: 'gen/chrome-extension/', flatten: true, expand:true, filter: 'isFile'},
+                    {src: 'src/chrome-extension/tidy.css', dest: 'gen/chrome-extension/', flatten: true, expand:true, filter: 'isFile'},
+                    {src: 'src/chrome-extension/*.json', dest: 'gen/chrome-extension/', flatten: true, expand:true, filter: 'isFile'},
                     {src: 'src/chrome-extension/scripts/*.js', dest: 'gen/chrome-extension/scripts/', flatten: true, expand:true, filter: 'isFile'}
                 ]
             },
             chromeextensiondist: {
                 files: [
                     {src: 'gen/chrome-extension/fillForms.min.js', dest: 'dist/chrome-extension/scripts/fillForms.min.js'},
-                    {src: 'gen/chrome-extension/*.html', dest: 'dist/chrome-extension/', flatten: true, expand: true},
                     {src: 'gen/chrome-extension/*.json', dest: 'dist/chrome-extension/', flatten: true, expand: true},
-                    {src: 'gen/chrome-extension/*.css', dest: 'dist/chrome-extension/', flatten: true, expand: true},
                     {src: 'gen/chrome-extension/*.png', dest: 'dist/chrome-extension/', flatten: true, expand: true},
+                    {src: 'gen/chrome-extension/*.html', dest: 'dist/chrome-extension/', flatten: true, expand: true},
+                    {src: 'gen/chrome-extension/*.css', dest: 'dist/chrome-extension/', flatten: true, expand: true},
                     {src: 'gen/chrome-extension/background.js', dest: 'dist/chrome-extension/background.js'},
                     {src: 'gen/chrome-extension/options.js', dest: 'dist/chrome-extension/options.js'},
                     {src: 'gen/chrome-extension/scripts/*.js', dest: 'dist/chrome-extension/scripts/', flatten: true, expand: true},
@@ -52,25 +54,37 @@ module.exports = function(grunt) {
                 banner: "javascript:"
             }
         },
+        uncss: {
+          chromeextension: {
+              files: {
+                  'src/chrome-extension/tidy.css': ['src/chrome-extension/options.html']
+              }
+          }
+        },
+        processhtml: {
+            chromeextension: {
+                files: {
+                    'gen/chrome-extension/options.html': ['src/chrome-extension/options.html']
+                }
+            }
+        },
         watch: {
             chromeextension: {
                 files: ['**/*.js', '**/*.html', '**/*.css', '**/*.json'],
-                tasks: ['copy:chromeextension', 
-                        'includes:chromeextension', 
-                        'uglify:chromeextension', 
-                        'copy:chromeextensiondist', 
-                        'jshint:chromeextension'],
+                tasks: ['chromeextensionBuild'],
                 options: {
                     spawn: false
-                },
-            },
+                }
+            }
         }
     });
 
-    grunt.registerTask('chromeextensionBuild', ['copy:chromeextension', 
-                                                'includes:chromeextension', 
-                                                'uglify:chromeextension', 
-                                                'copy:chromeextensiondist', 
+    grunt.registerTask('chromeextensionBuild', ['uncss:chromeextension',
+                                                'processhtml:chromeextension',
+                                                'copy:chromeextension',
+                                                'includes:chromeextension',
+                                                'uglify:chromeextension',
+                                                'copy:chromeextensiondist',
                                                 'jshint:chromeextension']);
 
     // Default task(s).
