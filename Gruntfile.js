@@ -17,15 +17,12 @@ module.exports = function(grunt) {
                 files: [
                     {src: 'src/*', dest: 'gen/chrome-extension/', flatten: true, expand:true, filter: 'isFile'},
                     {src: 'src/chrome-extension/*.js', dest: 'gen/chrome-extension/', flatten: true, expand:true, filter: 'isFile'},
-                    {src: 'src/chrome-extension/tidy.css', dest: 'gen/chrome-extension/', flatten: true, expand:true, filter: 'isFile'},
-                    {src: 'src/chrome-extension/*.json', dest: 'gen/chrome-extension/', flatten: true, expand:true, filter: 'isFile'},
+                    {src: 'src/chrome-extension/*.json', dest: 'dist/chrome-extension/', flatten: true, expand:true, filter: 'isFile'},
                     {src: 'src/chrome-extension/scripts/*.js', dest: 'gen/chrome-extension/scripts/', flatten: true, expand:true, filter: 'isFile'}
                 ]
             },
             chromeextensiondist: {
                 files: [
-                    {src: 'gen/chrome-extension/fillForms.min.js', dest: 'dist/chrome-extension/scripts/fillForms.min.js'},
-                    {src: 'gen/chrome-extension/*.json', dest: 'dist/chrome-extension/', flatten: true, expand: true},
                     {src: 'gen/chrome-extension/*.png', dest: 'dist/chrome-extension/', flatten: true, expand: true},
                     {src: 'gen/chrome-extension/*.html', dest: 'dist/chrome-extension/', flatten: true, expand: true},
                     {src: 'gen/chrome-extension/*.css', dest: 'dist/chrome-extension/', flatten: true, expand: true},
@@ -46,7 +43,7 @@ module.exports = function(grunt) {
         uglify: {
             chromeextension: {
                 files: {
-                    'gen/chrome-extension/fillForms.min.js': ['gen/chrome-extension/fillForms.js']
+                    'dist/chrome-extension/scripts/fillForms.min.js': ['gen/chrome-extension/fillForms.js']
                 }
             },
             options: {
@@ -57,7 +54,7 @@ module.exports = function(grunt) {
         uncss: {
           chromeextension: {
               files: {
-                  'src/chrome-extension/tidy.css': ['src/chrome-extension/options.html']
+                  'gen/chrome-extension/tidy.css': ['src/chrome-extension/options.html']
               }
           }
         },
@@ -80,8 +77,8 @@ module.exports = function(grunt) {
     });
 
     grunt.registerTask('chromeextensionBuild', ['uncss:chromeextension',
-                                                'processhtml:chromeextension',
                                                 'copy:chromeextension',
+                                                'processhtml:chromeextension',
                                                 'includes:chromeextension',
                                                 'uglify:chromeextension',
                                                 'copy:chromeextensiondist',
