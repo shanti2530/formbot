@@ -8,7 +8,9 @@ function fillForms(){
 
     include "systemdefaults.js"
 
-    include "analytics.js"
+    //Everytime the fill forms script is executed, send an event to google analytics
+    ga('create', 'UA-44998061-1', 'shanti2530.github.io', {'name': 'formFiller'});
+    ga('formFiller.send', 'event', 'chrome-extension', location.host);
 	/* jshint ignore:end */
 	
     /*Checker text which the inputs should be matched to
@@ -31,11 +33,9 @@ function fillForms(){
                     //we need to make sure that the text provided is not in the excluded list
                     var excludedContains = utils.contains(defaults[d].value.excludes, text);
 
-                    //if it is also in the excluded list we need to ignore it
-                    if(excludedContains) {
-                        continue;
-                    } else {
-                        // if we did not find it in the excluded list .. then this is our type .. we are ready
+                   //if it is also in the excluded list we need to ignore it
+                   //else if we did not find it in the excluded list .. then this is our type .. we are ready
+                    if(!excludedContains) {
                         return defaults[d].name;
                     }
                 }
@@ -128,6 +128,12 @@ function fillForms(){
                 if (input.maxLength && input.maxLength < 7) {
                     maxLength = input.maxLength;
                 }
+
+                //before we assign a value to the input lets send an event to google analytics
+                //with the type of input we are filling up
+                //this will help with understanding what types of fields are being used
+                ga('formFiller.send', 'event', 'input-type', inputCheckerResult);
+
                 input.value = getDefaultValue(inputCheckerResult, maxLength, input);
             }
             
@@ -150,6 +156,10 @@ function fillForms(){
             //else check it
             if (groupRadios.length < 1) {
                 radios[i].checked = true;
+                //before we assign a value to the input lets send an event to google analytics
+                //with the type of input we are filling up
+                //this will help with understanding what types of fields are being used
+                ga('formFiller.send', 'event', 'input-type', 'RADIO');
             }
         }
     };
@@ -165,6 +175,11 @@ function fillForms(){
             
             // Triggers the change event
             dd.dispatchEvent(new Event('change'));
+
+            //before we assign a value to the input lets send an event to google analytics
+            //with the type of input we are filling up
+            //this will help with understanding what types of fields are being used
+            ga('formFiller.send', 'event', 'input-type', 'SELECT');
         }
     };
     
@@ -173,6 +188,11 @@ function fillForms(){
         for (var i = 0; i < textAreas.length; i++) {
             var txtArea = textAreas[i];
             txtArea.value = utils.randomText(20);
+
+            //before we assign a value to the input lets send an event to google analytics
+            //with the type of input we are filling up
+            //this will help with understanding what types of fields are being used
+            ga('formFiller.send', 'event', 'input-type', 'TEXTAREA');
         }
     };
     
