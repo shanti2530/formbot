@@ -51,6 +51,7 @@ function fillForms(){
             if (inputId) {
                 defaultType = this.checkText(inputId);
                 if (!utils.isEmpty(defaultType)) {
+                    ga('formFiller.send', 'event', 'input-type', defaultType, inputId);
                     return defaultType;
                 }
             }
@@ -60,6 +61,7 @@ function fillForms(){
             if (!utils.isEmpty(inputType)) {
                 defaultType = this.checkText(inputType);
                 if (!utils.isEmpty(defaultType)) {
+                    ga('formFiller.send', 'event', 'input-type', defaultType, inputType);
                     return defaultType;
                 }
             }
@@ -69,6 +71,7 @@ function fillForms(){
             if (!utils.isEmpty(inputName)) {
                 defaultType = this.checkText(inputName);
                 if (!utils.isEmpty(defaultType)) {
+                  ga('formFiller.send', 'event', 'input-type', defaultType, inputName);
                     return defaultType;
                 }
             }
@@ -78,6 +81,7 @@ function fillForms(){
             if (!utils.isEmpty(inputPlaceholder)) {
                 defaultType = this.checkText(inputPlaceholder);
                 if (!utils.isEmpty(defaultType)) {
+                    ga('formFiller.send', 'event', 'input-type', defaultType, inputPlaceholder);
                     return defaultType;
                 }
             }
@@ -87,8 +91,10 @@ function fillForms(){
                 var labels = document.getElementsByTagName('LABEL');
                 for (var i = 0; i < labels.length; i++) {
                     if (!utils.isEmpty(labels[i].htmlFor) && labels[i].htmlFor === inputId) {
-                        defaultType = this.checkText(labels[i].innerHTML);
+                      var labelText = labels[i].innerHTML;
+                        defaultType = this.checkText(labelText);
                         if (!utils.isEmpty(defaultType)) {
+                            ga('formFiller.send', 'event', 'input-type', defaultType, labelText);
                             return defaultType;
                         }
                     }
@@ -96,7 +102,10 @@ function fillForms(){
             }
 
             //if we are here then we were unable to match an input with a type then always default to text
-            return 'TEXT';
+            defaultType = 'TEXT';
+            ga('formFiller.send', 'event', 'input-type', defaultType, inputId +
+              '|' + inputType + '|' + inputName + '|' + inputPlaceholder);
+            return defaultType;
         }
     };
 
@@ -128,11 +137,6 @@ function fillForms(){
                 if (input.maxLength && input.maxLength < 7) {
                     maxLength = input.maxLength;
                 }
-
-                //before we assign a value to the input lets send an event to google analytics
-                //with the type of input we are filling up
-                //this will help with understanding what types of fields are being used
-                ga('formFiller.send', 'event', 'input-type', inputCheckerResult);
 
                 input.value = getDefaultValue(inputCheckerResult, maxLength, input);
             }
