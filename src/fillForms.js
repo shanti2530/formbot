@@ -56,16 +56,6 @@ function fillForms(){
                 }
             }
 
-            //check input type
-            var inputType = input.type;
-            if (!utils.isEmpty(inputType)) {
-                defaultType = this.checkText(inputType);
-                if (!utils.isEmpty(defaultType)) {
-                    ga('formFiller.send', 'event', 'input-type', defaultType, inputType);
-                    return defaultType;
-                }
-            }
-
             //check input name
             var inputName = input.name;
             if (!utils.isEmpty(inputName)) {
@@ -98,6 +88,16 @@ function fillForms(){
                             return defaultType;
                         }
                     }
+                }
+            }
+
+            //check input type
+            var inputType = input.type;
+            if (!utils.isEmpty(inputType)) {
+                defaultType = this.checkText(inputType);
+                if (!utils.isEmpty(defaultType)) {
+                    ga('formFiller.send', 'event', 'input-type', defaultType, inputType);
+                    return defaultType;
                 }
             }
 
