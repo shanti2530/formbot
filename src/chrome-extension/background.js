@@ -4,7 +4,7 @@ chrome.browserAction.onClicked.addListener(function() {
   chrome.tabs.executeScript(null, {file: 'scripts/fillForms.min.js'});
 });
 
-function loadValues() {
+(function loadValues() {
   'use strict';
   /* jshint ignore:start */
   include "utils.js"
@@ -24,8 +24,7 @@ function loadValues() {
         uniqueValue: 'getUniqueValue'});
     }
   }
-}
-loadValues();
+})();
 
 //Google analytics specific code, we load up the library so that when a message arrives we could send it through
 /* jshint ignore:start */
