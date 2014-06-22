@@ -184,7 +184,7 @@ function fillForms(){
   var processTextAreaElements = function(textAreas) {
     for (var i = 0; i < textAreas.length; i++) {
       var txtArea = textAreas[i];
-      txtArea.value = utils.randomText(20);
+      getDefaultValue('TEXT', 20, txtArea);
       chrome.extension.sendMessage({method: 'analytics', category: 'input-type', action: 'TEXTAREA'});
     }
   };
