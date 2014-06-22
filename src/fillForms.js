@@ -1,4 +1,4 @@
-function fillForms(){
+(function fillForms(){
   'use strict';
 
   /* jshint ignore:start */
@@ -196,5 +196,4 @@ function fillForms(){
   processInputElements(document.querySelectorAll('input:not([disabled]):not([type="radio"])'));
   processSelectElements(document.querySelectorAll('select:not([disabled])'));
   processTextAreaElements(document.querySelectorAll('textarea:not([disabled])'));
-}
-fillForms();
+})();
