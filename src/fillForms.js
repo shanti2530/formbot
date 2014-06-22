@@ -51,7 +51,7 @@ function fillForms(){
       if (inputId) {
         defaultType = this.checkText(inputId);
         if (!utils.isEmpty(defaultType)) {
-          chrome.extension.sendMessage({method: 'analytics', category: 'input-type', action: defaultType, label: inputId});
+          chrome.extension.sendMessage({method: 'analytics', category: 'input-type', action: defaultType, label: 'ID|'+inputId});
           return defaultType;
         }
       }
@@ -61,7 +61,7 @@ function fillForms(){
       if (!utils.isEmpty(inputName)) {
         defaultType = this.checkText(inputName);
         if (!utils.isEmpty(defaultType)) {
-          chrome.extension.sendMessage({method: 'analytics', category: 'input-type', action: defaultType, label: inputName});
+          chrome.extension.sendMessage({method: 'analytics', category: 'input-type', action: defaultType, label: 'NAME|'+inputName});
           return defaultType;
         }
       }
@@ -84,7 +84,7 @@ function fillForms(){
             var labelText = labels[i].innerHTML;
             defaultType = this.checkText(labelText);
             if (!utils.isEmpty(defaultType)) {
-              chrome.extension.sendMessage({method: 'analytics', category: 'input-type', action: defaultType, label: labelText});
+              chrome.extension.sendMessage({method: 'analytics', category: 'input-type', action: defaultType, label: 'LABEL|'+labelText});
               return defaultType;
             }
           }
@@ -96,7 +96,7 @@ function fillForms(){
       if (!utils.isEmpty(inputType)) {
         defaultType = this.checkText(inputType);
         if (!utils.isEmpty(defaultType)) {
-          chrome.extension.sendMessage({method: 'analytics', category: 'input-type', action: defaultType, label: inputType});
+          chrome.extension.sendMessage({method: 'analytics', category: 'input-type', action: defaultType, label: 'TYPE|'+inputType});
           return defaultType;
         }
       }
