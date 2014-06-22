@@ -17,8 +17,7 @@ module.exports = function(grunt) {
         files: [
           {src: 'src/*', dest: 'gen/chrome-extension/', flatten: true, expand:true, filter: 'isFile'},
           {src: 'src/chrome-extension/*.js', dest: 'gen/chrome-extension/', flatten: true, expand:true, filter: 'isFile'},
-          {src: 'src/chrome-extension/*.json', dest: 'dist/chrome-extension/', flatten: true, expand:true, filter: 'isFile'},
-          {src: 'src/chrome-extension/scripts/*.js', dest: 'gen/chrome-extension/scripts/', flatten: true, expand:true, filter: 'isFile'}
+          {src: 'src/chrome-extension/*.json', dest: 'dist/chrome-extension/', flatten: true, expand:true, filter: 'isFile'}
         ]
       },
       chromeextensiondist: {
@@ -28,7 +27,6 @@ module.exports = function(grunt) {
           {src: 'gen/chrome-extension/*.css', dest: 'dist/chrome-extension/', flatten: true, expand: true},
           {src: 'gen/chrome-extension/background.js', dest: 'dist/chrome-extension/background.js'},
           {src: 'gen/chrome-extension/options.js', dest: 'dist/chrome-extension/options.js'},
-          {src: 'gen/chrome-extension/scripts/*.js', dest: 'dist/chrome-extension/scripts/', flatten: true, expand: true},
           {src: 'bower_components/momentjs/min/moment.min.js', dest: 'dist/chrome-extension/scripts/moment.min.js'}
         ]
       }

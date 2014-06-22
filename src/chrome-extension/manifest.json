@@ -2,7 +2,7 @@
   "name": "Formbot",
   "short_name": "Fill forms",
   "description": "This extension will fill any inputs on the page",
-  "version": "0.1.3.2",
+  "version": "0.1.3.3",
   "options_page": "options.html",
   "permissions": [
     "activeTab", "storage"
@@ -20,6 +20,7 @@
       "128": "image128.png"
       }
   },
+  "content_security_policy": "script-src 'self' https://ssl.google-analytics.com; object-src 'self'",
   "icons": {
     "16": "image16.png",
     "48": "image48.png",
