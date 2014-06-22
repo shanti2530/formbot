@@ -27,7 +27,8 @@ module.exports = function(grunt) {
           {src: 'gen/chrome-extension/*.css', dest: 'dist/chrome-extension/', flatten: true, expand: true},
           {src: 'gen/chrome-extension/background.js', dest: 'dist/chrome-extension/background.js'},
           {src: 'gen/chrome-extension/options.js', dest: 'dist/chrome-extension/options.js'},
-          {src: 'bower_components/momentjs/min/moment.min.js', dest: 'dist/chrome-extension/scripts/moment.min.js'}
+          {src: 'bower_components/momentjs/min/moment.min.js', dest: 'dist/chrome-extension/scripts/moment.min.js'},
+          {src: 'node_modules/chance/chance.js', dest: 'dist/chrome-extension/scripts/chance.js'}
         ]
       }
     },

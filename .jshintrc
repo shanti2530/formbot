@@ -31,6 +31,7 @@
   	"moment": true,
   	"chrome": true,
   	"console": true,
-    "_gaq": true
+    "_gaq": true,
+    "chance": true
   }
 }

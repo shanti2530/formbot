@@ -36,25 +36,25 @@ var getUniqueValue = function(inputType) {
     'use strict';
     switch (inputType) {
         case 'TEXT':
-            return utils.randomText(7);
+            return chance.word({length: 7});
         case 'DOMAIN':
-            return utils.randomText(7) + '.com';
+            return chance.domain();
         case 'EMAIL':
-            return utils.randomText(7) + '@' + utils.randomText(7) + '.com';
+            return chance.email();
         case 'PASSWORD':
-            return utils.randomText(7);
+            return chance.string({length: 7});
         case 'CARD_NO':
-            return '4444333322221111';
+            return chance.cc();
         case 'CVV':
-            return utils.randomNumber(100, 999);
+            return chance.integer({min:100, max:999});
         case 'PHONE':
-            return utils.randomNumber(10000000, 99999999);
+            return chance.phone();
         case 'USERNAME':
-            return 'u' + utils.getDateFormat('X');
+            return chance.word({length: 7});
         case 'URL':
-            return 'http://' + utils.randomText(10) + '.com';
-        case 'NUMBER':
-            return utils.randomNumber(1,99);
+            return 'http://' + chance.domain();
+      case 'NUMBER':
+            return chance.integer({min:1,max:99});
         case 'DATETIME':
             return utils.getDateFormat('YYYY-MM-DDTHH:mm');
         case 'DATE':
