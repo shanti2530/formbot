@@ -138,7 +138,7 @@ function fillForms(){
           maxLength = input.maxLength;
         }
 
-        input.value = getDefaultValue(inputCheckerResult, maxLength, input);
+        getDefaultValue(inputCheckerResult, maxLength, input);
       }
 
     }
