@@ -30,6 +30,7 @@
   	"Event": true,
   	"moment": true,
   	"chrome": true,
-  	"console": true
+  	"console": true,
+    "_gaq": true
   }
 }
