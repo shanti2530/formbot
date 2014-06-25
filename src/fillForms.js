@@ -51,7 +51,8 @@
       if (inputId) {
         defaultType = this.checkText(inputId);
         if (!utils.isEmpty(defaultType)) {
-          chrome.extension.sendMessage({method: 'analytics', category: 'input-type', action: defaultType, label: 'ID|'+inputId});
+          chrome.extension.sendMessage({method: 'analytics', category: 'input-type', action: defaultType,
+            label: 'ID|'+inputId});
           return defaultType;
         }
       }
@@ -61,7 +62,8 @@
       if (!utils.isEmpty(inputName)) {
         defaultType = this.checkText(inputName);
         if (!utils.isEmpty(defaultType)) {
-          chrome.extension.sendMessage({method: 'analytics', category: 'input-type', action: defaultType, label: 'NAME|'+inputName});
+          chrome.extension.sendMessage({method: 'analytics', category: 'input-type', action: defaultType,
+            label: 'NAME|'+inputName});
           return defaultType;
         }
       }
@@ -71,7 +73,8 @@
       if (!utils.isEmpty(inputPlaceholder)) {
         defaultType = this.checkText(inputPlaceholder);
         if (!utils.isEmpty(defaultType)) {
-          chrome.extension.sendMessage({method: 'analytics', category: 'input-type', action: defaultType, label: inputPlaceholder});
+          chrome.extension.sendMessage({method: 'analytics', category: 'input-type', action: defaultType,
+            label: inputPlaceholder});
           return defaultType;
         }
       }
@@ -84,7 +87,8 @@
             var labelText = labels[i].innerHTML;
             defaultType = this.checkText(labelText);
             if (!utils.isEmpty(defaultType)) {
-              chrome.extension.sendMessage({method: 'analytics', category: 'input-type', action: defaultType, label: 'LABEL|'+labelText});
+              chrome.extension.sendMessage({method: 'analytics', category: 'input-type', action: defaultType,
+                label: 'LABEL|'+labelText});
               return defaultType;
             }
           }
@@ -96,7 +100,8 @@
       if (!utils.isEmpty(inputType)) {
         defaultType = this.checkText(inputType);
         if (!utils.isEmpty(defaultType)) {
-          chrome.extension.sendMessage({method: 'analytics', category: 'input-type', action: defaultType, label: 'TYPE|'+inputType});
+          chrome.extension.sendMessage({method: 'analytics', category: 'input-type', action: defaultType,
+            label: 'TYPE|'+inputType+'|' + inputId + '|' + inputName + '|' + inputPlaceholder});
           return defaultType;
         }
       }
