@@ -1,7 +1,7 @@
 window.onload = function() {
 	'use strict';
 
-	//all text inputs (which in this case are all inputs except radio buttons) 
+	//all text inputs (which in this case are all inputs except radio buttons)
 	Array.prototype.slice.call(document.querySelectorAll('input:not([type=radio])')).forEach(function(el) {
 
 		var elementName = el.name.toUpperCase();
