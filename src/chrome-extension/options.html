@@ -3,137 +3,83 @@
   <script type="text/javascript" src="options.js"></script>
   <!-- build:css tidy.css -->
   <link href='options.css' rel='stylesheet' type='text/css'>
-  <link href='chrome-bootstrap.css' rel='stylesheet' type='text/css'>
   <!-- /build -->
 </head>
-<body class="chrome-bootstrap">
-<div class="frame view container">
-  <header>
-    <h1>Formbot options page</h1>
-  </header>
+<body>
+<div class="container">
+  <h1 class="header">Formbot options page</h1>
   <div class="content">
-    <section>
-      <h3>Username</h3>
-      <div class="radio">
-        <label>
-          <input type="radio" id="usernameUnique" name="username"/>
-          <span>Generate unique username</span>
-        </label>
+    <div class="section">
+      <div class="row">
+        <div>
+          <span class="title">Account</span>
+          <a href="#" class="right">+ add new field</a>
+        </div>
       </div>
-      <div class="radio">
-        <input type="radio" id="usernameDefault" name="username"/>
-        <span>Use username specified below</span>
+      <div class="row">
+        <div class="subtitle cell">Username {switch}</div>
+        <input type="text" name="username"/>
       </div>
-      <input type="text" name="username"/>
-    </section>
-    <section>
-      <h3>Password</h3>
-      <div class="radio">
-        <input type="radio" id="passwordUnique" name="password"/>
-        <span>Generate random password</span>
+      <div class="row">
+        <div class="subtitle cell">Password {switch}</div>
+        <input type="text" name="password"/>
       </div>
-      <div class="radio">
-        <input type="radio" id="passwordDefault" name="password"/>
-        <span>Use password specified below</span>
+      <div class="row">
+        <div class="subtitle cell">Phone Number</div>
+        <input type="text" name="phone"/>
       </div>
-      <input type="text" name="password"/>
-    </section>
-    <section>
-      <h3>Domain</h3>
-      <div class="radio">
-        <input type="radio" id="domainUnique" name="domain"/>
-        <span>Generate random domain</span>
+    </div>
+    <div class="section">
+      <div class="row">
+        <div>
+          <span class="title">Domain</span>
+          <a class="right" href="#">+ add new field</a>
+        </div>
+        <div class="row">
+          <div class="subtitle cell">URL {switch}</div>
+          <input type="text" name="domain"/>
+        </div>
+        <div class="row">
+          <div class="subtitle cell">E-mail {switch}</div>
+          <input type="text" name="email"/>
+        </div>
       </div>
-      <div class="radio">
-        <input type="radio" id="domainDefault" name="domain"/>
-        <span>Use domain specified below</span>
+    </div>
+    <div class="section">
+      <div class="row">
+        <div>
+          <span class="title">Bank Details</span>
+          <a class="right" href="#">+ add new field</a>
+        </div>
       </div>
-      <input type="text" name="domain"/>
-    </section>
-    <section>
-      <h3>Email</h3>
-      <div class="radio">
-        <input type="radio" id="emailUnique" name="email"/>
-        <span>Generate unique email using the domain specified</span>
+      <div class="row">
+        <div class="subtitle cell">Card Number {switch}</div>
+        <input type="text" name="card_no"/>
       </div>
-      <div class="radio">
-        <input type="radio" id="emailDefault" name="email"/>
-        <span>Use email specified below with the domain specified</span>
+      <div class="row">
+        <div class="subtitle cell">CVV {switch}</div>
+        <input type="text" name="cvv"/>
       </div>
-      <input type="email" name="email"/>
-    </section>
-    <section>
-      <h3>Card Number</h3>
-      <div class="radio">
-        <input type="radio" id="card_noUnique" name="card"/>
-        <span>Generate random card number</span>
+    </div>
+    <div class="section">
+      <div class="row">
+        <div>
+          <span class="title">General</span>
+          <a class="right" href="#">+ add new field</a></div>
       </div>
-      <div class="radio">
-        <input type="radio" id="card_noDefault" name="card"/>
-        <span>Use card number specified below</span>
+      <div class="row">
+        <div class="subtitle cell">Number {switch}</div>
+        <input type="text" name="number"/>
       </div>
-      <input type="text" name="card_no"/>
-    </section>
-    <section>
-      <h3>CVV</h3>
-      <div class="radio">
-        <input type="radio" id="cvvUnique" name="cvv"/>
-        <span>Generate random cvv</span>
+      <div class="row">
+        <div class="subtitle cell">Text {switch}</div>
+        <input type="text" name="text"/>
       </div>
-      <div class="radio">
-        <input type="radio" id="cvvDefault" name="cvv"/>
-        <span>Use cvv specified below</span>
+      <div class="row">
+        <div class="subtitle cell">Date & Time {switch}</div>
+        <input type="datetime" name="date"/>
       </div>
-      <input type="text" name="cvv"/>
-    </section>
-    <section>
-      <h3>Phone number</h3>
-      <div class="radio">
-        <input type="radio" id="phoneUnique" name="phone"/>
-        <span>Generate random phone number</span>
-      </div>
-      <div class="radio">
-        <input type="radio" id="phoneDefault" name="phone"/>
-        <span>Use phone number specified below</span>
-      </div>
-      <input type="text" name="phone"/>
-    </section>
-    <section>
-      <h3>Number</h3>
-      <div class="radio">
-        <input type="radio" id="numberUnique" name="number"/>
-        <span>Generate random number</span>
-      </div>
-      <div class="radio">
-        <input type="radio" id="numberDefault" name="number"/>
-        <span>Use number specified below</span>
-      </div>
-      <input type="number" name="number"/>
-    </section>
-    <section>
-      <h3>Date & Time</h3>
-      <div class="radio">
-        <input type="radio" id="dateUnique" name="date"/>
-        <span>Generate random date</span>
-      </div>
-      <div class="radio">
-        <input type="radio" id="dateDefault" name="date"/>
-        <span>Use date specified below</span>
-      </div>
-      <input type="datetime" name="date"/>
-    </section>
-    <section>
-      <h3>Text</h3>
-      <div class="radio">
-        <input type="radio" id="textUnique" name="text"/>
-        <span>Generate random text</span>
-      </div>
-      <div class="radio">
-        <input type="radio" id="textDefault" name="text"/>
-        <span>Use text specified below</span>
-      </div>
-      <input type="text" name="text"/>
-    </section>
+    </div>
   </div>
   <footer>
     If you have any suggestions how to make this extension better, or find any issues, please send me an <a target="_blank" href="mailto:mariacamilleri@gmail.com">email</a>.

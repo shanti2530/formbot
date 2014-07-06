@@ -1,11 +1,40 @@
 body {
-	font-family: "Verdana", sans-serif;
+	font-family: "Arial", sans-serif;
 	font-size: 12px;
+}
+
+.right {
+  float: right;
 }
 
 .container {
 	margin-left: 20px;
 }
+
+.section {
+  margin: 40px 0px;
+}
+
+.row {
+  width: 322px;
+  display: block;
+  margin: 5px 0px;
+}
+
+.row .cell {
+  width: 160px;
+  display: inline-block;
+}
+
+.title {
+  font-weight: bold;
+  font-size: 1.4em;
+}
+
+.subtitle {
+  font-weight: bold;
+}
+
 
 footer {
 	margin: 20px 0px;
