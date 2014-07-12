@@ -37,6 +37,15 @@ chrome.browserAction.onClicked.addListener(function() {
     if (val === undefined) {
       localStorage[type] = JSON.stringify({unique: false,
         defaultValue: defaults[d].value.defaultValue,
+        includes: defaults[d].value.includes,
+        excludes: defaults[d].value.excludes,
+        uniqueValue: 'getUniqueValue'});
+    } else{
+      var jsonVal = JSON.parse(val);
+      localStorage[type] = JSON.stringify({unique: jsonVal.unique,
+        defaultValue: jsonVal.defaultValue,
+        includes: defaults[d].value.includes,
+        excludes: defaults[d].value.excludes,
         uniqueValue: 'getUniqueValue'});
     }
   }
