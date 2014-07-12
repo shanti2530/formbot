@@ -22,16 +22,6 @@ var getDefaults = function() {
     return defaults;
 };
 
-var getSystemDefault = function(inputType) {
-    'use strict';
-    var defaults = getDefaults();
-    for (var d in defaults) {
-        if (defaults[d].name === inputType) {
-            return defaults[d].value.defaultValue;
-        }
-    }
-};
-
 var getUniqueValue = function(inputType) {
     'use strict';
     switch (inputType) {
