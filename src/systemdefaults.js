@@ -21,39 +21,3 @@ var getDefaults = function() {
     ];
     return defaults;
 };
-
-var getUniqueValue = function(inputType) {
-    'use strict';
-    switch (inputType) {
-        case 'TEXT':
-            return chance.word({length: 7});
-        case 'DOMAIN':
-            return chance.domain();
-        case 'EMAIL':
-            return chance.email();
-        case 'PASSWORD':
-            return chance.string({length: 7});
-        case 'CARD_NO':
-            return chance.cc();
-        case 'CVV':
-            return chance.integer({min:100, max:999});
-        case 'PHONE':
-            return chance.phone();
-        case 'USERNAME':
-            return chance.word({length: 7});
-        case 'URL':
-            return 'http://' + chance.domain();
-      case 'NUMBER':
-            return chance.integer({min:1,max:99});
-        case 'DATETIME':
-            return utils.getDateFormat('YYYY-MM-DDTHH:mm');
-        case 'DATE':
-            return utils.getDateFormat('YYYY-MM-DD');
-        case 'TIME':
-            return utils.getDateFormat('HH:mm');
-        case 'WEEK':
-            return utils.getDateFormat('GGGG-[W]WW');
-        case 'MONTH':
-            return utils.getDateFormat('YYYY-MM');
-    }
-};
