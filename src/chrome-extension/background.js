@@ -127,19 +127,7 @@ chrome.runtime.onMessage.addListener(
       }
     };
 
-    if (request.method === 'getInputValue') {
-
-      //get the input value from the local storage
-      var val = JSON.parse(localStorage[request.inputType]);
-      if(val) {
-        if(val.unique) {
-          sendResponse({data: getUniqueValue(request.inputType), unique: true});
-        } else {
-          sendResponse({data: val.defaultValue, unique: false});
-        }
-      }
-
-    } else if (request.method === 'checkInput') {
+    if (request.method === 'checkInput') {
 
       var checker = checkText(request.id);
       if (checker) {
