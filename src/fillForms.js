@@ -1,117 +1,19 @@
 (function fillForms(){
   'use strict';
 
-  /* jshint ignore:start */
-  include "utils.js"
-
-  include "defaultvalues.js"
-
-  include "systemdefaults.js"
-
   //Everytime the fill forms script is executed, send an event to google analytics
   chrome.extension.sendMessage({method: 'analytics', category: 'chrome-extension', action: location.host});
 
-  /* jshint ignore:end */
+  var fillInput = function(input) {
 
-  /*Checker text which the inputs should be matched to
-   The values which are assigned have a priority. The first in the list
-   has the most priority over the others in the list
-   */
-  var inputChecker = {
-
-    checkText: function(text) {
-      if (utils.isEmpty(text)){
-        return;
-      }
-
-      var defaults = getDefaults();
-      //loop through all the system defaults to check if the text provided could be found
-      for (var d in defaults) {
-        var contains = utils.contains(defaults[d].value.includes, text);
-        //if we find something
-        if (contains) {
-          //we need to make sure that the text provided is not in the excluded list
-          var excludedContains = utils.contains(defaults[d].value.excludes, text);
-
-          //if it is also in the excluded list we need to ignore it
-          //else if we did not find it in the excluded list .. then this is our type .. we are ready
-          if(!excludedContains) {
-            return defaults[d].name;
-          }
-        }
-      }
-    },
-
-    checkInput: function(input) {
-
-      var defaultType;
-
-      //check input id
-      var inputId = input.id;
-      if (inputId) {
-        defaultType = this.checkText(inputId);
-        if (!utils.isEmpty(defaultType)) {
-          chrome.extension.sendMessage({method: 'analytics', category: 'input-type', action: defaultType,
-            label: 'ID|'+inputId});
-          return defaultType;
-        }
-      }
-
-      //check input name
-      var inputName = input.name;
-      if (!utils.isEmpty(inputName)) {
-        defaultType = this.checkText(inputName);
-        if (!utils.isEmpty(defaultType)) {
-          chrome.extension.sendMessage({method: 'analytics', category: 'input-type', action: defaultType,
-            label: 'NAME|'+inputName});
-          return defaultType;
-        }
-      }
-
-      //check input placeholder
-      var inputPlaceholder = input.placeholder;
-      if (!utils.isEmpty(inputPlaceholder)) {
-        defaultType = this.checkText(inputPlaceholder);
-        if (!utils.isEmpty(defaultType)) {
-          chrome.extension.sendMessage({method: 'analytics', category: 'input-type', action: defaultType,
-            label: inputPlaceholder});
-          return defaultType;
-        }
-      }
-
-      //Check input label
-      if (!utils.isEmpty(inputId)) {
-        var labels = document.getElementsByTagName('LABEL');
-        for (var i = 0; i < labels.length; i++) {
-          if (!utils.isEmpty(labels[i].htmlFor) && labels[i].htmlFor === inputId) {
-            var labelText = labels[i].innerHTML;
-            defaultType = this.checkText(labelText);
-            if (!utils.isEmpty(defaultType)) {
-              chrome.extension.sendMessage({method: 'analytics', category: 'input-type', action: defaultType,
-                label: 'LABEL|'+labelText});
-              return defaultType;
-            }
-          }
-        }
-      }
-
-      //check input type
-      var inputType = input.type;
-      if (!utils.isEmpty(inputType)) {
-        defaultType = this.checkText(inputType);
-        if (!utils.isEmpty(defaultType)) {
-          chrome.extension.sendMessage({method: 'analytics', category: 'input-type', action: defaultType,
-            label: 'TYPE|'+inputType+'|' + inputId + '|' + inputName + '|' + inputPlaceholder});
-          return defaultType;
-        }
-      }
-
-      //if we are here then we were unable to match an input with a type then always default to text
-      defaultType = 'TEXT';
-      chrome.extension.sendMessage({method: 'analytics', category: 'input-type', action: defaultType,
-        label: inputId + '|' + inputType + '|' + inputName + '|' + inputPlaceholder});
-      return defaultType;
-    }
+    chrome.extension.sendMessage({method: 'checkInput',
+        id: input.id,
+        name: input.name,
+        placeholder: input.placeholder,
+        type: input.type},
+          function(response) {
+            input.value = response.key;
+          });
   };
 
   /*A function that given an array of input elements would fill them up
@@ -133,17 +35,7 @@
       } else if (input.value && input.value.length > 0) {
         /*we do not alter the value in the text box if it is not empty*/
       } else {
-        var inputCheckerResult = inputChecker.checkInput(input);
-
-        /**Checking for the max length that is allowed by this input
-         if not defined the value is very large and therefore we do not want to use it **/
-        var maxLength = 7;
-
-        if (input.maxLength && input.maxLength < 7) {
-          maxLength = input.maxLength;
-        }
-
-        getDefaultValue(inputCheckerResult, maxLength, input);
+        fillInput(input);
       }
 
     }
@@ -189,10 +81,8 @@
   var processTextAreaElements = function(textAreas) {
     for (var i = 0; i < textAreas.length; i++) {
       var txtArea = textAreas[i];
-      if (utils.isEmpty(txtArea.value)) {
-        getDefaultValue('TEXT', 20, txtArea);
-        chrome.extension.sendMessage({method: 'analytics', category: 'input-type', action: 'TEXTAREA'});
-      }
+      fillInput(txtArea);
+      chrome.extension.sendMessage({method: 'analytics', category: 'input-type', action: 'TEXTAREA'});
     }
   };
 

@@ -37,7 +37,14 @@ chrome.browserAction.onClicked.addListener(function() {
     if (val === undefined) {
       localStorage[type] = JSON.stringify({unique: false,
         defaultValue: defaults[d].value.defaultValue,
-        uniqueValue: 'getUniqueValue'});
+        includes: defaults[d].value.includes,
+        excludes: defaults[d].value.excludes});
+    } else{
+      var jsonVal = JSON.parse(val);
+      localStorage[type] = JSON.stringify({unique: jsonVal.unique,
+        defaultValue: jsonVal.defaultValue,
+        includes: defaults[d].value.includes,
+        excludes: defaults[d].value.excludes});
     }
   }
 })();
@@ -97,17 +104,58 @@ chrome.runtime.onMessage.addListener(
       }
     };
 
-    if (request.method === 'getInputValue') {
+    var checkText = function(text) {
+      if (text) {
+        for (var i=0; i<localStorage.length; i++) {
+          var key = localStorage.key(i);
+          var keyDefinition = JSON.parse(localStorage.getItem(key));
 
-      //get the input value from the local storage
-      var val = JSON.parse(localStorage[request.inputType]);
-      if(val) {
-        if(val.unique) {
-          sendResponse({data: getUniqueValue(request.inputType), unique: true});
-        } else {
-          sendResponse({data: val.defaultValue, unique: false});
+          //check if the text provided is one of the included text
+          var contains = utils.contains(keyDefinition.includes, text);
+          if (contains) {
+            var excluded = utils.contains(keyDefinition.excludes, text);
+
+            if (!excluded) {
+              if (keyDefinition.unique) {
+                return [key, getUniqueValue(key)];
+              } else {
+                return [key, keyDefinition.defaultValue];
+              }
+            }
+          }
         }
       }
+    };
+
+    if (request.method === 'checkInput') {
+
+      var checker = checkText(request.id);
+      if (checker) {
+        _gaq.push(['_trackEvent', 'input-type', checker[0], 'ID|' + request.id]);
+        sendResponse({key: checker[1]});
+      } else {
+        checker = checkText(request.name);
+        if (checker) {
+          _gaq.push(['_trackEvent', 'input-type', checker[0], 'NAME|' + request.name]);
+          sendResponse({key: checker[1]});
+        } else {
+          checker = checkText(request.placeholder);
+          if (checker) {
+            _gaq.push(['_trackEvent', 'input-type', checker[0], 'PLACEHOLDER|' + request.placeholder]);
+            sendResponse({key: checker[1]});
+          } else {
+            checker = checkText(request.type);
+            if (checker) {
+              _gaq.push(['_trackEvent', 'input-type', checker[0], 'TYPE|' + request.type]);
+              sendResponse({key: checker[1]});
+            } else {
+              _gaq.push(['_trackEvent', 'input-type', checker[0], 'TYPE|' + request.type]);
+              sendResponse({key: checkText('TEXT')});
+            }
+          }
+        }
+      }
+
     } else if (request.method === 'analytics') {
       _gaq.push(['_trackEvent', request.category, request.action, request.label]);
     }
