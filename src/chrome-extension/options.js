@@ -36,6 +36,32 @@ window.onload = function() {
 		};
 	});
 
+  Array.prototype.slice.call(document.querySelectorAll('span[id$=Matches]')).forEach(function(el) {
+
+    var matchesIndex = el.id.indexOf('Matches');
+    var name = el.id.substring(0, matchesIndex).toUpperCase();
+
+    if (localStorage[name]) {
+      var elementLocalStorage = JSON.parse(localStorage[name]);
+      if (elementLocalStorage.includes) {
+        el.innerText = elementLocalStorage.includes;
+      }
+    }
+  });
+
+  Array.prototype.slice.call(document.querySelectorAll('span[id$=Excludes]')).forEach(function(el) {
+
+    var matchesIndex = el.id.indexOf('Excludes');
+    var name = el.id.substring(0, matchesIndex).toUpperCase();
+
+    if (localStorage[name]) {
+      var elementLocalStorage = JSON.parse(localStorage[name]);
+      if (elementLocalStorage.excludes) {
+        el.innerText = elementLocalStorage.excludes;
+      }
+    }
+  });
+
   //get the checkboxes which define if the field should be random or defined
   Array.prototype.slice.call(document.querySelectorAll('input[type=checkbox][name=onoffswitch]')).forEach(function(el) {
 
