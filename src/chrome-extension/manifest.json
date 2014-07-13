@@ -20,7 +20,7 @@
       "128": "image128.png"
       }
   },
-  "content_security_policy": "script-src 'self' https://ssl.google-analytics.com; object-src 'self'",
+  "content_security_policy": "script-src 'self' 'unsafe-eval' https://ssl.google-analytics.com; object-src 'self'",
   "icons": {
     "16": "image16.png",
     "48": "image48.png",

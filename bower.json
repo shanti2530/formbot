@@ -9,6 +9,7 @@
   "license": "MIT",
   "private": true,
   "dependencies": {
-    "momentjs": "~2.4.0"
+    "momentjs": "~2.4.0",
+    "angular": "~1.2.20"
   }
 }
