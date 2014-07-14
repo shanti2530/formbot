@@ -12,21 +12,21 @@ chrome.browserAction.onClicked.addListener(function() {
 
   //try to get the input value from the user defined values
   var defaults = [
-    {name:'EMAIL',    value: {defaultValue:'f@ke.com', includes: ['mail']}},
-    {name:'PASSWORD', value: {defaultValue:'Password123', includes: ['pass']}},
-    {name:'CARD_NO',  value: {defaultValue:'4444333322221111', includes: ['card'], excludes: ['name', 'code']}},
-    {name:'CVV',      value:{defaultValue:'123', includes: ['cvv', 'cvc', 'cv2']}},
-    {name:'PHONE',    value:{defaultValue:'79797979', includes: ['phone', 'tel', 'mobile']}},
-    {name:'USERNAME', value:{defaultValue: 'john', includes: ['username', 'userId']}},
-    {name:'DOMAIN',   value:{defaultValue: 'fakeaddresshere.com', includes: ['domain']}},
-    {name:'URL',      value:{defaultValue: 'http://www.fakeaddresshere.com', includes: ['url', 'site']}},
-    {name:'NUMBER',   value: {defaultValue: 5, includes: ['number', 'amount', 'range']}},
-    {name:'DATETIME', value: {defaultValue: utils.getDateFormat('YYYY-MM-DDTHH:mm'), includes: ['datetime']}},
-    {name:'DATE',     value: {defaultValue: utils.getDateFormat('YYYY-MM-DD'), includes: ['date']}},
-    {name:'TIME',     value: {defaultValue: utils.getDateFormat('HH:mm'), includes: ['time']}},
-    {name:'WEEK',     value: {defaultValue: utils.getDateFormat('GGGG-[W]WW'), includes: ['week']}},
-    {name:'MONTH',    value: {defaultValue: utils.getDateFormat('YYYY-MM'), includes: ['month']}},
-    {name:'TEXT',     value: {defaultValue: 'Lorem', includes: ['text']}}
+    {name:'EMAIL',    value: {defaultValue:'f@ke.com', includes: ['mail'], priority:1}},
+    {name:'PASSWORD', value: {defaultValue:'Password123', includes: ['pass'], priority:2}},
+    {name:'CARD_NO',  value: {defaultValue:'4444333322221111', includes: ['card'], excludes: ['name', 'code'], priority:3}},
+    {name:'CVV',      value:{defaultValue:'123', includes: ['cvv', 'cvc', 'cv2'], priority:4}},
+    {name:'PHONE',    value:{defaultValue:'79797979', includes: ['phone', 'tel', 'mobile'], priority:5}},
+    {name:'USERNAME', value:{defaultValue: 'john', includes: ['username', 'userId'], priority:6}},
+    {name:'DOMAIN',   value:{defaultValue: 'fakeaddresshere.com', includes: ['domain'], priority:7}},
+    {name:'URL',      value:{defaultValue: 'http://www.fakeaddresshere.com', includes: ['url', 'site'], priority:8}},
+    {name:'NUMBER',   value: {defaultValue: 5, includes: ['number', 'amount', 'range'], priority:9}},
+    {name:'DATETIME', value: {defaultValue: utils.getDateFormat('YYYY-MM-DDTHH:mm'), includes: ['datetime'], priority:10}},
+    {name:'DATE',     value: {defaultValue: utils.getDateFormat('YYYY-MM-DD'), includes: ['date'], priority:11}},
+    {name:'TIME',     value: {defaultValue: utils.getDateFormat('HH:mm'), includes: ['time'], priority:12}},
+    {name:'WEEK',     value: {defaultValue: utils.getDateFormat('GGGG-[W]WW'), includes: ['week'], priority:13}},
+    {name:'MONTH',    value: {defaultValue: utils.getDateFormat('YYYY-MM'), includes: ['month'], priority:14}},
+    {name:'TEXT',     value: {defaultValue: 'Lorem', includes: ['text'], priority:15}}
   ];
 
   for (var d=0; d < defaults.length; d++) {
@@ -39,14 +39,14 @@ chrome.browserAction.onClicked.addListener(function() {
         defaultValue: defaults[d].value.defaultValue,
         includes: defaults[d].value.includes,
         excludes: defaults[d].value.excludes,
-        priority: defaults[d].priority});
+        priority: defaults[d].value.priority});
     } else{
-      var jsonVal = JSON.parse(val);
-      localStorage[type] = JSON.stringify({unique: jsonVal.unique,
+//      var jsonVal = JSON.parse(val);
+      localStorage[type] = JSON.stringify({unique: false,
         defaultValue: defaults[d].value.defaultValue,
         includes: defaults[d].value.includes,
         excludes: defaults[d].value.excludes,
-        priority: defaults[d].priority});
+        priority: defaults[d].value.priority});
     }
   }
 })();
