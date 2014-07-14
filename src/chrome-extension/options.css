@@ -16,10 +16,6 @@ body {
 	margin-left: 20px;
 }
 
-.content {
-  padding-left: 20px;
-}
-
 .section {
   margin: 30px 0px;
 }
@@ -34,6 +30,13 @@ body {
 .row .cell {
   width: 100px;
   float: left;
+}
+
+.row-border {
+  border-radius: 2px;
+  border: 1px solid #bfbfbf;
+  padding: 10px;
+  margin: 10px 0px 10px 0px;
 }
 
 h1 {
@@ -65,56 +68,4 @@ input[type='number'], input[type='password'], input[type='search'], input[type='
   padding: 3px;
   outline: none;
   padding-bottom: 4px;
-}
-
-
-
-
-.onoffswitch {
-  float: left;
-  position: relative; width: 81px;
-  margin: 0px 10px;
-  -webkit-user-select:none; -moz-user-select:none; -ms-user-select: none;
-}
-.onoffswitch-checkbox {
-  display: none;
-}
-.onoffswitch-label {
-  display: block; overflow: hidden; cursor: pointer;
-  border: 2px solid #FFFFF; border-radius: 2px;
-}
-.onoffswitch-inner {
-  display: block; width: 200%; margin-left: -100%;
-  -moz-transition: margin 0.3s ease-in 0s; -webkit-transition: margin 0.3s ease-in 0s;
-  -o-transition: margin 0.3s ease-in 0s; transition: margin 0.3s ease-in 0s;
-}
-.onoffswitch-inner:before, .onoffswitch-inner:after {
-  display: block; float: left; width: 50%; height: 25px; padding: 0; line-height: 25px;
-  font-size: 13px; color: white; font-family: Trebuchet, Arial, sans-serif; font-weight: bold;
-  -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;
-}
-.onoffswitch-inner:before {
-  content: "defined";
-  padding-left: 5px;
-  background-color: #2FCCFF; color: #FFFFFF;
-}
-.onoffswitch-inner:after {
-  content: "random";
-  padding-right: 5px;
-  background-color: #81C97B; color: #F2EDED;
-  text-align: right;
-}
-.onoffswitch-switch {
-  display: block; width: 15px; margin: 5px;
-  background: #FFFFFF;
-  border: 2px solid #FFFFF; border-radius: 2px;
-  position: absolute; top: 0; bottom: 0; right: 52px;
-  -moz-transition: all 0.3s ease-in 0s; -webkit-transition: all 0.3s ease-in 0s;
-  -o-transition: all 0.3s ease-in 0s; transition: all 0.3s ease-in 0s;
-}
-.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-inner {
-  margin-left: 0;
-}
-.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
-  right: 0px;
 }
