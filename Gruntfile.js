@@ -15,8 +15,12 @@ module.exports = function(grunt) {
     copy: {
       chromeextension: {
         files: [
-          {src: 'bower_components/angular/angular.min.js', dest: 'src/chrome-extension/', flatten: true, expand: true, filter: 'isFile'},
+//          {src: 'bower_components/angular/angular.min.js', dest: 'src/chrome-extension/', flatten: true, expand: true, filter: 'isFile'},
+//          {src: 'bower_components/angular-toggle-switch/angular-toggle-switch.min.js', dest: 'src/chrome-extension/', flatten: true, expand: true, filter: 'isFile'},
+//          {src: 'bower_components/angular-toggle-switch/*.css', dest: 'src/chrome-extension/', flatten: true, expand: true, filter: 'isFile'},
           {src: 'src/*', dest: 'gen/chrome-extension/', flatten: true, expand:true, filter: 'isFile'},
+//          {src: 'src/chrome-extension/angular-toggle-switch-bootstrap.css', dest: 'gen/chrome-extension/', flatten: true, expand:true, filter: 'isFile'},
+//          {src: 'src/chrome-extension/angular-toggle-switch.css', dest: 'gen/chrome-extension/', flatten: true, expand:true, filter: 'isFile'},
           {src: 'src/chrome-extension/*.js', dest: 'gen/chrome-extension/', flatten: true, expand:true, filter: 'isFile'},
           {src: 'src/chrome-extension/*.json', dest: 'dist/chrome-extension/', flatten: true, expand:true, filter: 'isFile'}
         ]
@@ -29,7 +33,9 @@ module.exports = function(grunt) {
           {src: 'gen/chrome-extension/background.js', dest: 'dist/chrome-extension/background.js'},
           {src: 'gen/chrome-extension/options.js', dest: 'dist/chrome-extension/options.js'},
           {src: 'gen/chrome-extension/optionsController.js', dest: 'dist/chrome-extension/optionsController.js'},
-          {src: 'gen/chrome-extension/angular.min.js', dest: 'dist/chrome-extension/angular.min.js'},
+          {src: 'bower_components/angular/angular.min.js', dest: 'dist/chrome-extension/angular.min.js'},
+//          {src: 'gen/chrome-extension/angular-toggle-switch.min.js', dest: 'dist/chrome-extension/angular-toggle-switch.min.js'},
+//          {src: 'gen/chrome-extension/angular-toggle-switch/*.css', dest: 'dist/chrome-extension/'},
           {src: 'bower_components/momentjs/min/moment.min.js', dest: 'dist/chrome-extension/scripts/moment.min.js'},
           {src: 'node_modules/chance/chance.js', dest: 'dist/chrome-extension/scripts/chance.js'}
         ]
@@ -78,7 +84,7 @@ module.exports = function(grunt) {
     }
   });
 
-  grunt.registerTask('build', ['uncss:chromeextension',
+  grunt.registerTask('build', [
     'copy:chromeextension',
     'processhtml:chromeextension',
     'includes:chromeextension',

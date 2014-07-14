@@ -10,6 +10,7 @@
   "private": true,
   "dependencies": {
     "momentjs": "~2.4.0",
-    "angular": "~1.2.20"
+    "angular": "~1.2.20",
+    "angular-toggle-switch": "~0.3.0"
   }
 }
