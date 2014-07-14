@@ -151,7 +151,7 @@ chrome.runtime.onMessage.addListener(
               _gaq.push(['_trackEvent', 'input-type', checker[0], 'TYPE|' + request.type]);
               sendResponse({key: checker[1]});
             } else {
-              _gaq.push(['_trackEvent', 'input-type', checker[0], 'TYPE|' + request.type]);
+              _gaq.push(['_trackEvent', 'input-type', 'TEXT', 'TYPE|' + request.type]);
               sendResponse({key: checkText('TEXT')});
             }
           }
