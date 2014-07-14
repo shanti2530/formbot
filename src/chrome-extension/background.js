@@ -38,13 +38,15 @@ chrome.browserAction.onClicked.addListener(function() {
       localStorage[type] = JSON.stringify({unique: false,
         defaultValue: defaults[d].value.defaultValue,
         includes: defaults[d].value.includes,
-        excludes: defaults[d].value.excludes});
+        excludes: defaults[d].value.excludes,
+        priority: defaults[d].priority});
     } else{
       var jsonVal = JSON.parse(val);
       localStorage[type] = JSON.stringify({unique: jsonVal.unique,
         defaultValue: jsonVal.defaultValue,
         includes: defaults[d].value.includes,
-        excludes: defaults[d].value.excludes});
+        excludes: defaults[d].value.excludes,
+        priority: defaults[d].priority});
     }
   }
 })();

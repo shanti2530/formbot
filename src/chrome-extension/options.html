@@ -17,7 +17,7 @@
       </div>
     </div>
     <div class="content">
-      <div class="row row-border" ng-repeat="option in options">
+      <div class="row row-border" ng-repeat="option in options | orderBy:'+value.priority'">
         <div class="subtitle cell">{{option.name}}</div>
         <input type="checkbox" ng-checked="!option.value.unique" ng-click="changeChecked(option)"/>
         <input type="text" value="{{option.value.defaultValue}}" ng-disabled="option.value.unique"/>
