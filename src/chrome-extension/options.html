@@ -23,10 +23,12 @@
         <input type="text" value="{{option.value.defaultValue}}" ng-model="option.value.defaultValue"
                ng-disabled="option.value.unique"/>
         <div class="content row">
-          <span>Matches: {{option.value.includes}}</span>
+          <span>Matches:
+            <input type="text" value="{{option.value.includes | displayArray}}" ng-model="option.value.includes"/></span>
         </div>
         <div class="content row">
-          <span>Excludes: {{option.value.excludes}}</span>
+          <span>Excludes: <input type="text" value="{{option.value.excludes | displayArray}}"
+                                 ng-model="option.value.excludes"/></span>
         </div>
       </div>
     </div>

@@ -26,13 +26,44 @@ myApp.controller('optionsController', ['$scope', function($scope) {
 
       for(var i=0; i<$scope.options.length; i++) {
         var option = $scope.options[i];
+
+        var includes;
+        if (option.value.includes && !Array.isArray(option.value.includes)) {
+           includes = option.value.includes.split(',');
+        } else {
+          includes = option.value.includes;
+        }
+
+        if (option.value.excludes && !Array.isArray(option.value.excludes)) {
+          var excludes = option.value.excludes.split(',');
+        } else {
+          excludes = option.value.excludes;
+        }
+
         localStorage[option.name] = JSON.stringify({unique: option.value.unique,
           defaultValue: option.value.defaultValue,
-          includes: option.value.includes,
-          excludes: option.value.excludes,
+          includes: includes,
+          excludes: excludes,
           priority: option.value.priority});
       }
     }
 
   }, true);
 }]);
+
+myApp.filter('displayArray', function(){
+  return function(input) {
+
+    var str = "";
+    if (input) {
+      for(var i = 0; i< input.length; i++) {
+        str = str + input[i] + ',';
+      }
+      return str.substring(0, str.length-1);
+    }
+
+    return str;
+
+
+  }
+});
