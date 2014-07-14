@@ -43,7 +43,7 @@ chrome.browserAction.onClicked.addListener(function() {
     } else{
       var jsonVal = JSON.parse(val);
       localStorage[type] = JSON.stringify({unique: jsonVal.unique,
-        defaultValue: jsonVal.defaultValue,
+        defaultValue: defaults[d].value.defaultValue,
         includes: defaults[d].value.includes,
         excludes: defaults[d].value.excludes,
         priority: defaults[d].priority});
@@ -108,6 +108,8 @@ chrome.runtime.onMessage.addListener(
 
     var checkText = function(text) {
       if (text) {
+        var validKeys = [];
+
         for (var i=0; i<localStorage.length; i++) {
           var key = localStorage.key(i);
           var keyDefinition = JSON.parse(localStorage.getItem(key));
@@ -118,12 +120,31 @@ chrome.runtime.onMessage.addListener(
             var excluded = utils.contains(keyDefinition.excludes, text);
 
             if (!excluded) {
-              if (keyDefinition.unique) {
-                return [key, getUniqueValue(key)];
-              } else {
-                return [key, keyDefinition.defaultValue];
-              }
+              validKeys.push({key: key, definition: keyDefinition});
             }
+          }
+        }
+
+        var sortByPriority = function (a,b) {
+          if (a.definition.priority < b.definition.priority) {
+            return -1;
+          }
+          if (a.definition.priority > b.definition.priority) {
+            return 1;
+          }
+          return 0;
+        };
+
+        if (validKeys && validKeys.length > 0) {
+          validKeys.sort(sortByPriority);
+
+          var mostImportant = validKeys[0];
+
+          if (mostImportant.definition.unique) {
+            console.log(mostImportant.definition.unique);
+            return [mostImportant.key, getUniqueValue(mostImportant.key)];
+          } else {
+            return [mostImportant.key, mostImportant.definition.defaultValue];
           }
         }
       }

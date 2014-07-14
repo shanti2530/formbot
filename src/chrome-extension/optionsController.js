@@ -19,5 +19,12 @@ myApp.controller('optionsController', ['$scope', function($scope) {
 
   $scope.changeChecked = function(option) {
     option.value.unique = !option.value.unique;
+    var item = JSON.parse(localStorage.getItem(option.name));
+
+    localStorage[option.name] = JSON.stringify({unique: !item.unique,
+      defaultValue: item.defaultValue,
+      includes: item.includes,
+      excludes: item.excludes,
+      priority: item.priority});
   }
 }]);
