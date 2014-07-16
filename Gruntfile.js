@@ -22,7 +22,8 @@ module.exports = function(grunt) {
 //          {src: 'src/chrome-extension/angular-toggle-switch-bootstrap.css', dest: 'gen/chrome-extension/', flatten: true, expand:true, filter: 'isFile'},
 //          {src: 'src/chrome-extension/angular-toggle-switch.css', dest: 'gen/chrome-extension/', flatten: true, expand:true, filter: 'isFile'},
           {src: 'src/chrome-extension/*.js', dest: 'gen/chrome-extension/', flatten: true, expand:true, filter: 'isFile'},
-          {src: 'src/chrome-extension/*.json', dest: 'dist/chrome-extension/', flatten: true, expand:true, filter: 'isFile'}
+          {src: 'src/chrome-extension/*.json', dest: 'dist/chrome-extension/', flatten: true, expand:true, filter: 'isFile'},
+          {src: 'src/chrome-extension/options.css', dest: 'dist/chrome-extension/', flatten: true, expand:true, filter: 'isFile'}
         ]
       },
       chromeextensiondist: {
@@ -57,13 +58,6 @@ module.exports = function(grunt) {
       options: {
         mangle: false,
         banner: "javascript:"
-      }
-    },
-    uncss: {
-      chromeextension: {
-        files: {
-          'gen/chrome-extension/tidy.css': ['src/chrome-extension/options.html']
-        }
       }
     },
     processhtml: {
