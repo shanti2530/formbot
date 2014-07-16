@@ -8,26 +8,37 @@
 <div class="container" ng-controller="optionsController">
   <h1 class="header">Formbot options page</h1>
   <div class="section">
-    <div class="row">
-      <div>
-        <span class="title">Account</span>
-        <a href="#" class="right">+ add new field</a>
-      </div>
-    </div>
     <div class="content">
       <div class="row row-border" ng-repeat="option in options | orderBy:'+value.priority'">
-        <div class="subtitle cell">{{option.name}}</div>
-        <input type="checkbox" ng-checked="!option.value.unique" ng-click="changeChecked(option)"/>
-        <input type="text" value="{{option.value.defaultValue}}" ng-model="option.value.defaultValue"
-               ng-disabled="option.value.unique"/>
-        <div class="content row">
-          <span>Matches:
-            <input type="text" value="{{option.value.includes | displayArray}}" ng-model="option.value.includes"/></span>
+        <div>
+          <span class="subtitle">{{option.name}}</span>
+          <span><input type="checkbox" ng-checked="!option.value.unique" ng-click="changeChecked(option)"/></span>
         </div>
-        <div class="content row">
-          <span>Excludes: <input type="text" value="{{option.value.excludes | displayArray}}"
-                                 ng-model="option.value.excludes"/></span>
+
+        <div>
+          <table class="row">
+            <tr>
+              <td>Default Value</td>
+              <td>
+                <input type="text" value="{{option.value.defaultValue}}" ng-model="option.value.defaultValue"
+                         ng-disabled="option.value.unique"/>
+              </td>
+            </tr>
+            <tr>
+              <td>Match</td>
+              <td>
+                <input type="text" value="{{option.value.includes | displayArray}}" ng-model="option.value.includes"/>
+              </td>
+            </tr>
+            <tr>
+              <td>Exclude</td>
+              <td>
+                <input type="text" value="{{option.value.excludes | displayArray}}" ng-model="option.value.excludes"/>
+              </td>
+            </tr>
+          </table>
         </div>
+
       </div>
     </div>
   </div>

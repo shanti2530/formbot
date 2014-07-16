@@ -21,15 +21,14 @@ body {
 }
 
 .row {
-  width: 386px;
+  width: 75%;
   display: block;
   margin: 5px 0px;
   vertical-align: middle;
 }
 
-.row .cell {
-  width: 100px;
-  float: left;
+tr td:first-child {
+  text-align: right;
 }
 
 .row-border {
@@ -48,6 +47,11 @@ h1 {
 .title {
   font-size: 16px;
   font-weight: 500;
+}
+
+.subtitle {
+  text-align: center;
+  font-weight: bold;
 }
 
 footer {

@@ -12,12 +12,12 @@ chrome.browserAction.onClicked.addListener(function() {
 
   //try to get the input value from the user defined values
   var defaults = [
-    {name:'EMAIL',    value: {defaultValue:'f@ke.com', includes: ['mail'], priority:1}},
+    {name:'USERNAME', value:{defaultValue: 'john', includes: ['username', 'userId'], priority:1}},
     {name:'PASSWORD', value: {defaultValue:'Password123', includes: ['pass'], priority:2}},
-    {name:'CARD_NO',  value: {defaultValue:'4444333322221111', includes: ['card'], excludes: ['name', 'code'], priority:3}},
-    {name:'CVV',      value:{defaultValue:'123', includes: ['cvv', 'cvc', 'cv2'], priority:4}},
-    {name:'PHONE',    value:{defaultValue:'79797979', includes: ['phone', 'tel', 'mobile'], priority:5}},
-    {name:'USERNAME', value:{defaultValue: 'john', includes: ['username', 'userId'], priority:6}},
+    {name:'EMAIL',    value: {defaultValue:'f@ke.com', includes: ['mail'], priority:3}},
+    {name:'CARD_NO',  value: {defaultValue:'4444333322221111', includes: ['card'], excludes: ['name', 'code'], priority:4}},
+    {name:'CVV',      value:{defaultValue:'123', includes: ['cvv', 'cvc', 'cv2'], priority:5}},
+    {name:'PHONE',    value:{defaultValue:'79797979', includes: ['phone', 'tel', 'mobile'], priority:6}},
     {name:'DOMAIN',   value:{defaultValue: 'fakeaddresshere.com', includes: ['domain'], priority:7}},
     {name:'URL',      value:{defaultValue: 'http://www.fakeaddresshere.com', includes: ['url', 'site'], priority:8}},
     {name:'NUMBER',   value: {defaultValue: 5, includes: ['number', 'amount', 'range'], priority:9}},
