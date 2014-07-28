@@ -29,7 +29,7 @@ chrome.browserAction.onClicked.addListener(function() {
 //Google analytics specific code, we load up the library so that when a message arrives we could send it through
 /* jshint ignore:start */
 var _gaq = _gaq || [];
-_gaq.push(['_setAccount', 'UA-44998061-1']);
+_gaq.push(['_setAccount', 'UA-49960543-2']);
 _gaq.push(['_trackPageview']);
 (function() {
   var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
