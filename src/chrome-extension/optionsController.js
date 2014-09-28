@@ -21,6 +21,8 @@ myApp.controller('optionsController', ['$scope', function($scope) {
     option.value.unique = !option.value.unique;
   }
 
+  var splitter = /(?=\S)[^,]+?(?=\s*(,|$))/g;
+
   $scope.$watch('options', function() {
     if ($scope.options[0].value.defaultValue) {
 
@@ -29,13 +31,13 @@ myApp.controller('optionsController', ['$scope', function($scope) {
 
         var includes;
         if (option.value.includes && !Array.isArray(option.value.includes)) {
-           includes = option.value.includes.split(',');
+          includes = option.value.includes.match(splitter);
         } else {
           includes = option.value.includes;
         }
 
         if (option.value.excludes && !Array.isArray(option.value.excludes)) {
-          var excludes = option.value.excludes.split(',');
+          var excludes = option.value.excludes.match(splitter);
         } else {
           excludes = option.value.excludes;
         }
