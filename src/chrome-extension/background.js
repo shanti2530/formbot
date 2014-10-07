@@ -41,7 +41,6 @@ chrome.browserAction.onClicked.addListener(function() {
         excludes: defaults[d].value.excludes,
         priority: defaults[d].value.priority});
     } else{
-//      var jsonVal = JSON.parse(val);
       localStorage[type] = JSON.stringify({unique: false,
         defaultValue: defaults[d].value.defaultValue,
         includes: defaults[d].value.includes,

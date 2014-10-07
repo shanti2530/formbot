@@ -23,7 +23,7 @@ module.exports = function(grunt) {
 //          {src: 'src/chrome-extension/angular-toggle-switch.css', dest: 'gen/chrome-extension/', flatten: true, expand:true, filter: 'isFile'},
           {src: 'src/chrome-extension/*.js', dest: 'gen/chrome-extension/', flatten: true, expand:true, filter: 'isFile'},
           {src: 'src/chrome-extension/*.json', dest: 'dist/chrome-extension/', flatten: true, expand:true, filter: 'isFile'},
-          {src: 'src/chrome-extension/options.css', dest: 'dist/chrome-extension/', flatten: true, expand:true, filter: 'isFile'}
+          {src: 'src/chrome-extension/*.css', dest: 'dist/chrome-extension/', flatten: true, expand:true, filter: 'isFile'}
         ]
       },
       chromeextensiondist: {

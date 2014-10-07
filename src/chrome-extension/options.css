@@ -1,7 +1,38 @@
+.option {
+  border: 1px solid grey;
+  width: 1024px;
+  border-radius: 3px;
+}
+
+.option * {
+  padding: 5px 0px 5px 0px;
+}
+
+.option .config {
+  border-right: 1px solid grey;
+  text-align: center;
+  height: 70px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
 body {
 	font-family: 'Segoe UI', Tahoma, sans-serif;
 	font-size: 13px;
   color: rgb(48, 57, 66);
+}
+
+.center {
+  text-align: center;
 }
 
 .right {
@@ -25,6 +56,10 @@ body {
   display: block;
   margin: 5px 0px;
   vertical-align: middle;
+}
+
+tr {
+  border: 1px solid gray;
 }
 
 tr td:first-child {

@@ -1,15 +1,33 @@
 <html>
 <head>
   <link href='options.css' rel='stylesheet' type='text/css'>
-  <!--<link href='angular-toggle-switch-bootstrap.css' rel='stylesheet' type='text/css'>-->
-  <!--<link href='angular-toggle-switch.css' rel='stylesheet' type='text/css'>-->
+  <link href='bootstrap.css' rel='stylesheet' type='text/css'>
 </head>
 <body ng-app="FormbotApp">
 <div class="container" ng-controller="optionsController">
   <h1 class="header">Formbot options page</h1>
   <div class="section">
     <div class="content">
-      <div class="row row-border" ng-repeat="option in options | orderBy:'+value.priority'">
+
+      <h3>Configuration 
+        <input class="small btn btn-default" type="button" value="New Configuration" />
+      </h3>
+
+      <div class="option row" ng-repeat="option in options | orderBy:'+value.priority'">
+        <div class="config col-md-1"><img src="dice.png"></div>
+        <div class="config col-md-1"><img src="default.png"></div>
+        <div class="col-md-2"><h4>{{option.name}}</h4></div>
+        <div class="col-md-4">
+          <div class="col-md-12">Matches: {{option.value.includes | displayArray}}</div>
+          <div class="col-md-12">Excludes: {{option.value.excludes | displayArray}}</div>
+        </div>
+        <div class="col-md-4">
+          <div class="col-md-12">Default Value: {{option.value.defaultValue}}</div>
+          <div class="col-md-12">Type</div>
+        </div>
+      </div>
+
+      <!--<div class="row row-border" ng-repeat="option in options | orderBy:'+value.priority'">
         <div>
           <span class="subtitle">{{option.name}}</span>
           <span><input type="checkbox" ng-checked="!option.value.unique" ng-click="changeChecked(option)"/></span>
@@ -37,7 +55,7 @@
               </td>
             </tr>
           </table>
-        </div>
+        </div>-->
 
       </div>
     </div>
