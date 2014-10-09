@@ -14,8 +14,8 @@
       </h3>
 
       <div class="option row" ng-repeat="option in options | orderBy:'+value.priority'">
-        <div class="config col-md-1"><img src="dice.png"></div>
-        <div class="config col-md-1"><img src="default.png"></div>
+        <div class="config col-md-1" ng-class="{green: option.value.unique}" ng-click="changeChecked(option)"><img src="dice.png"></div>
+        <div class="config col-md-1" ng-class="{green: !option.value.unique}" ng-click="changeChecked(option)"><img src="default.png"></div>
         <div class="col-md-2"><h4>{{option.name}}</h4></div>
         <div class="col-md-4">
           <div class="col-md-12">Matches: {{option.value.includes | displayArray}}</div>

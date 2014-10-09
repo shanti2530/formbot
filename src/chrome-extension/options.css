@@ -18,6 +18,7 @@ body {
 .option .config {
   border-right: 1px solid grey;
   text-align: center;
+  cursor: pointer;
 }
 
 .option * {
@@ -31,6 +32,10 @@ body {
 [class*="col-"]{
     margin-bottom: -99999px;
     padding-bottom: 99999px;
+}
+
+.green  {
+  background-color: green;
 }
 
 
