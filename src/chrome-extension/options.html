@@ -12,51 +12,22 @@
       <h3>Configuration 
         <input class="small btn btn-default" type="button" value="New Configuration" />
       </h3>
-
-      <div class="option row" ng-repeat="option in options | orderBy:'+value.priority'">
-        <div class="config col-md-1" ng-class="{green: option.value.unique}" ng-click="changeChecked(option)"><img src="dice.png"></div>
-        <div class="config col-md-1" ng-class="{green: !option.value.unique}" ng-click="changeChecked(option)"><img src="default.png"></div>
-        <div class="col-md-2"><h4>{{option.name}}</h4></div>
-        <div class="col-md-4">
-          <div class="col-md-12">Matches: {{option.value.includes | displayArray}}</div>
-          <div class="col-md-12">Excludes: {{option.value.excludes | displayArray}}</div>
+        <div class="option row" ng-repeat="option in options | orderBy:'+value.priority'">
+          <div class="config setting col-md-1" ng-class="{green: option.value.unique}" ng-click="changeChecked(option)" title="use random value">
+            <img src="dice.png"></div>
+          <div class="config col-md-1 setting" ng-class="{green: !option.value.unique}" ng-click="changeChecked(option)" title="use default value">
+            <img src="default.png"></div>
+          <div class="col-md-2 setting"><h4>{{option.name}}</h4></div>
+          <div class="col-md-3 settings">
+            <div class="col-md-12">Matches: {{option.value.includes | displayArray}}</div>
+            <div class="col-md-12">Excludes: {{option.value.excludes | displayArray}}</div>
+          </div>
+          <div class="col-md-4 settings">
+            <div class="col-md-12">Default Value: {{option.value.defaultValue}}</div>
+            <div class="col-md-12">Type</div>
+          </div>
+          <div class="col-md-1 edit"><span>Edit</span></div>
         </div>
-        <div class="col-md-4">
-          <div class="col-md-12">Default Value: {{option.value.defaultValue}}</div>
-          <div class="col-md-12">Type</div>
-        </div>
-      </div>
-
-      <!--<div class="row row-border" ng-repeat="option in options | orderBy:'+value.priority'">
-        <div>
-          <span class="subtitle">{{option.name}}</span>
-          <span><input type="checkbox" ng-checked="!option.value.unique" ng-click="changeChecked(option)"/></span>
-        </div>
-
-        <div>
-          <table class="row">
-            <tr>
-              <td>Default Value</td>
-              <td>
-                <input type="text" value="{{option.value.defaultValue}}" ng-model="option.value.defaultValue"
-                         ng-disabled="option.value.unique"/>
-              </td>
-            </tr>
-            <tr>
-              <td>Match</td>
-              <td>
-                <input type="text" value="{{option.value.includes | displayArray}}" ng-model="option.value.includes"/>
-              </td>
-            </tr>
-            <tr>
-              <td>Exclude</td>
-              <td>
-                <input type="text" value="{{option.value.excludes | displayArray}}" ng-model="option.value.excludes"/>
-              </td>
-            </tr>
-          </table>
-        </div>-->
-
       </div>
     </div>
   </div>

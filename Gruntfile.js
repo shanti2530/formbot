@@ -31,6 +31,7 @@ module.exports = function(grunt) {
           {src: 'gen/chrome-extension/options.js', dest: 'dist/chrome-extension/options.js'},
           {src: 'gen/chrome-extension/optionsController.js', dest: 'dist/chrome-extension/optionsController.js'},
           {src: 'bower_components/angular/angular.min.js', dest: 'dist/chrome-extension/angular.min.js'},
+          {src: 'bower_components/angular/angular.min.js.map', dest: 'dist/chrome-extension/angular.min.js.map'},
           {src: 'bower_components/momentjs/min/moment.min.js', dest: 'dist/chrome-extension/scripts/moment.min.js'},
           {src: 'node_modules/chance/chance.js', dest: 'dist/chrome-extension/scripts/chance.js'}
         ]

@@ -13,29 +13,51 @@ body {
   border-radius: 3px;
   margin-top: 5px;
   margin-bottom: 5px;
+  height: 56px;
 }
 
-.option .config {
+.option > div {
+  height: 100%;
+}
+
+.option > .config {
   border-right: 1px solid grey;
   text-align: center;
   cursor: pointer;
 }
 
-.option * {
-  padding-top: 5px;
+.option > .setting {
+  display: flex;
 }
 
-.row{
-    overflow: hidden; 
+.option > .setting > * {
+  margin: auto;
 }
 
-[class*="col-"]{
-    margin-bottom: -99999px;
-    padding-bottom: 99999px;
+.option > .settings {
+  padding-top: 7px;
+}
+
+.edit {
+  line-height: 80px;
+  text-align: right;
+}
+
+.edit > span  {
+  background-color: #7FDBFF;
+  padding: 6px 15px;
 }
 
 .green  {
-  background-color: green;
+  background-color: #A3C816;
+}
+
+.right {
+  float: right;
+}
+
+.left {
+  float: left;
 }
 
 
