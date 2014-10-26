@@ -1,51 +1,58 @@
 body {
-  font-family: 'Segoe UI', Tahoma, sans-serif;
-  font-size: 13px;
-  color: rgb(48, 57, 66);
+  font-family: 'Segoe UI', Tahoma, sans-serif !important;
+  font-size: 15px !important;
+  color: #474747 !important;
+  width: 1024px;
+  margin: 0 auto !important;
 }
 
-.content-box {
-  margin: 0px 30px 0px 30px;  
+.header {
+  padding-bottom: 15px;
+  border-bottom: 1px solid rgb(209, 209, 209);
+}
+
+.configuration {
+  margin-top: 30px;
+  padding: 0px 15px;
 }
 
 .option {
-  border: 1px solid grey;
+  border: 1px solid rgb(184, 184, 184);
   border-radius: 3px;
-  margin-top: 5px;
-  margin-bottom: 5px;
-  height: 56px;
+  height: 83px;
+  margin-bottom: 5px; 
+}
+
+.option > .config {
+  border-right: 1px solid rgb(184, 184, 184);
+  text-align: center;
+  cursor: pointer;
 }
 
 .option > div {
   height: 100%;
 }
 
-.option > .config {
-  border-right: 1px solid grey;
-  text-align: center;
-  cursor: pointer;
+.option > div > * {
+  position: relative;
+  transform: translateY(50%);
 }
 
-.option > .setting {
-  display: flex;
+.option > .settings > * {
+  transform: translateY(20%) !important;
 }
 
-.option > .setting > * {
-  margin: auto;
-}
-
-.option > .settings {
-  padding-top: 7px;
+.settings > div {
+  margin-top: 3px;
 }
 
 .edit {
-  line-height: 80px;
   text-align: right;
+  background-color: #7FDBFF;
 }
 
-.edit > span  {
-  background-color: #7FDBFF;
-  padding: 6px 15px;
+.edit > span {
+  font-weight: bold;
 }
 
 .green  {
@@ -59,3 +66,52 @@ body {
 .left {
   float: left;
 }
+
+footer {
+  margin: 30px 0px;
+  font-style: italic;
+}
+
+input[type='text'],
+input[type='search'],
+input[type='email'],
+input[type='number'],
+input[type='datetime'],
+input[type='tel'],
+input[type='password']
+input[type='url'] {
+  border: 1px solid #BFBFBF;
+  border-radius: 2px;
+  box-sizing: border-box;
+  color: #444;
+  font: inherit;
+  margin: 0;
+  min-height: 2em;
+  padding: 3px;
+  padding-bottom: 4px;
+}
+
+select:focus,
+input[type='checkbox']:focus,
+input[type='password']:focus,
+input[type='radio']:focus,
+input[type='search']:focus,
+input[type='text']:focus,
+button:focus {
+  /* OVERRIDE */
+
+  -webkit-transition: border-color 200ms;
+  /* We use border color because it follows the border radius (unlike outline).
+       * This is particularly noticeable on mac. */
+
+  border-color: #4d90fe;
+  outline: none;
+}
+
+/*.col-1,.col-2,.col-3,.col-4,.col-5,.col-6,.col-7,.col-8,.col-9,.col-10,.col-11,.col-12 {
+  float: left;
+}
+
+.col-1 {
+
+}*/

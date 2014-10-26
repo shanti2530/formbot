@@ -2,31 +2,36 @@
 <head>
   <link href='options.css' rel='stylesheet' type='text/css'>
   <link href='bootstrap.css' rel='stylesheet' type='text/css'>
+  <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 </head>
-<body ng-app="FormbotApp" class="content-box">
-<div class="container-fluid" ng-controller="optionsController">
-  <h1 class="header">Formbot options page</h1>
-  <div class="section">
-    <div class="content">
+<body ng-app="FormbotApp">
+<div ng-controller="optionsController">
+  <h2 class="header">Formbot options page</h2>
+  <div class="configuration">
 
-      <h3>Configuration 
-        <input class="small btn btn-default" type="button" value="New Configuration" />
-      </h3>
-        <div class="option row" ng-repeat="option in options | orderBy:'+value.priority'">
-          <div class="config setting col-md-1" ng-class="{green: option.value.unique}" ng-click="changeChecked(option)" title="use random value">
-            <img src="dice.png"></div>
-          <div class="config col-md-1 setting" ng-class="{green: !option.value.unique}" ng-click="changeChecked(option)" title="use default value">
-            <img src="default.png"></div>
-          <div class="col-md-2 setting"><h4>{{option.name}}</h4></div>
-          <div class="col-md-3 settings">
-            <div class="col-md-12">Matches: {{option.value.includes | displayArray}}</div>
-            <div class="col-md-12">Excludes: {{option.value.excludes | displayArray}}</div>
+      <div class="option row" ng-repeat="option in options | orderBy:'+value.priority'">
+        <div class="config setting col-md-1 col-sm-1 col-xs-1" ng-class="{green: option.value.unique}" ng-click="changeChecked(option)" title="use random value">
+          <i class="fa fa-random fa-2x"></i>
+        </div>
+        <div class="config col-md-1 col-sm-1 col-xs-1 setting" ng-class="{green: !option.value.unique}" ng-click="changeChecked(option)" title="use default value">
+          <i class="fa fa-pencil fa-2x"></i>
+        </div>
+        <div class="col-md-2 col-sm-2 col-xs-2 setting"><h4>{{option.name}}</h4></div>
+        <div class="col-md-4 col-sm-4 col-xs-4 settings">
+          <div class="col-md-12 col-sm-12 col-xs-12">Matches: 
+            <input type="text" value="{{option.value.includes | displayArray}}" 
+              ng-model="option.value.includes"/>
           </div>
-          <div class="col-md-4 settings">
-            <div class="col-md-12">Default Value: {{option.value.defaultValue}}</div>
-            <div class="col-md-12">Type</div>
+          <div class="col-md-12 col-sm-12 col-xs-12">Excludes: 
+            <input type="text" value="{{option.value.excludes | displayArray}}" 
+              ng-model="option.value.excludes"/>
           </div>
-          <div class="col-md-1 edit"><span>Edit</span></div>
+        </div>
+        <div class="col-md-4 col-sm-4 col-xs-4 settings">
+          <div class="col-md-12 col-sm-12 col-xs-12">Default Value: 
+            <input type="text" ng-model="option.value.defaultValue" />
+          </div>
+          <div class="col-md-12 col-sm-12 col-xs-12">Random Type: </div>
         </div>
       </div>
     </div>

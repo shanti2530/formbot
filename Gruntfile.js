@@ -19,6 +19,7 @@ module.exports = function(grunt) {
           {src: 'src/chrome-extension/*.js', dest: 'gen/chrome-extension/', flatten: true, expand:true, filter: 'isFile'},
           {src: 'src/chrome-extension/*.json', dest: 'dist/chrome-extension/', flatten: true, expand:true, filter: 'isFile'},
           {src: 'src/chrome-extension/*.css', dest: 'dist/chrome-extension/', flatten: true, expand:true, filter: 'isFile'},
+          {src: 'src/chrome-extension/*.map', dest: 'dist/chrome-extension/', flatten: true, expand:true, filter: 'isFile'},
           {src: 'src/chrome-extension/*.png', dest: 'dist/chrome-extension/', flatten: true, expand:true, filter: 'isFile'}
         ]
       },
