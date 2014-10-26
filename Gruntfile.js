@@ -34,6 +34,7 @@ module.exports = function(grunt) {
           {src: 'bower_components/angular/angular.min.js', dest: 'dist/chrome-extension/angular.min.js'},
           {src: 'bower_components/angular/angular.min.js.map', dest: 'dist/chrome-extension/angular.min.js.map'},
           {src: 'bower_components/momentjs/min/moment.min.js', dest: 'dist/chrome-extension/scripts/moment.min.js'},
+          {src: 'bower_components/bootstrap/dist/css/bootstrap.min.css', dest: 'dist/chrome-extension/bootstrap.min.css'},
           {src: 'node_modules/chance/chance.js', dest: 'dist/chrome-extension/scripts/chance.js'}
         ]
       }
