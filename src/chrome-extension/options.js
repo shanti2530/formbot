@@ -1,8 +1,8 @@
 window.onload = function() {
 	'use strict';
 
-	//all text inputs (which in this case are all inputs except radio buttons) 
-	Array.prototype.slice.call(document.querySelectorAll('input:not([type=radio])')).forEach(function(el) {
+	//all text inputs (which in this case are all inputs except checkboxes)
+	Array.prototype.slice.call(document.querySelectorAll('input:not([type=checkbox])')).forEach(function(el) {
 
 		var elementName = el.name.toUpperCase();
 
@@ -10,6 +10,11 @@ window.onload = function() {
 		if(localStorage[elementName]) {
 			var elementDetails = JSON.parse(localStorage[elementName]);
 			el.value = elementDetails.defaultValue;
+
+      //if the field is set to randomly generate .. then disable the input for defined field
+      if (elementDetails.unique) {
+        el.disabled = true;
+      }
 		}
 
 		//save all inputs in chrome's local storage upon change
@@ -22,8 +27,8 @@ window.onload = function() {
 
 			if(localStorage[elementName]) {
 				var elementLocalStorage = JSON.parse(localStorage[elementName]);
-				
-				//save the value in the input to the local storage	
+
+				//save the value in the input to the local storage
 				localStorage[elementName] = JSON.stringify({unique: elementLocalStorage.unique,
 															defaultValue: elementValue,
 															uniqueValue: elementLocalStorage.uniqueValue});
@@ -31,48 +36,55 @@ window.onload = function() {
 		};
 	});
 
-	//all unique radio buttons in options form
-	Array.prototype.slice.call(document.querySelectorAll('input[type=radio][id$=Unique]')).forEach(function(el) {
+  Array.prototype.slice.call(document.querySelectorAll('span[id$=Matches]')).forEach(function(el) {
 
-		//check radio buttons according to local storage
-		var radioName = el.id.substring(0, el.id.indexOf('Unique')).toUpperCase();
+    var matchesIndex = el.id.indexOf('Matches');
+    var name = el.id.substring(0, matchesIndex).toUpperCase();
 
-		if(localStorage[radioName]) {
-			var radioLocalStorage = JSON.parse(localStorage[radioName]);
-			el.checked = radioLocalStorage.unique;
-	
-			//save changes made to the local storage
-			el.onchange = function(event) {
-				var radio = event.srcElement;
-				var radioChecked = radio.checked;
+    if (localStorage[name]) {
+      var elementLocalStorage = JSON.parse(localStorage[name]);
+      if (elementLocalStorage.includes) {
+        el.innerText = elementLocalStorage.includes;
+      }
+    }
+  });
 
-				localStorage[radioName] = JSON.stringify({unique: radioChecked,
-														  defaultValue: radioLocalStorage.defaultValue,
-														  uniqueValue: radioLocalStorage.uniqueValue});
-			};
-		}
-	});
+  Array.prototype.slice.call(document.querySelectorAll('span[id$=Excludes]')).forEach(function(el) {
 
-	//all default radio buttons in options form
-	Array.prototype.slice.call(document.querySelectorAll('input[type=radio][id$=Default]')).forEach(function(el) {
+    var matchesIndex = el.id.indexOf('Excludes');
+    var name = el.id.substring(0, matchesIndex).toUpperCase();
 
-		//check radio buttons according to local storage
-		var radioName = el.id.substring(0, el.id.indexOf('Default')).toUpperCase();
-		
-		if(localStorage[radioName]) {
-			var radioLocalStorage = JSON.parse(localStorage[radioName]);
+    if (localStorage[name]) {
+      var elementLocalStorage = JSON.parse(localStorage[name]);
+      if (elementLocalStorage.excludes) {
+        el.innerText = elementLocalStorage.excludes;
+      }
+    }
+  });
 
-			el.checked = !radioLocalStorage.unique;
+  //get the checkboxes which define if the field should be random or defined
+  Array.prototype.slice.call(document.querySelectorAll('input[type=checkbox][name=onoffswitch]')).forEach(function(el) {
 
-			//save changes made to the local storage
-			el.onchange = function(event) {
-				var radio = event.srcElement;
-				var radioChecked = radio.checked;
-				//update checked value in local storage
-				localStorage[radioName] = JSON.stringify({unique: !radioChecked,
-														  defaultValue: radioLocalStorage.defaultValue,
-														  uniqueValue: radioLocalStorage.uniqueValue});
-			};
-		}
+    var elementType = el.id.toUpperCase();
+    var type = JSON.parse(localStorage[elementType]);
+    el.checked = !type.unique;
+
+    //every time it changes ..
+    el.onclick = function (event) {
+
+      var element = event.srcElement;
+
+      var elementType = element.id.toUpperCase();
+      var type = JSON.parse(localStorage[elementType]);
+
+      element.checked = type.unique;
+
+      document.getElementsByName(el.id)[0].disabled = !type.unique;
+
+      localStorage[elementType] = JSON.stringify({unique: !type.unique,
+														  defaultValue: type.defaultValue,
+														  uniqueValue: type.uniqueValue});
+
+    };
 	});
 };
