@@ -1,159 +1,38 @@
 <html>
 <head>
-  <script type="text/javascript" src="options.js"></script>
-  <!-- build:css tidy.css -->
   <link href='options.css' rel='stylesheet' type='text/css'>
-  <!-- /build -->
+  <link href='bootstrap.css' rel='stylesheet' type='text/css'>
+  <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 </head>
-<body>
-<div class="container">
-  <h1 class="header">Formbot options page</h1>
-  <div class="section">
-    <div class="row">
-      <div>
-        <span class="title">Account</span>
-        <a href="#" class="right">+ add new field</a>
-      </div>
-    </div>
-    <div class="content">
-      <div class="row">
-        <div class="subtitle cell">Username </div>
-        <div class="onoffswitch">
-          <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="username" checked>
-          <label class="onoffswitch-label" for="username">
-            <span class="onoffswitch-inner"></span>
-            <span class="onoffswitch-switch"></span>
-          </label>
+<body ng-app="FormbotApp">
+<div ng-controller="optionsController">
+  <h2 class="header">Formbot options page</h2>
+  <div class="configuration">
+
+      <div class="option row" ng-repeat="option in options | orderBy:'+value.priority'">
+        <div class="config setting col-md-1 col-sm-1 col-xs-1" ng-class="{green: option.value.unique}" ng-click="changeChecked(option)" title="use random value">
+          <i class="fa fa-random fa-2x"></i>
         </div>
-        <input type="text" name="username"/>
-      </div>
-      <div class="row">
-        <div class="subtitle cell">Password </div>
-        <div class="onoffswitch">
-          <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="password" checked>
-          <label class="onoffswitch-label" for="password">
-            <span class="onoffswitch-inner"></span>
-            <span class="onoffswitch-switch"></span>
-          </label>
+        <div class="config col-md-1 col-sm-1 col-xs-1 setting" ng-class="{green: !option.value.unique}" ng-click="changeChecked(option)" title="use default value">
+          <i class="fa fa-pencil fa-2x"></i>
         </div>
-        <input type="text" name="password"/>
-      </div>
-      <div class="row">
-        <div class="subtitle cell">Phone Number</div>
-        <div class="onoffswitch">
-          <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="phone" checked>
-          <label class="onoffswitch-label" for="phone">
-            <span class="onoffswitch-inner"></span>
-            <span class="onoffswitch-switch"></span>
-          </label>
-        </div>
-        <input type="text" name="phone"/>
-      </div>
-    </div>
-  </div>
-  <div class="section">
-    <div class="row">
-      <div>
-        <span class="title">Domain</span>
-        <a class="right" href="#">+ add new field</a>
-      </div>
-      <div class="content">
-        <div class="row">
-          <div class="subtitle cell">URL </div>
-          <div class="onoffswitch">
-            <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="domain" checked>
-            <label class="onoffswitch-label" for="domain">
-              <span class="onoffswitch-inner"></span>
-              <span class="onoffswitch-switch"></span>
-            </label>
+        <div class="col-md-2 col-sm-2 col-xs-2 setting"><h4>{{option.name}}</h4></div>
+        <div class="col-md-4 col-sm-4 col-xs-4 settings">
+          <div class="col-md-12 col-sm-12 col-xs-12">Matches: 
+            <input type="text" value="{{option.value.includes | displayArray}}" 
+              ng-model="option.value.includes"/>
           </div>
-          <input type="text" name="domain"/>
-        </div>
-        <div class="row">
-          <div class="subtitle cell">E-mail </div>
-          <div class="onoffswitch">
-            <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="email" checked>
-            <label class="onoffswitch-label" for="email">
-              <span class="onoffswitch-inner"></span>
-              <span class="onoffswitch-switch"></span>
-            </label>
+          <div class="col-md-12 col-sm-12 col-xs-12">Excludes: 
+            <input type="text" value="{{option.value.excludes | displayArray}}" 
+              ng-model="option.value.excludes"/>
           </div>
-          <input type="text" name="email"/>
         </div>
-      </div>
-    </div>
-  </div>
-  <div class="section">
-    <div class="row">
-      <div>
-        <span class="title">Bank Details</span>
-        <a class="right" href="#">+ add new field</a>
-      </div>
-    </div>
-    <div class="content">
-      <div class="row">
-        <div class="subtitle cell">Card Number </div>
-        <div class="onoffswitch">
-          <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="card_no" checked>
-          <label class="onoffswitch-label" for="card_no">
-            <span class="onoffswitch-inner"></span>
-            <span class="onoffswitch-switch"></span>
-          </label>
+        <div class="col-md-4 col-sm-4 col-xs-4 settings">
+          <div class="col-md-12 col-sm-12 col-xs-12">Default Value: 
+            <input type="text" ng-model="option.value.defaultValue" />
+          </div>
+          <div class="col-md-12 col-sm-12 col-xs-12">Random Type: </div>
         </div>
-        <input type="text" name="card_no"/>
-      </div>
-      <div class="row">
-        <div class="subtitle cell">CVV </div>
-        <div class="onoffswitch">
-          <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="cvv" checked>
-          <label class="onoffswitch-label" for="cvv">
-            <span class="onoffswitch-inner"></span>
-            <span class="onoffswitch-switch"></span>
-          </label>
-        </div>
-        <input type="text" name="cvv"/>
-      </div>
-    </div>
-  </div>
-  <div class="section">
-    <div class="row">
-      <div>
-        <span class="title">General</span>
-        <a class="right" href="#">+ add new field</a></div>
-    </div>
-    <div class="content">
-      <div class="row">
-        <div class="subtitle cell">Number </div>
-        <div class="onoffswitch">
-          <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="number" checked>
-          <label class="onoffswitch-label" for="number">
-            <span class="onoffswitch-inner"></span>
-            <span class="onoffswitch-switch"></span>
-          </label>
-        </div>
-        <input type="text" name="number"/>
-      </div>
-      <div class="row">
-        <div class="subtitle cell">Text </div>
-        <div class="onoffswitch">
-          <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="text" checked>
-          <label class="onoffswitch-label" for="text">
-            <span class="onoffswitch-inner"></span>
-            <span class="onoffswitch-switch"></span>
-          </label>
-        </div>
-        <input type="text" name="text"/>
-      </div>
-      <div class="row">
-        <div class="subtitle cell">Date & Time </div>
-        <div class="onoffswitch">
-          <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="date" checked>
-          <label class="onoffswitch-label" for="date">
-            <span class="onoffswitch-inner"></span>
-            <span class="onoffswitch-switch"></span>
-          </label>
-        </div>
-        <input type="datetime" name="date"/>
       </div>
     </div>
   </div>
@@ -164,5 +43,9 @@
   The code for this extension is open source and is hosted on <a target="_blank" href=
   "https://github.com/shanti2530/formbot">Github</a>.
 </footer>
+
+<script type="text/javascript" src="angular.min.js"></script>
+<script type="text/javascript" src="optionsController.js"></script>
+
 </body>
 </html>

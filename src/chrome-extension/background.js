@@ -12,21 +12,21 @@ chrome.browserAction.onClicked.addListener(function() {
 
   //try to get the input value from the user defined values
   var defaults = [
-    {name:'EMAIL',    value: {defaultValue:'f@ke.com', includes: ['mail']}},
-    {name:'PASSWORD', value: {defaultValue:'Password123', includes: ['pass']}},
-    {name:'CARD_NO',  value: {defaultValue:'4444333322221111', includes: ['card'], excludes: ['name', 'code']}},
-    {name:'CVV',      value:{defaultValue:'123', includes: ['cvv', 'cvc', 'cv2']}},
-    {name:'PHONE',    value:{defaultValue:'79797979', includes: ['phone', 'tel', 'mobile']}},
-    {name:'USERNAME', value:{defaultValue: 'john', includes: ['username', 'userId']}},
-    {name:'DOMAIN',   value:{defaultValue: 'fakeaddresshere.com', includes: ['domain']}},
-    {name:'URL',      value:{defaultValue: 'http://www.fakeaddresshere.com', includes: ['url', 'site']}},
-    {name:'NUMBER',   value: {defaultValue: 5, includes: ['number', 'amount', 'range']}},
-    {name:'DATETIME', value: {defaultValue: utils.getDateFormat('YYYY-MM-DDTHH:mm'), includes: ['datetime']}},
-    {name:'DATE',     value: {defaultValue: utils.getDateFormat('YYYY-MM-DD'), includes: ['date']}},
-    {name:'TIME',     value: {defaultValue: utils.getDateFormat('HH:mm'), includes: ['time']}},
-    {name:'WEEK',     value: {defaultValue: utils.getDateFormat('GGGG-[W]WW'), includes: ['week']}},
-    {name:'MONTH',    value: {defaultValue: utils.getDateFormat('YYYY-MM'), includes: ['month']}},
-    {name:'TEXT',     value: {defaultValue: 'Lorem', includes: ['text']}}
+    {name:'USERNAME', value: {defaultValue: 'john', includes: ['username', 'userId'], priority:1}},
+    {name:'PASSWORD', value: {defaultValue:'Password123', includes: ['pass'], priority:2}},
+    {name:'EMAIL',    value: {defaultValue:'f@ke.com', includes: ['mail'], priority:3}},
+    {name:'CARD_NO',  value: {defaultValue:'4444333322221111', includes: ['card'], excludes: ['name', 'code'], priority:4}},
+    {name:'CVV',      value: {defaultValue:'123', includes: ['cvv', 'cvc', 'cv2'], priority:5}},
+    {name:'PHONE',    value: {defaultValue:'79797979', includes: ['phone', 'tel', 'mobile'], priority:6}},
+    {name:'DOMAIN',   value: {defaultValue: 'fakeaddresshere.com', includes: ['domain'], priority:7}},
+    {name:'URL',      value: {defaultValue: 'http://www.fakeaddresshere.com', includes: ['url', 'site'], priority:8}},
+    {name:'NUMBER',   value: {defaultValue: 5, includes: ['number', 'amount', 'range'], priority:9}},
+    {name:'DATETIME', value: {defaultValue: utils.getDateFormat('YYYY-MM-DDTHH:mm'), includes: ['datetime'], priority:10}},
+    {name:'DATE',     value: {defaultValue: utils.getDateFormat('YYYY-MM-DD'), includes: ['date'], priority:11}},
+    {name:'TIME',     value: {defaultValue: utils.getDateFormat('HH:mm'), includes: ['time'], priority:12}},
+    {name:'WEEK',     value: {defaultValue: utils.getDateFormat('GGGG-[W]WW'), includes: ['week'], priority:13}},
+    {name:'MONTH',    value: {defaultValue: utils.getDateFormat('YYYY-MM'), includes: ['month'], priority:14}},
+    {name:'TEXT',     value: {defaultValue: 'Lorem', includes: ['text'], priority:15}}
   ];
 
   for (var d=0; d < defaults.length; d++) {
@@ -38,13 +38,14 @@ chrome.browserAction.onClicked.addListener(function() {
       localStorage[type] = JSON.stringify({unique: false,
         defaultValue: defaults[d].value.defaultValue,
         includes: defaults[d].value.includes,
-        excludes: defaults[d].value.excludes});
+        excludes: defaults[d].value.excludes,
+        priority: defaults[d].value.priority});
     } else{
-      var jsonVal = JSON.parse(val);
-      localStorage[type] = JSON.stringify({unique: jsonVal.unique,
-        defaultValue: jsonVal.defaultValue,
+      localStorage[type] = JSON.stringify({unique: false,
+        defaultValue: defaults[d].value.defaultValue,
         includes: defaults[d].value.includes,
-        excludes: defaults[d].value.excludes});
+        excludes: defaults[d].value.excludes,
+        priority: defaults[d].value.priority});
     }
   }
 })();
@@ -106,6 +107,8 @@ chrome.runtime.onMessage.addListener(
 
     var checkText = function(text) {
       if (text) {
+        var validKeys = [];
+
         for (var i=0; i<localStorage.length; i++) {
           var key = localStorage.key(i);
           var keyDefinition = JSON.parse(localStorage.getItem(key));
@@ -116,12 +119,31 @@ chrome.runtime.onMessage.addListener(
             var excluded = utils.contains(keyDefinition.excludes, text);
 
             if (!excluded) {
-              if (keyDefinition.unique) {
-                return [key, getUniqueValue(key)];
-              } else {
-                return [key, keyDefinition.defaultValue];
-              }
+              validKeys.push({key: key, definition: keyDefinition});
             }
+          }
+        }
+
+        var sortByPriority = function (a,b) {
+          if (a.definition.priority < b.definition.priority) {
+            return -1;
+          }
+          if (a.definition.priority > b.definition.priority) {
+            return 1;
+          }
+          return 0;
+        };
+
+        if (validKeys && validKeys.length > 0) {
+          validKeys.sort(sortByPriority);
+
+          var mostImportant = validKeys[0];
+
+          if (mostImportant.definition.unique) {
+            console.log(mostImportant.definition.unique);
+            return [mostImportant.key, getUniqueValue(mostImportant.key)];
+          } else {
+            return [mostImportant.key, mostImportant.definition.defaultValue];
           }
         }
       }
@@ -149,7 +171,7 @@ chrome.runtime.onMessage.addListener(
               _gaq.push(['_trackEvent', 'input-type', checker[0], 'TYPE|' + request.type]);
               sendResponse({key: checker[1]});
             } else {
-              _gaq.push(['_trackEvent', 'input-type', checker[0], 'TYPE|' + request.type]);
+              _gaq.push(['_trackEvent', 'input-type', 'TEXT', 'TYPE|' + request.type]);
               sendResponse({key: checkText('TEXT')});
             }
           }

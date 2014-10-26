@@ -1,61 +1,86 @@
 body {
-	font-family: 'Segoe UI', Tahoma, sans-serif;
-	font-size: 13px;
-  color: rgb(48, 57, 66);
+  font-family: 'Segoe UI', Tahoma, sans-serif !important;
+  font-size: 15px !important;
+  color: #474747 !important;
+  width: 1024px;
+  margin: 0 auto !important;
+}
+
+.header {
+  padding-bottom: 15px;
+  border-bottom: 1px solid rgb(209, 209, 209);
+}
+
+.configuration {
+  margin-top: 30px;
+  padding: 0px 15px;
+}
+
+.option {
+  border: 1px solid rgb(184, 184, 184);
+  border-radius: 3px;
+  height: 83px;
+  margin-bottom: 5px; 
+}
+
+.option > .config {
+  border-right: 1px solid rgb(184, 184, 184);
+  text-align: center;
+  cursor: pointer;
+}
+
+.option > div {
+  height: 100%;
+}
+
+.option > div > * {
+  position: relative;
+  transform: translateY(50%);
+}
+
+.option > .settings > * {
+  transform: translateY(20%) !important;
+}
+
+.settings > div {
+  margin-top: 3px;
+}
+
+.edit {
+  text-align: right;
+  background-color: #7FDBFF;
+}
+
+.edit > span {
+  font-weight: bold;
+}
+
+.green  {
+  background-color: #A3C816;
 }
 
 .right {
   float: right;
 }
 
-.header {
-  margin-top: 30px;
-}
-
-.container {
-	margin-left: 20px;
-}
-
-.content {
-  padding-left: 20px;
-}
-
-.section {
-  margin: 30px 0px;
-}
-
-.row {
-  width: 386px;
-  display: block;
-  margin: 5px 0px;
-  vertical-align: middle;
-}
-
-.row .cell {
-  width: 100px;
+.left {
   float: left;
 }
 
-h1 {
-  font-size: 2em;
-  font-weight: normal;
-  line-height: 1;
-}
-
-.title {
-  font-size: 16px;
-  font-weight: 500;
-}
-
 footer {
-	margin: 20px 0px;
-	font-style: italic;
-	color: grey;
+  margin: 30px 0px;
+  font-style: italic;
 }
 
-input[type='number'], input[type='password'], input[type='search'], input[type='text'], input[type='url'], input[type='datetime'],
-  input:not([type]), textarea {
-  border: 1px solid #bfbfbf;
+input[type='text'],
+input[type='search'],
+input[type='email'],
+input[type='number'],
+input[type='datetime'],
+input[type='tel'],
+input[type='password']
+input[type='url'] {
+  border: 1px solid #BFBFBF;
   border-radius: 2px;
   box-sizing: border-box;
   color: #444;
@@ -63,58 +88,30 @@ input[type='number'], input[type='password'], input[type='search'], input[type='
   margin: 0;
   min-height: 2em;
   padding: 3px;
-  outline: none;
   padding-bottom: 4px;
 }
 
+select:focus,
+input[type='checkbox']:focus,
+input[type='password']:focus,
+input[type='radio']:focus,
+input[type='search']:focus,
+input[type='text']:focus,
+button:focus {
+  /* OVERRIDE */
 
+  -webkit-transition: border-color 200ms;
+  /* We use border color because it follows the border radius (unlike outline).
+       * This is particularly noticeable on mac. */
 
+  border-color: #4d90fe;
+  outline: none;
+}
 
-.onoffswitch {
+/*.col-1,.col-2,.col-3,.col-4,.col-5,.col-6,.col-7,.col-8,.col-9,.col-10,.col-11,.col-12 {
   float: left;
-  position: relative; width: 81px;
-  margin: 0px 10px;
-  -webkit-user-select:none; -moz-user-select:none; -ms-user-select: none;
 }
-.onoffswitch-checkbox {
-  display: none;
-}
-.onoffswitch-label {
-  display: block; overflow: hidden; cursor: pointer;
-  border: 2px solid #FFFFF; border-radius: 2px;
-}
-.onoffswitch-inner {
-  display: block; width: 200%; margin-left: -100%;
-  -moz-transition: margin 0.3s ease-in 0s; -webkit-transition: margin 0.3s ease-in 0s;
-  -o-transition: margin 0.3s ease-in 0s; transition: margin 0.3s ease-in 0s;
-}
-.onoffswitch-inner:before, .onoffswitch-inner:after {
-  display: block; float: left; width: 50%; height: 25px; padding: 0; line-height: 25px;
-  font-size: 13px; color: white; font-family: Trebuchet, Arial, sans-serif; font-weight: bold;
-  -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;
-}
-.onoffswitch-inner:before {
-  content: "defined";
-  padding-left: 5px;
-  background-color: #2FCCFF; color: #FFFFFF;
-}
-.onoffswitch-inner:after {
-  content: "random";
-  padding-right: 5px;
-  background-color: #81C97B; color: #F2EDED;
-  text-align: right;
-}
-.onoffswitch-switch {
-  display: block; width: 15px; margin: 5px;
-  background: #FFFFFF;
-  border: 2px solid #FFFFF; border-radius: 2px;
-  position: absolute; top: 0; bottom: 0; right: 52px;
-  -moz-transition: all 0.3s ease-in 0s; -webkit-transition: all 0.3s ease-in 0s;
-  -o-transition: all 0.3s ease-in 0s; transition: all 0.3s ease-in 0s;
-}
-.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-inner {
-  margin-left: 0;
-}
-.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
-  right: 0px;
-}
+
+.col-1 {
+
+}*/
