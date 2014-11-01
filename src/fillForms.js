@@ -13,7 +13,26 @@
         type: input.type},
           function(response) {
             input.value = response.key;
+            triggerOnChangeEventOnInput(input);
           });
+  };
+
+  /*
+   *Trigger a change event on the input so that the browser would be notified
+   * that the input value has changed.
+   * This is important in AngularJS apps as angular would update the model
+   * with the new value when the change event triggers. Otherwise the model would
+   * not be updated with the latest value
+   */
+  var triggerOnChangeEventOnInput = function(input) {
+
+    if ('createEvent' in document) {
+      var evt = document.createEvent('HTMLEvents');
+      evt.initEvent('change', true, false);
+      input.dispatchEvent(evt);
+    } else {
+      input.fireEvent('onchange');
+    }
   };
 
   /*A function that given an array of input elements would fill them up
