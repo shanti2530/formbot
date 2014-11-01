@@ -33,7 +33,7 @@
     } else {
       input.fireEvent('onchange');
     }
-  }
+  };
 
   /*A function that given an array of input elements would fill them up
    with the respective values*/
