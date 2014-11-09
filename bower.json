@@ -11,6 +11,7 @@
   "dependencies": {
     "momentjs": "~2.4.0",
     "angular": "~1.2.20",
-    "angular-toggle-switch": "~0.3.0"
+    "angular-toggle-switch": "~0.3.0",
+    "components-font-awesome": "~4.2.0"
   }
 }

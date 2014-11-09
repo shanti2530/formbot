@@ -22,6 +22,10 @@ var utils = {
             return true;
         }
     },
+    isObjectEmpty: function(obj) {
+      'use strict';
+      return Object.keys(obj).length === 0;
+    },
     contains:
         function (array, needle) {
             'use strict';
