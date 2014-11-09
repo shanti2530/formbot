@@ -11,11 +11,17 @@ myApp.controller('optionsController', ['$scope', function($scope) {
 
   $scope.options = [];
 
-  for(var i= 0; i < localStorage.length; i++) {
-    var key = localStorage.key(i);
-    var obj = {name: key, value : JSON.parse(localStorage.getItem(key))};
-    $scope.options.push(obj);
-  }
+  chrome.storage.sync.get(null, function(data){
+    var keys = Object.keys(data);
+    for(var i= 0; i < keys.length; i++) {
+      var key = keys[i];
+      var obj = {name: key, value : JSON.parse(data[key])};
+      $scope.options.push(obj);
+    }
+
+    $scope.$apply();
+
+  });
 
   $scope.changeChecked = function(option) {
     option.value.unique = !option.value.unique;
@@ -23,8 +29,9 @@ myApp.controller('optionsController', ['$scope', function($scope) {
 
   var splitter = /(?=\S)[^,]+?(?=\s*(,|$))/g;
 
+  //save updates
   $scope.$watch('options', function() {
-    if ($scope.options[0].value.defaultValue) {
+    if (angular.isDefined($scope.options)) {
 
       for(var i=0; i<$scope.options.length; i++) {
         var option = $scope.options[i];
@@ -42,15 +49,19 @@ myApp.controller('optionsController', ['$scope', function($scope) {
           excludes = option.value.excludes;
         }
 
-        localStorage[option.name] = JSON.stringify({unique: option.value.unique,
+        var obj = new Object();
+        obj[option.name] = JSON.stringify({unique: option.value.unique,
           defaultValue: option.value.defaultValue,
           includes: includes,
           excludes: excludes,
           priority: option.value.priority});
+
+        chrome.storage.sync.set(obj);
       }
     }
 
   }, true);
+
 }]);
 
 myApp.filter('displayArray', function(){
@@ -65,7 +76,5 @@ myApp.filter('displayArray', function(){
     }
 
     return str;
-
-
   }
 });

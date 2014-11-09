@@ -29,25 +29,43 @@ chrome.browserAction.onClicked.addListener(function() {
     {name:'TEXT',     value: {defaultValue: 'Lorem', includes: ['text'], priority:15}}
   ];
 
-  for (var d=0; d < defaults.length; d++) {
-    var type = defaults[d].name;
-    var val = localStorage[type];
+  chrome.storage.sync.get(null, function(data){
 
-    //if not found in the local storage then set the system default value
-    if (val === undefined) {
-      localStorage[type] = JSON.stringify({unique: false,
-        defaultValue: defaults[d].value.defaultValue,
-        includes: defaults[d].value.includes,
-        excludes: defaults[d].value.excludes,
-        priority: defaults[d].value.priority});
-    } else{
-      localStorage[type] = JSON.stringify({unique: false,
-        defaultValue: defaults[d].value.defaultValue,
-        includes: defaults[d].value.includes,
-        excludes: defaults[d].value.excludes,
-        priority: defaults[d].value.priority});
+    var storedData = [];
+
+    var keys = Object.keys(data);
+    for(var i= 0; i < keys.length; i++) {
+      var key = keys[i];
+      var obj = {name: key, value : JSON.parse(data[key])};
+      storedData.push(obj);
     }
-  }
+
+    for (var d=0; d < defaults.length; d++) {
+      var type = defaults[d].name;
+      var found = false;
+
+      for(var a=0; a < storedData.length; a++){
+        if (storedData[a].name === type){
+          found = true;
+          break;
+        }
+      }
+
+      if (!found) {
+        //store data
+        var val = defaults[d].value;
+
+        var newObject = new Object();
+        newObject[type] = JSON.stringify({unique: false,
+          defaultValue: val.defaultValue,
+          includes: val.includes,
+          excludes: val.excludes,
+          priority: val.priority});
+        chrome.storage.sync.set(newObject);
+      }
+    }
+  });
+
 })();
 
 //Google analytics specific code, we load up the library so that when a message arrives we could send it through
@@ -140,7 +158,6 @@ chrome.runtime.onMessage.addListener(
           var mostImportant = validKeys[0];
 
           if (mostImportant.definition.unique) {
-            console.log(mostImportant.definition.unique);
             return [mostImportant.key, getUniqueValue(mostImportant.key)];
           } else {
             return [mostImportant.key, mostImportant.definition.defaultValue];
