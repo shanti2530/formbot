@@ -29,10 +29,12 @@ chrome.browserAction.onClicked.addListener(function() {
     {name:'TEXT',     value: {defaultValue: 'Lorem', includes: ['text'], priority:15}}
   ];
 
+  //load all information into chrome store if it does not exist already
   chrome.storage.sync.get(null, function(data){
 
     var storedData = [];
 
+    //get all the data which is already stored in the user's chrome storage
     var keys = Object.keys(data);
     for(var i= 0; i < keys.length; i++) {
       var key = keys[i];
@@ -40,6 +42,9 @@ chrome.browserAction.onClicked.addListener(function() {
       storedData.push(obj);
     }
 
+    //for each default value defined, check if it exists in the user's chrome storage
+    //if not store it for the user.
+    //else do not update it as the user would lose any configured data
     for (var d=0; d < defaults.length; d++) {
       var type = defaults[d].name;
       var found = false;
@@ -51,8 +56,8 @@ chrome.browserAction.onClicked.addListener(function() {
         }
       }
 
+      //a default value was not found, store it
       if (!found) {
-        //store data
         var val = defaults[d].value;
 
         var newObject = new Object();
