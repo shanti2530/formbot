@@ -61,7 +61,7 @@ chrome.browserAction.onClicked.addListener(function() {
         var val = defaults[d].value;
 
         var newObject = new Object();
-        newObject[type] = JSON.stringify({unique: false,
+        newObject[type] = JSON.stringify({unique: true,
           defaultValue: val.defaultValue,
           includes: val.includes,
           excludes: val.excludes,
