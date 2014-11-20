@@ -132,42 +132,48 @@ chrome.runtime.onMessage.addListener(
       if (text) {
         var validKeys = [];
 
-        for (var i=0; i<localStorage.length; i++) {
-          var key = localStorage.key(i);
-          var keyDefinition = JSON.parse(localStorage.getItem(key));
+        //get the all the data from the store and build a list of valid keys
+        chrome.storage.sync.get(null, function(storage){
 
-          //check if the text provided is one of the included text
-          var contains = utils.contains(keyDefinition.includes, text);
-          if (contains) {
-            var excluded = utils.contains(keyDefinition.excludes, text);
+          var keys = Object.keys(storage);
 
-            if (!excluded) {
-              validKeys.push({key: key, definition: keyDefinition});
+          for (var i=0; i < keys.length; i++) {
+            var key = keys[i];
+            var keyDefinition = JSON.parse(storage[key]);
+
+            //check if the text provided is one of the included text
+            var contains = utils.contains(keyDefinition.includes, text);
+            if (contains) {
+              var excluded = utils.contains(keyDefinition.excludes, text);
+
+              if (!excluded) {
+                validKeys.push({key: key, definition: keyDefinition});
+              }
             }
           }
-        }
 
-        var sortByPriority = function (a,b) {
-          if (a.definition.priority < b.definition.priority) {
-            return -1;
+          var sortByPriority = function (a,b) {
+            if (a.definition.priority < b.definition.priority) {
+              return -1;
+            }
+            if (a.definition.priority > b.definition.priority) {
+              return 1;
+            }
+            return 0;
+          };
+
+          if (validKeys && validKeys.length > 0) {
+            validKeys.sort(sortByPriority);
+
+            var mostImportant = validKeys[0];
+
+            if (mostImportant.definition.unique) {
+              return [mostImportant.key, getUniqueValue(mostImportant.key)];
+            } else {
+              return [mostImportant.key, mostImportant.definition.defaultValue];
+            }
           }
-          if (a.definition.priority > b.definition.priority) {
-            return 1;
-          }
-          return 0;
-        };
-
-        if (validKeys && validKeys.length > 0) {
-          validKeys.sort(sortByPriority);
-
-          var mostImportant = validKeys[0];
-
-          if (mostImportant.definition.unique) {
-            return [mostImportant.key, getUniqueValue(mostImportant.key)];
-          } else {
-            return [mostImportant.key, mostImportant.definition.defaultValue];
-          }
-        }
+        });
       }
     };
 
