@@ -129,17 +129,33 @@ chrome.runtime.onMessage.addListener(
     };
 
     var checkText = function(text) {
-      if (text) {
-        var validKeys = [];
 
-        //get the all the data from the store and build a list of valid keys
-        chrome.storage.sync.get(null, function(storage){
+      //custom ordering function .. according to the field priority
+      var sortByPriority = function (a,b) {
+        if (a.definition.priority < b.definition.priority) {
+          return -1;
+        }
+        if (a.definition.priority > b.definition.priority) {
+          return 1;
+        }
+        return 0;
+      };
 
-          var keys = Object.keys(storage);
+      //a promise is required as the stored values to compare with are being returned
+      // in an async process .. therefore we need to wait
+      return new Promise(function (resolve, reject) {
+        if (!text) {
+          reject();
+        }
+
+        chrome.storage.sync.get(null, function(data){
+          var validKeys = [];
+
+          var keys = Object.keys(data);
 
           for (var i=0; i < keys.length; i++) {
             var key = keys[i];
-            var keyDefinition = JSON.parse(storage[key]);
+            var keyDefinition = JSON.parse(data[key]);
 
             //check if the text provided is one of the included text
             var contains = utils.contains(keyDefinition.includes, text);
@@ -152,59 +168,66 @@ chrome.runtime.onMessage.addListener(
             }
           }
 
-          var sortByPriority = function (a,b) {
-            if (a.definition.priority < b.definition.priority) {
-              return -1;
-            }
-            if (a.definition.priority > b.definition.priority) {
-              return 1;
-            }
-            return 0;
-          };
-
           if (validKeys && validKeys.length > 0) {
             validKeys.sort(sortByPriority);
 
             var mostImportant = validKeys[0];
 
             if (mostImportant.definition.unique) {
-              return [mostImportant.key, getUniqueValue(mostImportant.key)];
+              resolve([mostImportant.key, getUniqueValue(mostImportant.key)]);
             } else {
-              return [mostImportant.key, mostImportant.definition.defaultValue];
+              resolve([mostImportant.key, mostImportant.definition.defaultValue]);
             }
+          } else {
+            reject();
           }
         });
+      });
+    };
+
+    //recursively try to find a valid value to fill the input with given the data
+    var valueFiller = function (values) {
+
+      // values array structure
+      // [{type: 'ID', value:'aa'}, {type: 'NAME', value: 'bb'}]
+
+      if (!values || values.length == 0) {
+        _gaq.push(['_trackEvent', 'input-type', 'TEXT', 'TYPE|' + request.type]);
+        sendResponse({key: checkText('TEXT')});
       }
+
+      //get the first piece of data and try to find a valid value to fill with
+      var value = values[0];
+
+      checkText(value.value).then(
+        //success function .. a value has been found to fill the input with
+        function (data) {
+          _gaq.push(['_trackEvent', 'input-type', data[0], value.type + '|' + value.value]);
+          sendResponse({key: data[1]});
+        },
+        //fail function .. no matching value has been found .. retry
+        function () {
+          values.shift();
+          valueFiller(values);
+        }
+      );
     };
 
     if (request.method === 'checkInput') {
 
-      var checker = checkText(request.id);
-      if (checker) {
-        _gaq.push(['_trackEvent', 'input-type', checker[0], 'ID|' + request.id]);
-        sendResponse({key: checker[1]});
-      } else {
-        checker = checkText(request.name);
-        if (checker) {
-          _gaq.push(['_trackEvent', 'input-type', checker[0], 'NAME|' + request.name]);
-          sendResponse({key: checker[1]});
-        } else {
-          checker = checkText(request.placeholder);
-          if (checker) {
-            _gaq.push(['_trackEvent', 'input-type', checker[0], 'PLACEHOLDER|' + request.placeholder]);
-            sendResponse({key: checker[1]});
-          } else {
-            checker = checkText(request.type);
-            if (checker) {
-              _gaq.push(['_trackEvent', 'input-type', checker[0], 'TYPE|' + request.type]);
-              sendResponse({key: checker[1]});
-            } else {
-              _gaq.push(['_trackEvent', 'input-type', 'TEXT', 'TYPE|' + request.type]);
-              sendResponse({key: checkText('TEXT')});
-            }
-          }
-        }
-      }
+      //prepare data for processing
+      var valueArray = [
+        {type: 'ID', value: request.id},
+        {type: 'NAME', value: request.name},
+        {type: 'PLACEHOLDER', value: request._placeholder},
+        {type: 'TYPE', value: request.type}
+      ];
+
+      //call function which would async send the response back
+      valueFiller(valueArray);
+
+      //return true to indicate that the response will be async
+      return true;
 
     } else if (request.method === 'analytics') {
       _gaq.push(['_trackEvent', request.category, request.action, request.label]);
