@@ -146,42 +146,43 @@ chrome.runtime.onMessage.addListener(
       return new Promise(function (resolve, reject) {
         if (!text) {
           reject();
-        }
+        } else {
 
-        chrome.storage.sync.get(null, function(data){
-          var validKeys = [];
+          chrome.storage.sync.get(null, function(data){
+            var validKeys = [];
 
-          var keys = Object.keys(data);
+            var keys = Object.keys(data);
 
-          for (var i=0; i < keys.length; i++) {
-            var key = keys[i];
-            var keyDefinition = JSON.parse(data[key]);
+            for (var i=0; i < keys.length; i++) {
+              var key = keys[i];
+              var keyDefinition = JSON.parse(data[key]);
 
-            //check if the text provided is one of the included text
-            var contains = utils.contains(keyDefinition.includes, text);
-            if (contains) {
-              var excluded = utils.contains(keyDefinition.excludes, text);
+              //check if the text provided is one of the included text
+              var contains = utils.contains(keyDefinition.includes, text);
+              if (contains) {
+                var excluded = utils.contains(keyDefinition.excludes, text);
 
-              if (!excluded) {
-                validKeys.push({key: key, definition: keyDefinition});
+                if (!excluded) {
+                  validKeys.push({key: key, definition: keyDefinition});
+                }
               }
             }
-          }
 
-          if (validKeys && validKeys.length > 0) {
-            validKeys.sort(sortByPriority);
+            if (validKeys && validKeys.length > 0) {
+              validKeys.sort(sortByPriority);
 
-            var mostImportant = validKeys[0];
+              var mostImportant = validKeys[0];
 
-            if (mostImportant.definition.unique) {
-              resolve([mostImportant.key, getUniqueValue(mostImportant.key)]);
+              if (mostImportant.definition.unique) {
+                resolve([mostImportant.key, getUniqueValue(mostImportant.key)]);
+              } else {
+                resolve([mostImportant.key, mostImportant.definition.defaultValue]);
+              }
             } else {
-              resolve([mostImportant.key, mostImportant.definition.defaultValue]);
+              reject();
             }
-          } else {
-            reject();
-          }
-        });
+          });
+        }
       });
     };
 
