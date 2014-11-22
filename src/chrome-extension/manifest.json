@@ -2,7 +2,7 @@
   "name": "Formbot",
   "short_name": "Fill forms",
   "description": "This extension will fill any inputs on the page",
-  "version": "1.0.0.5",
+  "version": "1.0.1.0",
   "options_page": "options.html",
   "permissions": [
     "activeTab", "storage", "*://use.typekit.net/*", "webRequest", "webRequestBlocking"
