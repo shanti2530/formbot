@@ -1,6 +1,6 @@
 body {
   font-family: 'Segoe UI', Tahoma, sans-serif !important;
-  font-size: 15px !important;
+  font-size: 14px !important;
   color: #474747 !important;
   width: 1024px;
   margin: 0 auto !important;
@@ -17,10 +17,21 @@ body {
 }
 
 .option {
-  border: 1px solid rgb(184, 184, 184);
-  border-radius: 3px;
+  border-color: rgb(184, 184, 184);
+  border-style: solid;
+  border-top-width: 1px;
+  border-bottom-width: 0px;
+  border-left-width: 1px;
+  border-right-width: 1px;
   height: 83px;
-  margin-bottom: 5px; 
+}
+
+.bottom {
+  border-bottom-width: 1px;
+}
+
+.even {
+  background-color: rgb(245, 245, 245);
 }
 
 .option > .config {
@@ -35,7 +46,7 @@ body {
 
 .option > div > * {
   position: relative;
-  transform: translateY(50%);
+  transform: translateY(85%);
 }
 
 .option > .settings > * {

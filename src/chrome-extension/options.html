@@ -8,11 +8,14 @@
 <div ng-controller="optionsController">
   <h2 class="header">Formbot options page</h2>
   <div class="configuration">
-      <div class="option row" ng-repeat="option in options | orderBy:'+value.priority'">
-        <div class="config setting col-md-1 col-sm-1 col-xs-1" ng-class="{green: option.value.unique}" ng-click="changeChecked(option)" title="use random value">
+      <div class="option row" ng-repeat="option in options | orderBy:'+value.priority'"
+           ng-class="{bottom: $last, even: $even}">
+        <div class="config setting col-md-1 col-sm-1 col-xs-1" ng-class="{green: option.value.unique}"
+             ng-click="changeChecked(option)" title="use random value">
           <i class="fa fa-random fa-2x"></i>
         </div>
-        <div class="config col-md-1 col-sm-1 col-xs-1 setting" ng-class="{green: !option.value.unique}" ng-click="changeChecked(option)" title="use default value">
+        <div class="config col-md-1 col-sm-1 col-xs-1 setting" ng-class="{green: !option.value.unique}"
+             ng-click="changeChecked(option)" title="use default value">
           <i class="fa fa-pencil fa-2x"></i>
         </div>
         <div class="col-md-2 col-sm-2 col-xs-2 setting"><h4>{{option.name}}</h4></div>
