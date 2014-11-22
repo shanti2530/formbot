@@ -1,9 +1,14 @@
 body {
-  font-family: 'Segoe UI', Tahoma, sans-serif !important;
+  font-family: "museo-sans" sans-serif !important;
   font-size: 14px !important;
   color: #474747 !important;
   width: 1024px;
   margin: 0 auto !important;
+}
+
+h2, h4 {
+  font-family: ff-enzo-web, sans-serif !important;
+  font-weight: 600 !important;
 }
 
 .header {

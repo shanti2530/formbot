@@ -5,7 +5,7 @@
   "version": "1.0.0.5",
   "options_page": "options.html",
   "permissions": [
-    "activeTab", "storage"
+    "activeTab", "storage", "*://use.typekit.net/*", "webRequest", "webRequestBlocking"
   ],
   "background": {
     "scripts": ["scripts/moment.min.js", "background.js", "scripts/chance.js"],
@@ -20,7 +20,7 @@
       "128": "image128.png"
       }
   },
-  "content_security_policy": "script-src 'self' 'unsafe-eval' https://ssl.google-analytics.com; object-src 'self'",
+  "content_security_policy": "script-src 'self' 'unsafe-eval' https://ssl.google-analytics.com https://*.uservoice.com https://use.typekit.net; object-src 'self'",
   "icons": {
     "16": "image16.png",
     "48": "image48.png",
