@@ -4,11 +4,32 @@ chrome.browserAction.onClicked.addListener(function() {
   chrome.tabs.executeScript(null, {file: 'scripts/fillForms.min.js'});
 });
 
+var utils = {
+  getDateFormat:
+    function(format) {
+      'use strict';
+      if (typeof moment === 'function') {
+        return moment().format(format);
+      }
+    },
+  contains:
+    function (array, needle) {
+      'use strict';
+      if (!array || array === undefined || array.length === 0) {
+        return false;
+      }
+
+      for(var i = 0; i < array.length; i++) {
+        if(needle.toLowerCase().indexOf(array[i]) > -1) {
+          return true;
+        }
+      }
+      return false;
+    }
+};
+
 (function loadValues() {
   'use strict';
-  /* jshint ignore:start */
-  include "utils.js"
-  /* jshint ignore:end */
 
   //try to get the input value from the user defined values
   var defaults = [
@@ -88,10 +109,6 @@ _gaq.push(['_trackPageview']);
 chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
     'use strict';
-
-    /* jshint ignore:start */
-    include "utils.js"
-    /* jshint ignore:end */
 
     var getUniqueValue = function(inputType) {
       switch (inputType) {
@@ -236,6 +253,7 @@ chrome.runtime.onMessage.addListener(
   }
 );
 
+//required by typekit in order to always send the referer
 chrome.webRequest.onBeforeSendHeaders.addListener(function(details) {
   var requestHeaders = details.requestHeaders;
   for (var i=0; i<requestHeaders.length; ++i) {
