@@ -28,84 +28,6 @@ var utils = {
     }
 };
 
-(function loadValues() {
-  'use strict';
-
-  //try to get the input value from the user defined values
-  var defaults = [
-    {name:'USERNAME', value: {defaultValue: 'john', includes: ['username', 'userId'], priority:1}},
-    {name:'PASSWORD', value: {defaultValue:'Password123', includes: ['pass'], priority:2}},
-    {name:'EMAIL',    value: {defaultValue:'f@ke.com', includes: ['mail'], priority:3}},
-    {name:'CARD_NO',  value: {defaultValue:'4444333322221111', includes: ['card'], excludes: ['name', 'code'], priority:4}},
-    {name:'CVV',      value: {defaultValue:'123', includes: ['cvv', 'cvc', 'cv2'], priority:5}},
-    {name:'PHONE',    value: {defaultValue:'79797979', includes: ['phone', 'tel', 'mobile'], priority:6}},
-    {name:'DOMAIN',   value: {defaultValue: 'fakeaddresshere.com', includes: ['domain'], priority:7}},
-    {name:'URL',      value: {defaultValue: 'http://www.fakeaddresshere.com', includes: ['url', 'site'], priority:8}},
-    {name:'NUMBER',   value: {defaultValue: 5, includes: ['number', 'amount', 'range'], priority:9}},
-    {name:'DATETIME', value: {defaultValue: utils.getDateFormat('YYYY-MM-DDTHH:mm'), includes: ['datetime'], priority:10}},
-    {name:'DATE',     value: {defaultValue: utils.getDateFormat('YYYY-MM-DD'), includes: ['date'], priority:11}},
-    {name:'TIME',     value: {defaultValue: utils.getDateFormat('HH:mm'), includes: ['time'], priority:12}},
-    {name:'WEEK',     value: {defaultValue: utils.getDateFormat('GGGG-[W]WW'), includes: ['week'], priority:13}},
-    {name:'MONTH',    value: {defaultValue: utils.getDateFormat('YYYY-MM'), includes: ['month'], priority:14}},
-    {name:'TEXT',     value: {defaultValue: 'Lorem', includes: ['text'], priority:15}}
-  ];
-
-  //load all information into chrome store if it does not exist already
-  chrome.storage.sync.get(null, function(data){
-
-    var storedData = [];
-
-    //get all the data which is already stored in the user's chrome storage
-    var keys = Object.keys(data);
-    for(var i= 0; i < keys.length; i++) {
-      var key = keys[i];
-      var obj = {name: key, value : JSON.parse(data[key])};
-      storedData.push(obj);
-    }
-
-    //for each default value defined, check if it exists in the user's chrome storage
-    //if not store it for the user.
-    //else do not update it as the user would lose any configured data
-    for (var d=0; d < defaults.length; d++) {
-      var type = defaults[d].name;
-      var found = false;
-
-      for(var a=0; a < storedData.length; a++){
-        if (storedData[a].name === type){
-          found = true;
-          break;
-        }
-      }
-
-      //a default value was not found, store it
-      if (!found) {
-        var val = defaults[d].value;
-
-        var newObject = new Object();
-        newObject[type] = JSON.stringify({unique: true,
-          defaultValue: val.defaultValue,
-          includes: val.includes,
-          excludes: val.excludes,
-          priority: val.priority});
-        chrome.storage.sync.set(newObject);
-      }
-    }
-  });
-
-})();
-
-//Google analytics specific code, we load up the library so that when a message arrives we could send it through
-/* jshint ignore:start */
-var _gaq = _gaq || [];
-_gaq.push(['_setAccount', 'UA-49960543-2']);
-_gaq.push(['_trackPageview']);
-(function() {
-  var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-  ga.src = 'https://ssl.google-analytics.com/ga.js';
-  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-})();
-/* jshint ignore:end */
-
 chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
     'use strict';
@@ -172,6 +94,12 @@ chrome.runtime.onMessage.addListener(
 
             for (var i=0; i < keys.length; i++) {
               var key = keys[i];
+
+              //the static type is used to store custom url specific data
+              if(key === 'STATIC') {
+                continue;
+              }
+
               var keyDefinition = JSON.parse(data[key]);
 
               //check if the text provided is one of the included text
@@ -231,6 +159,27 @@ chrome.runtime.onMessage.addListener(
       );
     };
 
+    var checkStatic = function(values) {
+
+      //get the current tab url
+      chrome.tabs.getSelected(null, function(tab){
+        console.log(tab.url);
+
+        //get the custom static info
+        chrome.storage.sync.get('STATIC', function(data){
+
+          //check if there is a static config for the particular url
+
+          //if yes ... construct the response with the static data
+
+          //if no ... continue
+
+        });
+
+      });
+
+    };
+
     if (request.method === 'checkInput') {
 
       //prepare data for processing
@@ -241,6 +190,8 @@ chrome.runtime.onMessage.addListener(
         {type: 'TYPE', value: request.type}
       ];
 
+      checkStatic(valueArray);
+
       //call function which would async send the response back
       valueFiller(valueArray);
 
@@ -249,8 +200,24 @@ chrome.runtime.onMessage.addListener(
 
     } else if (request.method === 'analytics') {
       _gaq.push(['_trackEvent', request.category, request.action, request.label]);
+
+
+      //get stored Values
+    } else if (request.method === 'retrieveStoredValues') {
+
+      chrome.storage.sync.get(request.valueName, function(data){
+        sendResponse({value: data});
+      });
+
+      return true;
+
+    } else if (request.method === 'storeValue') {
+      chrome.storage.sync.set(request.newValue);
+
+      return;
     }
   }
+
 );
 
 //required by typekit in order to always send the referer
@@ -278,9 +245,10 @@ chrome.webRequest.onBeforeSendHeaders.addListener(function(details) {
 }, ['requestHeaders','blocking']);
 
 //create the context menu item
-chrome.contextMenus.create({title: 'Formbot Save data', onclick: saveData()});
+chrome.contextMenus.create({title: 'Formbot Save data'});
 
 //function called when the context menu item is clicked
 chrome.contextMenus.onClicked.addListener(function(info) {
   console.log('as %o', info);
+  console.log(document.querySelectorAll('input'));
 });

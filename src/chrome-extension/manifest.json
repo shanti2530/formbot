@@ -5,12 +5,18 @@
   "version": "1.0.1.0",
   "options_page": "options.html",
   "permissions": [
-    "activeTab", "storage", "*://use.typekit.net/*", "webRequest", "webRequestBlocking", "contextMenus"
+    "activeTab", "storage", "tabs", "*://use.typekit.net/*", "webRequest", "webRequestBlocking", "contextMenus"
   ],
   "background": {
-    "scripts": ["scripts/moment.min.js", "background.js", "scripts/chance.js"],
+    "scripts": ["background.js", "scripts/chance.js", "scripts/loadValues.min.js"],
     "persistent": true
   },
+  "content_scripts": [
+    {
+      "matches": ["http://*/*", "https://*/*"],
+      "js": ["scripts/moment.min.js"]
+    }
+  ],
   "browser_action": {
     "default_title": "Fill forms on page",
     "default_icon": {
