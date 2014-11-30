@@ -209,7 +209,7 @@ chrome.runtime.onMessage.addListener(
       // values array structure
       // [{type: 'ID', value:'aa'}, {type: 'NAME', value: 'bb'}]
 
-      if (!values || values.length == 0) {
+      if (!values || values.length === 0) {
         _gaq.push(['_trackEvent', 'input-type', 'TEXT', 'TYPE|' + request.type]);
         sendResponse({key: checkText('TEXT')});
       }
@@ -255,6 +255,7 @@ chrome.runtime.onMessage.addListener(
 
 //required by typekit in order to always send the referer
 chrome.webRequest.onBeforeSendHeaders.addListener(function(details) {
+  'use strict';
   var requestHeaders = details.requestHeaders;
   for (var i=0; i<requestHeaders.length; ++i) {
     if (requestHeaders[i].name.toLowerCase() === 'referer') {
@@ -275,3 +276,11 @@ chrome.webRequest.onBeforeSendHeaders.addListener(function(details) {
   urls: ['*://use.typekit.net/*'],
   types: ['stylesheet']
 }, ['requestHeaders','blocking']);
+
+//create the context menu item
+chrome.contextMenus.create({title: 'Formbot Save data', onclick: saveData()});
+
+//function called when the context menu item is clicked
+chrome.contextMenus.onClicked.addListener(function(info) {
+  console.log('as %o', info);
+});
