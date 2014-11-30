@@ -5,7 +5,7 @@
   "version": "1.0.1.1",
   "options_page": "options.html",
   "permissions": [
-    "activeTab", "storage", "tabs", "*://use.typekit.net/*", "webRequest", "webRequestBlocking", "contextMenus"
+    "activeTab", "storage", "*://use.typekit.net/*", "webRequest", "webRequestBlocking", "contextMenus"
   ],
   "background": {
     "scripts": ["background.js", "scripts/chance.js", "scripts/loadValues.min.js"],
