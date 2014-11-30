@@ -245,9 +245,10 @@ chrome.webRequest.onBeforeSendHeaders.addListener(function(details) {
 }, ['requestHeaders','blocking']);
 
 //create the context menu item
-chrome.contextMenus.create({title: 'Formbot Save data', onclick: saveData()});
+chrome.contextMenus.create({title: 'Formbot Save data'});
 
 //function called when the context menu item is clicked
 chrome.contextMenus.onClicked.addListener(function(info) {
   console.log('as %o', info);
+  console.log(document.querySelectorAll('input'));
 });
