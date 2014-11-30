@@ -182,6 +182,8 @@
     var val = defaults[i];
     setValue(val);
   }
+
+  //load all information into chrome store if it does not exist already
   chrome.extension.sendMessage({
       method: 'retrieveStoredValues',
       valueName: null}, //get all values
