@@ -17,6 +17,10 @@
           return moment().format(format);
         }
       },
+    isEmpty:
+      function(obj) {
+        return Object.keys(obj).length === 0;
+      },
     contains:
       function (array, needle) {
         'use strict';
@@ -31,6 +35,26 @@
         }
         return false;
       }
+  };
+
+  var setValue = function(val) {
+
+    //check if the value already exists in the store
+    chrome.storage.sync.get(val.name, function(data){
+
+      //if not found we need to store it
+      if (utils.isEmpty(data)) {
+
+        var newObject = new Object();
+        newObject[val.name] = JSON.stringify({unique: true,
+          defaultValue: val.value.defaultValue,
+          includes: val.value.includes,
+          excludes: val.value.excludes,
+          priority: val.value.priority});
+
+        chrome.storage.sync.set(newObject);
+      }
+    });
   };
 
   //try to get the input value from the user defined values
@@ -53,58 +77,10 @@
   ];
 
   //load all information into chrome store if it does not exist already
-  chrome.extension.sendMessage({
-      method: 'retrieveStoredValues',
-      valueName: null}, //get all values
-    function(response) {
-
-      var data;
-      if (response) {
-       data = response.value;
-      } else {
-        data = {};
-      }
-      var storedData = [];
-
-      //get all the data which is already stored in the user's chrome storage
-      var keys = Object.keys(data);
-      for(var i= 0; i < keys.length; i++) {
-        var key = keys[i];
-        var obj = {name: key, value : JSON.parse(data[key])};
-        storedData.push(obj);
-      }
-
-      //for each default value defined, check if it exists in the user's chrome storage
-      //if not store it for the user.
-      //else do not update it as the user would lose any configured data
-      for (var d=0; d < defaults.length; d++) {
-        var type = defaults[d].name;
-        var found = false;
-
-        for(var a=0; a < storedData.length; a++){
-          if (storedData[a].name === type){
-            found = true;
-            break;
-          }
-        }
-
-        //a default value was not found, store it
-        if (!found) {
-          var val = defaults[d].value;
-
-          var newObject = new Object();
-          newObject[type] = JSON.stringify({unique: true,
-            defaultValue: val.defaultValue,
-            includes: val.includes,
-            excludes: val.excludes,
-            priority: val.priority});
-
-          //send message to store value
-          chrome.extension.sendMessage({method: 'storeValue', newValue: newObject});
-        }
-      }
-    });
-
+  for (var i=0; i < defaults.length; i++) {
+    var val = defaults[i];
+    setValue(val);
+  }
 })();
 
 //Google analytics specific code, we load up the library so that when a message arrives we could send it through
