@@ -70,7 +70,7 @@
       var group = radios[i].name;
 
       //check if for this specific group there is no radio button checked already
-      var groupRadios = document.querySelectorAll('input[name=' + group + ']:checked');
+      var groupRadios = document.querySelectorAll('input[name=\"' + group + '\"]:checked');
 
       //if one is already checked .. then skip this radio button
       //else check it
@@ -88,11 +88,14 @@
 
       //get a random valid option
       var allValidOptions = dd.querySelectorAll('option[value]:not([value=""])');
-      dd.selectedIndex = allValidOptions[Math.floor(Math.random() * allValidOptions.length)].index;
 
-      // Triggers the change event
-      dd.dispatchEvent(new Event('change'));
-      chrome.extension.sendMessage({method: 'analytics', category: 'input-type', action: 'SELECT'});
+      if( allValidOptions.length != 0 ){
+        dd.selectedIndex = allValidOptions[Math.floor(Math.random() * allValidOptions.length)].index;
+
+        // Triggers the change event
+        dd.dispatchEvent(new Event('change'));
+        chrome.extension.sendMessage({method: 'analytics', category: 'input-type', action: 'SELECT'});
+      }
     }
   };
 
