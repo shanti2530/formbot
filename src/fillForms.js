@@ -89,7 +89,7 @@
       //get a random valid option
       var allValidOptions = dd.querySelectorAll('option[value]:not([value=""])');
 
-      if( allValidOptions.length != 0 ){
+      if( allValidOptions.length !== 0 ){
         dd.selectedIndex = allValidOptions[Math.floor(Math.random() * allValidOptions.length)].index;
 
         // Triggers the change event
