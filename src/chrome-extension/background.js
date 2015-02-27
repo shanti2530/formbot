@@ -198,6 +198,7 @@ chrome.contextMenus.create({title: 'Formbot Save data'});
 
 //function called when the context menu item is clicked
 chrome.contextMenus.onClicked.addListener(function(info) {
+  'use strict';
   console.log('as %o', info);
   console.log(document.querySelectorAll('input'));
 });
