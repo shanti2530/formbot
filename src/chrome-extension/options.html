@@ -1,45 +1,51 @@
 <html>
-<head>
-  <link href='options.css' rel='stylesheet' type='text/css'>
-  <link href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css' rel='stylesheet' type='text/css'>
-  <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
-</head>
 <body ng-app="FormbotApp">
 <div ng-controller="optionsController">
   <h2 class="header">Formbot options page</h2>
   <div class="configuration">
-      <div class="option row" ng-repeat="option in options | orderBy:'+value.priority'"
-           ng-class="{bottom: $last, even: $even}">
-        <div class="config setting col-md-1 col-sm-1 col-xs-1" ng-class="{green: option.value.unique}"
-             ng-click="changeChecked(option)" title="use random value">
-          <i class="fa fa-random fa-2x"></i>
-        </div>
-        <div class="config col-md-1 col-sm-1 col-xs-1 setting" ng-class="{green: !option.value.unique}"
-             ng-click="changeChecked(option)" title="use default value">
-          <i class="fa fa-pencil fa-2x"></i>
-        </div>
-        <div class="col-md-2 col-sm-2 col-xs-2 setting"><h4>{{option.name}}</h4></div>
-        <div class="col-md-4 col-sm-4 col-xs-4 settings">
-          <div class="col-md-12 col-sm-12 col-xs-12 row">
-            <div class="col-md-4">Matches:</div>
-            <div class="col-md-8">
-              <input type="text" value="{{option.value.includes | displayArray}}"
-                     ng-model="option.value.includes"/>
-            </div>
-          </div>
-          <div class="col-md-12 col-sm-12 col-xs-12 row">
-            <div class="col-md-4">Excludes:</div>
-            <div class="col-md-8">
-              <input type="text" value="{{option.value.excludes | displayArray}}"
-                ng-model="option.value.excludes"/>
-            </div>
+    <div class="option row" ng-repeat="option in options | orderBy:'+value.priority'"
+         ng-class="{bottom: $last, even: $even}">
+      <div class="config setting col-md-1 col-sm-1 col-xs-1" ng-class="{green: option.value.unique}"
+           ng-click="changeChecked(option)" title="use random value">
+        <i class="fa fa-random fa-2x"></i>
+      </div>
+      <div class="config col-md-1 col-sm-1 col-xs-1 setting" ng-class="{green: !option.value.unique}"
+           ng-click="changeChecked(option)" title="use default value">
+        <i class="fa fa-pencil fa-2x"></i>
+      </div>
+      <div class="col-md-2 col-sm-2 col-xs-2 setting"><h4>{{option.name}}</h4></div>
+      <div class="col-md-4 col-sm-4 col-xs-4 settings">
+        <div class="col-md-12 col-sm-12 col-xs-12 row">
+          <div class="col-md-4">Matches:</div>
+          <div class="col-md-8">
+            <input type="text" value="{{option.value.includes | displayArray}}"
+                   ng-model="option.value.includes"/>
           </div>
         </div>
-        <div class="col-md-4 col-sm-4 col-xs-4 settings">
-          <div class="col-md-12 col-sm-12 col-xs-12 row">
-            Default Value: <input type="text" ng-model="option.value.defaultValue" />
+        <div class="col-md-12 col-sm-12 col-xs-12 row">
+          <div class="col-md-4">Excludes:</div>
+          <div class="col-md-8">
+            <input type="text" value="{{option.value.excludes | displayArray}}"
+                   ng-model="option.value.excludes"/>
           </div>
-          <div class="col-md-12 col-sm-12 col-xs-12 row"></div>
+        </div>
+      </div>
+      <div class="col-md-4 col-sm-4 col-xs-4 settings">
+        <div class="col-md-12 col-sm-12 col-xs-12 row">
+          <div class="col-md-6">Default Value:</div>
+          <div class="col-md-6">
+            <input type="text" ng-model="option.value.defaultValue" />
+          </div>
+        </div>
+        <div class="col-md-12 col-sm-12 col-xs-12 row">
+          <div class="col-md-6">Unique Type:</div>
+          <div class="col-md-6">
+            {{option.value.uniqueConfig.type}}
+            <!--<select ng-model="option.value.uniqueConfig.type">-->
+              <!--<option ng-repeat="type in uniqueTypes" value="{{type}}"-->
+                      <!--ng-selected="option.value.uniqueConfig.type === type">{{type}}</option>-->
+            <!--</select>-->
+          </div>
         </div>
       </div>
     </div>
@@ -58,4 +64,9 @@
 <script src="https://widget.uservoice.com/2zd17UX6LjTX7V5WNyqrlw.js" defer></script>
 <script type="text/javascript" defer src="externalScripts.js"></script>
 </body>
+<head>
+  <link href='options.css' rel='stylesheet' type='text/css'>
+  <link href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css' rel='stylesheet' type='text/css'>
+  <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+</head>
 </html>
