@@ -50,11 +50,25 @@
           defaultValue: val.value.defaultValue,
           includes: val.value.includes,
           excludes: val.value.excludes,
+          uniqueConfig: val.value.uniqueConfig,
           priority: val.value.priority});
 
         chrome.storage.sync.set(newObject);
+
+      } else {
+        //if the key is already stored, make sure that it has a uniqueConfig field
+        //TODO: this checking is ideally performed for all fields
+        var keys = Object.keys(data);
+        var dataVal = data[keys[0]];
+        var jsonVal = JSON.parse(dataVal);
+
+        if (jsonVal.uniqueConfig === undefined) {
+          jsonVal.uniqueConfig = val.value.uniqueConfig;
+          var newObject = new Object();
+          newObject[val.name] = JSON.stringify(jsonVal);
+          chrome.storage.sync.set(newObject);
+        }
       }
-      //TODO: check for values fields instead of fields only
     });
   };
 
