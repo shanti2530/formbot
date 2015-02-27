@@ -159,27 +159,6 @@ chrome.runtime.onMessage.addListener(
       );
     };
 
-    var checkStatic = function(values) {
-
-      //get the current tab url
-      chrome.tabs.getSelected(null, function(tab){
-        console.log(tab.url);
-
-        //get the custom static info
-        chrome.storage.sync.get('STATIC', function(data){
-
-          //check if there is a static config for the particular url
-
-          //if yes ... construct the response with the static data
-
-          //if no ... continue
-
-        });
-
-      });
-
-    };
-
     if (request.method === 'checkInput') {
 
       //prepare data for processing
@@ -190,8 +169,6 @@ chrome.runtime.onMessage.addListener(
         {type: 'TYPE', value: request.type}
       ];
 
-      checkStatic(valueArray);
-
       //call function which would async send the response back
       valueFiller(valueArray);
 
@@ -200,21 +177,6 @@ chrome.runtime.onMessage.addListener(
 
     } else if (request.method === 'analytics') {
       _gaq.push(['_trackEvent', request.category, request.action, request.label]);
-
-
-      //get stored Values
-    } else if (request.method === 'retrieveStoredValues') {
-
-      chrome.storage.sync.get(request.valueName, function(data){
-        sendResponse({value: data});
-      });
-
-      return true;
-
-    } else if (request.method === 'storeValue') {
-      chrome.storage.sync.set(request.newValue);
-
-      return;
     }
   }
 
