@@ -95,11 +95,6 @@ chrome.runtime.onMessage.addListener(
             for (var i=0; i < keys.length; i++) {
               var key = keys[i];
 
-              //the static type is used to store custom url specific data
-              if(key === 'STATIC') {
-                continue;
-              }
-
               var keyDefinition = JSON.parse(data[key]);
 
               //check if the text provided is one of the included text
