@@ -59,21 +59,122 @@
 
   //try to get the input value from the user defined values
   var defaults = [
-    {name:'USERNAME', value: {defaultValue: 'john', includes: ['username', 'userId'], priority:1}},
-    {name:'PASSWORD', value: {defaultValue:'Password123', includes: ['pass'], priority:2}},
-    {name:'EMAIL',    value: {defaultValue:'f@ke.com', includes: ['mail'], priority:3}},
-    {name:'CARD_NO',  value: {defaultValue:'4444333322221111', includes: ['card'], excludes: ['name', 'code'], priority:4}},
-    {name:'CVV',      value: {defaultValue:'123', includes: ['cvv', 'cvc', 'cv2'], priority:5}},
-    {name:'PHONE',    value: {defaultValue:'79797979', includes: ['phone', 'tel', 'mobile'], priority:6}},
-    {name:'DOMAIN',   value: {defaultValue: 'fakeaddresshere.com', includes: ['domain'], priority:7}},
-    {name:'URL',      value: {defaultValue: 'http://www.fakeaddresshere.com', includes: ['url', 'site'], priority:8}},
-    {name:'NUMBER',   value: {defaultValue: 5, includes: ['number', 'amount', 'range'], priority:9}},
-    {name:'DATETIME', value: {defaultValue: utils.getDateFormat('YYYY-MM-DDTHH:mm'), includes: ['datetime'], priority:10}},
-    {name:'DATE',     value: {defaultValue: utils.getDateFormat('YYYY-MM-DD'), includes: ['date'], priority:11}},
-    {name:'TIME',     value: {defaultValue: utils.getDateFormat('HH:mm'), includes: ['time'], priority:12}},
-    {name:'WEEK',     value: {defaultValue: utils.getDateFormat('GGGG-[W]WW'), includes: ['week'], priority:13}},
-    {name:'MONTH',    value: {defaultValue: utils.getDateFormat('YYYY-MM'), includes: ['month'], priority:14}},
-    {name:'TEXT',     value: {defaultValue: 'Lorem', includes: ['text'], priority:15}}
+    {name:'USERNAME',
+      value: {
+        defaultValue: 'john',
+        includes: ['username', 'userId'],
+        uniqueConfig: {type: 'WORD', min:7, max:7},
+        priority:1
+      }
+    },
+    {name:'PASSWORD',
+      value: {
+        defaultValue:'Password123',
+        includes: ['pass'],
+        uniqueConfig: {type: 'WORD', min:7, max:10},
+        priority:2
+      }
+    },
+    {name:'EMAIL',
+      value: {defaultValue:'f@ke.com',
+        includes: ['mail'],
+        uniqueConfig: {type: 'EMAIL'},
+        priority:3
+      }
+    },
+    {name:'CARD_NO',
+      value: {
+        defaultValue:'4444333322221111',
+        includes: ['card'],
+        excludes: ['name', 'code'],
+        uniqueConfig: {type:'CARD'},
+        priority:4
+      }
+    },
+    {name:'CVV',
+      value: {
+        defaultValue:'123',
+        includes: ['cvv', 'cvc', 'cv2'],
+        uniqueConfig: {type: 'NUMBER', min:100, max:999},
+        priority:5
+      }
+    },
+    {name:'PHONE',
+      value: {
+        defaultValue:'79797979',
+        includes: ['phone', 'tel', 'mobile'],
+        uniqueConfig: {type: 'PHONE'},
+        priority:6
+      }
+    },
+    {name:'DOMAIN',
+      value: {
+        defaultValue: 'fakeaddresshere.com',
+        includes: ['domain'],
+        uniqueConfig: {type: 'DOMAIN'},
+        priority:7
+      }
+    },
+    {name:'URL',
+      value: {
+        defaultValue: 'http://www.fakeaddresshere.com',
+        includes: ['url', 'site'],
+        uniqueConfig: {type: 'DOMAIN'},
+        priority:8
+      }
+    },
+    {name:'NUMBER',
+      value: {
+        defaultValue: 5,
+        includes: ['number', 'amount', 'range'],
+        uniqueConfig: {type: 'NUMBER', min:1, max:99},
+        priority:9
+      }
+    },
+    {name:'DATETIME',
+      value: {
+        defaultValue: utils.getDateFormat('YYYY-MM-DDTHH:mm'),
+        includes: ['datetime'],
+        uniqueConfig: {type: 'DATETIME'},
+        priority:10
+      }
+    },
+    {name:'DATE',
+      value: {
+        defaultValue: utils.getDateFormat('YYYY-MM-DD'),
+        includes: ['date'],
+        uniqueConfig: {type: 'DATE'},
+        priority:11
+      }
+    },
+    {name:'TIME',
+      value: {
+        defaultValue: utils.getDateFormat('HH:mm'),
+        includes: ['time'],
+        uniqueConfig: {type: 'TIME'},
+        priority:12}},
+    {name:'WEEK',
+      value: {
+        defaultValue: utils.getDateFormat('GGGG-[W]WW'),
+        includes: ['week'],
+        uniqueConfig: {type: 'WEEK'},
+        priority:13
+      }
+    },
+    {name:'MONTH',
+      value: {
+        defaultValue: utils.getDateFormat('YYYY-MM'),
+        includes: ['month'],
+        uniqueConfig: {type: 'MONTH'},
+        priority:14}},
+    {name:'TEXT',
+      value: {
+        defaultValue: 'Lorem',
+        includes: ['text'],
+        uniqueConfig: {type: 'WORD', min:7, max: 10},
+        priority:15
+      }
+    }
   ];
 
   //load all information into chrome store if it does not exist already
