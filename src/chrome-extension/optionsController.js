@@ -11,6 +11,20 @@ myApp.controller('optionsController', ['$scope', function($scope) {
 
   $scope.options = [];
 
+  $scope.uniqueTypes = [
+    "WORD",
+    "DOMAIN",
+    "NUMBER",
+    "EMAIL",
+    "CARD",
+    "PHONE",
+    "DATETIME",
+    "DATE",
+    "TIME",
+    "MONTH",
+    "WEEK"
+  ];
+
   chrome.storage.sync.get(null, function(data){
     var keys = Object.keys(data);
     for(var i= 0; i < keys.length; i++) {
