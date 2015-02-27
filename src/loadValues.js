@@ -78,7 +78,7 @@
       value: {
         defaultValue: 'john',
         includes: ['username', 'userId'],
-        uniqueConfig: {type: 'WORD', min:7, max:7},
+        uniqueConfig: {type: 'WORD', length:7},
         priority:1
       }
     },
@@ -86,7 +86,7 @@
       value: {
         defaultValue:'Password123',
         includes: ['pass'],
-        uniqueConfig: {type: 'WORD', min:7, max:10},
+        uniqueConfig: {type: 'WORD', length:7},
         priority:2
       }
     },
@@ -186,7 +186,7 @@
       value: {
         defaultValue: 'Lorem',
         includes: ['text'],
-        uniqueConfig: {type: 'WORD', min:7, max: 10},
+        uniqueConfig: {type: 'WORD', length: 7},
         priority:15
       }
     }

@@ -32,28 +32,21 @@ chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
     'use strict';
 
-    var getUniqueValue = function(inputType) {
-      switch (inputType) {
-        case 'TEXT':
-          return chance.word({length: 7});
+    var getUniqueValue = function(uniqueConfig) {
+
+      switch (uniqueConfig.type) {
+        case 'WORD':
+          return chance.word({length: uniqueConfig.length});
         case 'DOMAIN':
           return chance.domain();
         case 'EMAIL':
           return chance.email();
-        case 'PASSWORD':
-          return chance.string({length: 7});
-        case 'CARD_NO':
+        case 'CARD':
           return chance.cc();
-        case 'CVV':
-          return chance.integer({min:100, max:999});
         case 'PHONE':
           return chance.phone();
-        case 'USERNAME':
-          return chance.word({length: 7});
-        case 'URL':
-          return 'http://' + chance.domain();
         case 'NUMBER':
-          return chance.integer({min:1,max:99});
+          return chance.integer({min:uniqueConfig.min, max:uniqueConfig.max});
         case 'DATETIME':
           return utils.getDateFormat('YYYY-MM-DDTHH:mm');
         case 'DATE':
@@ -89,7 +82,6 @@ chrome.runtime.onMessage.addListener(
 
           chrome.storage.sync.get(null, function(data){
             var validKeys = [];
-
             var keys = Object.keys(data);
 
             for (var i=0; i < keys.length; i++) {
@@ -114,7 +106,7 @@ chrome.runtime.onMessage.addListener(
               var mostImportant = validKeys[0];
 
               if (mostImportant.definition.unique) {
-                resolve([mostImportant.key, getUniqueValue(mostImportant.key)]);
+                resolve([mostImportant.key, getUniqueValue(mostImportant.definition.uniqueConfig)]);
               } else {
                 resolve([mostImportant.key, mostImportant.definition.defaultValue]);
               }
