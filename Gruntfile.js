@@ -28,7 +28,6 @@ module.exports = function(grunt) {
           {src: 'gen/chrome-extension/*.css', dest: 'dist/chrome-extension/', flatten: true, expand: true},
           {src: 'gen/chrome-extension/background.js', dest: 'dist/chrome-extension/background.js'},
           {src: 'gen/chrome-extension/options.js', dest: 'dist/chrome-extension/options.js'},
-//          {src: 'gen/chrome-extension/loadValues.js', dest: 'dist/chrome-extension/scripts/loadValues.js'},
           {src: 'gen/chrome-extension/externalScripts.js', dest: 'dist/chrome-extension/externalScripts.js'},
           {src: 'gen/chrome-extension/optionsController.js', dest: 'dist/chrome-extension/optionsController.js'},
           {src: 'bower_components/angular/angular.min.js', dest: 'dist/chrome-extension/angular.min.js'},
@@ -49,8 +48,7 @@ module.exports = function(grunt) {
     uglify: {
       chromeextension: {
         files: {
-          'dist/chrome-extension/scripts/fillForms.min.js': ['gen/chrome-extension/fillForms.js'],
-          'dist/chrome-extension/scripts/loadValues.min.js': ['gen/chrome-extension/loadValues.js']
+          'dist/chrome-extension/scripts/fillForms.min.js': ['gen/chrome-extension/fillForms.js']
         }
       },
       options: {
@@ -61,7 +59,8 @@ module.exports = function(grunt) {
     processhtml: {
       chromeextension: {
         files: {
-          'gen/chrome-extension/options.html': ['src/chrome-extension/options.html']
+          'gen/chrome-extension/options.html': ['src/chrome-extension/options.html'],
+          'gen/chrome-extension/popup.html': ['src/chrome-extension/popup.html']
         }
       }
     },

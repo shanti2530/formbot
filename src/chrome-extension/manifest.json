@@ -8,7 +8,7 @@
     "activeTab", "storage", "tabs", "*://use.typekit.net/*", "webRequest", "webRequestBlocking", "contextMenus"
   ],
   "background": {
-    "scripts": ["background.js", "scripts/chance.js", "scripts/loadValues.min.js"],
+    "scripts": ["background.js", "scripts/chance.js"],
     "persistent": true
   },
   "content_scripts": [

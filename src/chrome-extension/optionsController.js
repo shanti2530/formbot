@@ -71,8 +71,6 @@ myApp.controller('optionsController', ['$scope', function($scope) {
           uniqueConfig: option.value.uniqueConfig,
           priority: option.value.priority});
 
-        console.log(obj);
-
         chrome.storage.sync.set(obj);
       }
     }
