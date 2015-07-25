@@ -193,15 +193,15 @@ chrome.webRequest.onBeforeSendHeaders.addListener(function(details) {
   types: ['stylesheet']
 }, ['requestHeaders','blocking']);
 
-//create the context menu item
-chrome.contextMenus.create({title: 'Formbot Save data'});
-
-//function called when the context menu item is clicked
-chrome.contextMenus.onClicked.addListener(function(info) {
-  'use strict';
-  console.log('as %o', info);
-  console.log(document.querySelectorAll('input'));
-});
+////create the context menu item
+//chrome.contextMenus.create({title: 'Formbot Save data'});
+//
+////function called when the context menu item is clicked
+//chrome.contextMenus.onClicked.addListener(function(info) {
+//  'use strict';
+//  console.log('as %o', info);
+//  console.log(document.querySelectorAll('input'));
+//});
 
 
 chrome.runtime.onInstalled.addListener(function() {
@@ -211,7 +211,6 @@ chrome.runtime.onInstalled.addListener(function() {
   var utils = {
     getDateFormat:
       function(format) {
-        'use strict';
         if (typeof moment === 'function') {
           return moment().format(format);
         }
@@ -222,7 +221,6 @@ chrome.runtime.onInstalled.addListener(function() {
       },
     contains:
       function (array, needle) {
-        'use strict';
         if (!array || array === undefined || array.length === 0) {
           return false;
         }

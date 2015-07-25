@@ -25,6 +25,7 @@
       "48": "image48.png",
       "128": "image128.png"
       }
+//    "default_popup": "popup.html"
   },
   "content_security_policy": "script-src 'self' 'unsafe-eval' https://ssl.google-analytics.com https://*.uservoice.com https://use.typekit.net; object-src 'self'",
   "icons": {
