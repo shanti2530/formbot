@@ -211,7 +211,6 @@ chrome.runtime.onInstalled.addListener(function() {
   var utils = {
     getDateFormat:
       function(format) {
-        'use strict';
         if (typeof moment === 'function') {
           return moment().format(format);
         }
@@ -222,7 +221,6 @@ chrome.runtime.onInstalled.addListener(function() {
       },
     contains:
       function (array, needle) {
-        'use strict';
         if (!array || array === undefined || array.length === 0) {
           return false;
         }
