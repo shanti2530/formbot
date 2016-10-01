@@ -60,9 +60,9 @@ module.exports = function(grunt) {
           archive: 'compressed/archive.zip'
         },
         expand: true,
-        cwd: 'dist/chrome-extension',
+        cwd: 'dist',
         src: ['**/*'],
-        dest: 'compressed/'
+        dest: ''
       }
     }
   });
