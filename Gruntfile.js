@@ -82,6 +82,17 @@ module.exports = function(grunt) {
         src: 'src/chrome-extension',
         dest: 'dist/chrome-extension'
       }
+    },
+    compress: {
+      dist: {
+        options: {
+          archive: 'compressed/archive.zip'
+        },
+        expand: true,
+        cwd: 'dist/chrome-extension',
+        src: ['**/*'],
+        dest: 'compressed/'
+      }
     }
   });
 
@@ -94,7 +105,7 @@ module.exports = function(grunt) {
     // 'jshint:chromeextension'
     ]);
 
-  grunt.registerTask('release', ['chromeManifest:dist']);
+  grunt.registerTask('release', ['chromeManifest:dist', 'compress:dist']);
 
   // Default task(s).
   grunt.registerTask('serve', ['build','watch:chromeextension']);
