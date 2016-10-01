@@ -2,8 +2,8 @@
     "name": "Formbot",
     "short_name": "Fill forms",
     "description": "This extension will fill any inputs on the page",
-    "version": "1.0.1.3",
-    "options_page": "options.html",
+    "version": "1.0.1.21",
+    "options_page": "options/options.html",
     "permissions": [
         "activeTab",
         "storage",
@@ -15,22 +15,10 @@
     ],
     "background": {
         "scripts": [
-            "background.js",
-            "scripts/chance.js"
+            "scripts/background.js", "scripts/chance.js", "scripts/moment.min.js"
         ],
         "persistent": true
     },
-    "content_scripts": [
-        {
-            "matches": [
-                "http://*/*",
-                "https://*/*"
-            ],
-            "js": [
-                "scripts/moment.min.js"
-            ]
-        }
-    ],
     "browser_action": {
         "default_title": "Fill forms on page",
         "default_icon": {
