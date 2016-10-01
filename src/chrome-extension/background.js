@@ -28,110 +28,25 @@ var utils = {
     }
 };
 
-(function loadValues() {
-  'use strict';
-
-  //try to get the input value from the user defined values
-  var defaults = [
-    {name:'USERNAME', value: {defaultValue: 'john', includes: ['username', 'userId'], priority:1}},
-    {name:'PASSWORD', value: {defaultValue:'Password123', includes: ['pass'], priority:2}},
-    {name:'EMAIL',    value: {defaultValue:'f@ke.com', includes: ['mail'], priority:3}},
-    {name:'CARD_NO',  value: {defaultValue:'4444333322221111', includes: ['card'], excludes: ['name', 'code'], priority:4}},
-    {name:'CVV',      value: {defaultValue:'123', includes: ['cvv', 'cvc', 'cv2'], priority:5}},
-    {name:'PHONE',    value: {defaultValue:'79797979', includes: ['phone', 'tel', 'mobile'], priority:6}},
-    {name:'DOMAIN',   value: {defaultValue: 'fakeaddresshere.com', includes: ['domain'], priority:7}},
-    {name:'URL',      value: {defaultValue: 'http://www.fakeaddresshere.com', includes: ['url', 'site'], priority:8}},
-    {name:'NUMBER',   value: {defaultValue: 5, includes: ['number', 'amount', 'range'], priority:9}},
-    {name:'DATETIME', value: {defaultValue: utils.getDateFormat('YYYY-MM-DDTHH:mm'), includes: ['datetime'], priority:10}},
-    {name:'DATE',     value: {defaultValue: utils.getDateFormat('YYYY-MM-DD'), includes: ['date'], priority:11}},
-    {name:'TIME',     value: {defaultValue: utils.getDateFormat('HH:mm'), includes: ['time'], priority:12}},
-    {name:'WEEK',     value: {defaultValue: utils.getDateFormat('GGGG-[W]WW'), includes: ['week'], priority:13}},
-    {name:'MONTH',    value: {defaultValue: utils.getDateFormat('YYYY-MM'), includes: ['month'], priority:14}},
-    {name:'TEXT',     value: {defaultValue: 'Lorem', includes: ['text'], priority:15}}
-  ];
-
-  //load all information into chrome store if it does not exist already
-  chrome.storage.sync.get(null, function(data){
-
-    var storedData = [];
-
-    //get all the data which is already stored in the user's chrome storage
-    var keys = Object.keys(data);
-    for(var i= 0; i < keys.length; i++) {
-      var key = keys[i];
-      var obj = {name: key, value : JSON.parse(data[key])};
-      storedData.push(obj);
-    }
-
-    //for each default value defined, check if it exists in the user's chrome storage
-    //if not store it for the user.
-    //else do not update it as the user would lose any configured data
-    for (var d=0; d < defaults.length; d++) {
-      var type = defaults[d].name;
-      var found = false;
-
-      for(var a=0; a < storedData.length; a++){
-        if (storedData[a].name === type){
-          found = true;
-          break;
-        }
-      }
-
-      //a default value was not found, store it
-      if (!found) {
-        var val = defaults[d].value;
-
-        var newObject = new Object();
-        newObject[type] = JSON.stringify({unique: true,
-          defaultValue: val.defaultValue,
-          includes: val.includes,
-          excludes: val.excludes,
-          priority: val.priority});
-        chrome.storage.sync.set(newObject);
-      }
-    }
-  });
-
-})();
-
-//Google analytics specific code, we load up the library so that when a message arrives we could send it through
-/* jshint ignore:start */
-var _gaq = _gaq || [];
-_gaq.push(['_setAccount', 'UA-49960543-2']);
-_gaq.push(['_trackPageview']);
-(function() {
-  var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-  ga.src = 'https://ssl.google-analytics.com/ga.js';
-  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-})();
-/* jshint ignore:end */
-
 chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
     'use strict';
 
-    var getUniqueValue = function(inputType) {
-      switch (inputType) {
-        case 'TEXT':
-          return chance.word({length: 7});
+    var getUniqueValue = function(uniqueConfig) {
+
+      switch (uniqueConfig.type) {
+        case 'WORD':
+          return chance.word({length: uniqueConfig.length});
         case 'DOMAIN':
           return chance.domain();
         case 'EMAIL':
           return chance.email();
-        case 'PASSWORD':
-          return chance.string({length: 7});
-        case 'CARD_NO':
+        case 'CARD':
           return chance.cc();
-        case 'CVV':
-          return chance.integer({min:100, max:999});
         case 'PHONE':
           return chance.phone();
-        case 'USERNAME':
-          return chance.word({length: 7});
-        case 'URL':
-          return 'http://' + chance.domain();
         case 'NUMBER':
-          return chance.integer({min:1,max:99});
+          return chance.integer({min:uniqueConfig.min, max:uniqueConfig.max});
         case 'DATETIME':
           return utils.getDateFormat('YYYY-MM-DDTHH:mm');
         case 'DATE':
@@ -167,11 +82,11 @@ chrome.runtime.onMessage.addListener(
 
           chrome.storage.sync.get(null, function(data){
             var validKeys = [];
-
             var keys = Object.keys(data);
 
             for (var i=0; i < keys.length; i++) {
               var key = keys[i];
+
               var keyDefinition = JSON.parse(data[key]);
 
               //check if the text provided is one of the included text
@@ -191,7 +106,7 @@ chrome.runtime.onMessage.addListener(
               var mostImportant = validKeys[0];
 
               if (mostImportant.definition.unique) {
-                resolve([mostImportant.key, getUniqueValue(mostImportant.key)]);
+                resolve([mostImportant.key, getUniqueValue(mostImportant.definition.uniqueConfig)]);
               } else {
                 resolve([mostImportant.key, mostImportant.definition.defaultValue]);
               }
@@ -251,6 +166,7 @@ chrome.runtime.onMessage.addListener(
       _gaq.push(['_trackEvent', request.category, request.action, request.label]);
     }
   }
+
 );
 
 //required by typekit in order to always send the referer
@@ -276,3 +192,219 @@ chrome.webRequest.onBeforeSendHeaders.addListener(function(details) {
   urls: ['*://use.typekit.net/*'],
   types: ['stylesheet']
 }, ['requestHeaders','blocking']);
+
+////create the context menu item
+//chrome.contextMenus.create({title: 'Formbot Save data'});
+//
+////function called when the context menu item is clicked
+//chrome.contextMenus.onClicked.addListener(function(info) {
+//  'use strict';
+//  console.log('as %o', info);
+//  console.log(document.querySelectorAll('input'));
+//});
+
+
+chrome.runtime.onInstalled.addListener(function() {
+  'use strict';
+  console.log('on installed');
+
+  var utils = {
+    getDateFormat:
+      function(format) {
+        if (typeof moment === 'function') {
+          return moment().format(format);
+        }
+      },
+    isEmpty:
+      function(obj) {
+        return Object.keys(obj).length === 0;
+      },
+    contains:
+      function (array, needle) {
+        if (!array || array === undefined || array.length === 0) {
+          return false;
+        }
+
+        for(var i = 0; i < array.length; i++) {
+          if(needle.toLowerCase().indexOf(array[i]) > -1) {
+            return true;
+          }
+        }
+        return false;
+      }
+  };
+
+  var setValue = function(val) {
+
+    //check if the value already exists in the store
+    chrome.storage.sync.get(val.name, function(data){
+
+      //if not found we need to store it
+      if (utils.isEmpty(data)) {
+
+        var newObject = new Object();
+        newObject[val.name] = JSON.stringify({unique: true,
+          defaultValue: val.value.defaultValue,
+          includes: val.value.includes,
+          excludes: val.value.excludes,
+          uniqueConfig: val.value.uniqueConfig,
+          priority: val.value.priority});
+
+        chrome.storage.sync.set(newObject);
+
+      } else {
+        //if the key is already stored, make sure that it has a uniqueConfig field
+        //TODO: this checking is ideally performed for all fields
+        var keys = Object.keys(data);
+        var dataVal = data[keys[0]];
+        var jsonVal = JSON.parse(dataVal);
+
+//        if (jsonVal.uniqueConfig === undefined) {
+        jsonVal.uniqueConfig = val.value.uniqueConfig;
+        var newObject = new Object();
+        newObject[val.name] = JSON.stringify(jsonVal);
+        chrome.storage.sync.set(newObject);
+//        }
+      }
+    });
+  };
+
+  //try to get the input value from the user defined values
+  var defaults = [
+    {name:'USERNAME',
+      value: {
+        defaultValue: 'john',
+        includes: ['username', 'userId'],
+        uniqueConfig: {type: 'WORD', length:7},
+        priority:1
+      }
+    },
+    {name:'PASSWORD',
+      value: {
+        defaultValue:'Password123',
+        includes: ['pass'],
+        uniqueConfig: {type: 'WORD', length:7},
+        priority:2
+      }
+    },
+    {name:'EMAIL',
+      value: {defaultValue:'f@ke.com',
+        includes: ['mail'],
+        uniqueConfig: {type: 'EMAIL'},
+        priority:3
+      }
+    },
+    {name:'CARD_NO',
+      value: {
+        defaultValue:'4444333322221111',
+        includes: ['card'],
+        excludes: ['name', 'code'],
+        uniqueConfig: {type:'CARD'},
+        priority:4
+      }
+    },
+    {name:'CVV',
+      value: {
+        defaultValue:'123',
+        includes: ['cvv', 'cvc', 'cv2'],
+        uniqueConfig: {type: 'NUMBER', min:100, max:999},
+        priority:5
+      }
+    },
+    {name:'PHONE',
+      value: {
+        defaultValue:'79797979',
+        includes: ['phone', 'tel', 'mobile'],
+        uniqueConfig: {type: 'PHONE'},
+        priority:6
+      }
+    },
+    {name:'DOMAIN',
+      value: {
+        defaultValue: 'fakeaddresshere.com',
+        includes: ['domain'],
+        uniqueConfig: {type: 'DOMAIN'},
+        priority:7
+      }
+    },
+    {name:'URL',
+      value: {
+        defaultValue: 'http://www.fakeaddresshere.com',
+        includes: ['url', 'site'],
+        uniqueConfig: {type: 'DOMAIN'},
+        priority:8
+      }
+    },
+    {name:'NUMBER',
+      value: {
+        defaultValue: 5,
+        includes: ['number', 'amount', 'range'],
+        uniqueConfig: {type: 'NUMBER', min:1, max:99},
+        priority:9
+      }
+    },
+    {name:'DATETIME',
+      value: {
+        defaultValue: utils.getDateFormat('YYYY-MM-DDTHH:mm'),
+        includes: ['datetime'],
+        uniqueConfig: {type: 'DATETIME'},
+        priority:10
+      }
+    },
+    {name:'DATE',
+      value: {
+        defaultValue: utils.getDateFormat('YYYY-MM-DD'),
+        includes: ['date'],
+        uniqueConfig: {type: 'DATE'},
+        priority:11
+      }
+    },
+    {name:'TIME',
+      value: {
+        defaultValue: utils.getDateFormat('HH:mm'),
+        includes: ['time'],
+        uniqueConfig: {type: 'TIME'},
+        priority:12}},
+    {name:'WEEK',
+      value: {
+        defaultValue: utils.getDateFormat('GGGG-[W]WW'),
+        includes: ['week'],
+        uniqueConfig: {type: 'WEEK'},
+        priority:13
+      }
+    },
+    {name:'MONTH',
+      value: {
+        defaultValue: utils.getDateFormat('YYYY-MM'),
+        includes: ['month'],
+        uniqueConfig: {type: 'MONTH'},
+        priority:14}},
+    {name:'TEXT',
+      value: {
+        defaultValue: 'Lorem',
+        includes: ['text'],
+        uniqueConfig: {type: 'WORD', length: 7},
+        priority:15
+      }
+    }
+  ];
+
+  //load all information into chrome store if it does not exist already
+  for (var i=0; i < defaults.length; i++) {
+    var val = defaults[i];
+    setValue(val);
+  }
+
+//Google analytics specific code, we load up the library so that when a message arrives we could send it through
+  /* jshint ignore:start */
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-49960543-2']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = 'https://ssl.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+  /* jshint ignore:end */
+
+});

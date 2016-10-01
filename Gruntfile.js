@@ -59,7 +59,8 @@ module.exports = function(grunt) {
     processhtml: {
       chromeextension: {
         files: {
-          'gen/chrome-extension/options.html': ['src/chrome-extension/options.html']
+          'gen/chrome-extension/options.html': ['src/chrome-extension/options.html'],
+          'gen/chrome-extension/popup.html': ['src/chrome-extension/popup.html']
         }
       }
     },
@@ -79,8 +80,9 @@ module.exports = function(grunt) {
     'processhtml:chromeextension',
     'includes:chromeextension',
     'uglify:chromeextension',
-    'copy:chromeextensiondist',
-    'jshint:chromeextension']);
+    'copy:chromeextensiondist'
+    // 'jshint:chromeextension'
+    ]);
 
   // Default task(s).
   grunt.registerTask('serve', ['build','watch:chromeextension']);

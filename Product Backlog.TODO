@@ -1,0 +1,24 @@
+Formbot Features:
+
+  ☐ Authentication
+  ☐ User Usage Statistics
+  ☐ Store in external database linked to user
+  ☐ Create custom fields
+  ☐ Set priority of fields
+  ☐ Save a form - with data
+  ☐ Default Values per URL
+  ☐ Keyboard shortcut for prefilling data and profiles
+  ☐ Different Profiles of default/random config
+  ☐ Regex include and exclude rules
+  ☐ Drop down selection process
+  ☐ Date selection process
+  ☐ Paid usage after certain usage
+
+  ----------------------------------------------
+
+ ☐ APIs for integration into Consumer Apps
+ ☐ Multiple funding methods
+ ☐ User Create Cards
+ ☐ Inegration with other acquiring systems
+ ☐ Credit & Debit Virtual Cards
+ ☐ Single sign-on
