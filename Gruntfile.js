@@ -72,6 +72,16 @@ module.exports = function(grunt) {
           spawn: false
         }
       }
+    },
+    chromeManifest: {
+      dist: {
+        options: {
+          buildnumber: 'both',
+          background: 'src/chrome-extension/background.js'
+        },
+        src: 'src/chrome-extension',
+        dest: 'dist/chrome-extension'
+      }
     }
   });
 
@@ -83,6 +93,8 @@ module.exports = function(grunt) {
     'copy:chromeextensiondist'
     // 'jshint:chromeextension'
     ]);
+
+  grunt.registerTask('release', ['chromeManifest:dist']);
 
   // Default task(s).
   grunt.registerTask('serve', ['build','watch:chromeextension']);
