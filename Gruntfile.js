@@ -80,8 +80,9 @@ module.exports = function(grunt) {
     'processhtml:chromeextension',
     'includes:chromeextension',
     'uglify:chromeextension',
-    'copy:chromeextensiondist',
-    'jshint:chromeextension']);
+    'copy:chromeextensiondist'
+    // 'jshint:chromeextension'
+    ]);
 
   // Default task(s).
   grunt.registerTask('serve', ['build','watch:chromeextension']);
