@@ -16,6 +16,11 @@ _gaq.push(['_trackPageview']);
 })();
 /* jshint ignore:end */
 
+chrome.identity.getAuthToken({ 'interactive': true }, function(token) {
+  // Use the token.
+  console.log(token);
+});
+
 var utils = {
   getDateFormat:
     function(format) {
@@ -265,17 +270,14 @@ chrome.runtime.onInstalled.addListener(function() {
 
       } else {
         //if the key is already stored, make sure that it has a uniqueConfig field
-        //TODO: this checking is ideally performed for all fields
         var keys = Object.keys(data);
         var dataVal = data[keys[0]];
         var jsonVal = JSON.parse(dataVal);
 
-//        if (jsonVal.uniqueConfig === undefined) {
         jsonVal.uniqueConfig = val.value.uniqueConfig;
         var newObject = new Object();
         newObject[val.name] = JSON.stringify(jsonVal);
         chrome.storage.sync.set(newObject);
-//        }
       }
     });
   };

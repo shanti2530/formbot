@@ -2,7 +2,7 @@
     "name": "Formbot",
     "short_name": "Fill forms",
     "description": "This extension will fill any inputs on the page",
-    "version": "1.0.1.2",
+    "version": "1.0.1.1",
     "options_page": "options/options.html",
     "permissions": [
         "activeTab",
@@ -11,7 +11,7 @@
         "*://use.typekit.net/*",
         "webRequest",
         "webRequestBlocking",
-        "contextMenus"
+        "identity"
     ],
     "background": {
         "scripts": [
@@ -34,5 +34,12 @@
         "48": "image48.png",
         "128": "image48.png"
     },
-    "manifest_version": 2
+    "oauth2": {
+        "client_id": "60597006424-5otfrdgckiv6mvst547ndee9dq4qfk4n.apps.googleusercontent.com",
+        "scopes": [
+          "https://www.googleapis.com/auth/plus.me", "https://www.googleapis.com/auth/userinfo.email", "https://www.googleapis.com/auth/userinfo.profile"
+        ]
+      },
+    "manifest_version": 2,
+    "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA0nSntjSV5+sLszpnViaAMQBaz25He3AuOjPvi5fl/7t3ExtVXU+qJL2FjDXOwSkaa/DJflI+5NRfZkwN/zlot3gJ4WW05vG3SE7zeCkYKnQg/+EcVWyacbq+Lsxcv6HlrRUZGN0W4+ktyOX8kMYNRAi1QmIuXgDymkKmJTeUWCbaIX5L68Qd9onVxZmW7/OBTS1kX6fb/upBOd9zDkchPaZNjDxr66lvZT38Ov+QBa9+hI0Tx1RhpeFYizquzr/1gUsoUrxSSjVVCEl7HKjfnV5Zvn/dTKkU55R4mxnZTgupcI4FtRmMa0+bTJeCBjV5rhFNF2gCZBlsNozColan9QIDAQAB"
 }
