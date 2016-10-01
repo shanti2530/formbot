@@ -12,43 +12,28 @@ module.exports = function(grunt) {
         jshintrc: ".jshintrc"
       }
     },
+    clean: ['dist/**'],
     copy: {
-      chromeextension: {
+      newBuild: {
         files: [
-          {src: 'src/*', dest: 'gen/chrome-extension/', flatten: true, expand:true, filter: 'isFile'},
-          {src: 'src/chrome-extension/*.js', dest: 'gen/chrome-extension/', flatten: true, expand:true, filter: 'isFile'},
-          {src: 'src/chrome-extension/*.json', dest: 'dist/chrome-extension/', flatten: true, expand:true, filter: 'isFile'},
-          {src: 'src/chrome-extension/*.css', dest: 'dist/chrome-extension/', flatten: true, expand:true, filter: 'isFile'}
+          {src: 'bower_components/momentjs/min/moment.min.js', dest: 'src/scripts/moment.min.js'},
+          {src: 'node_modules/chance/chance.js', dest: 'src/scripts/chance.js'},
+          {src: 'bower_components/angular/angular.min.js', dest: 'src/options/angular.min.js'},
+          {src: 'bower_components/bootstrap/dist/css/bootstrap.min.css', dest: 'src/options/bootstrap.min.css'},
+          {src: 'bower_components/font-awesome/css/font-awesome.min.css', dest: 'src/options/font-awesome.min.css'}
         ]
       },
-      chromeextensiondist: {
-        files: [
-          {src: 'gen/chrome-extension/*.png', dest: 'dist/chrome-extension/', flatten: true, expand: true},
-          {src: 'gen/chrome-extension/*.html', dest: 'dist/chrome-extension/', flatten: true, expand: true},
-          {src: 'gen/chrome-extension/*.css', dest: 'dist/chrome-extension/', flatten: true, expand: true},
-          {src: 'gen/chrome-extension/background.js', dest: 'dist/chrome-extension/background.js'},
-          {src: 'gen/chrome-extension/options.js', dest: 'dist/chrome-extension/options.js'},
-          {src: 'gen/chrome-extension/externalScripts.js', dest: 'dist/chrome-extension/externalScripts.js'},
-          {src: 'gen/chrome-extension/optionsController.js', dest: 'dist/chrome-extension/optionsController.js'},
-          {src: 'bower_components/angular/angular.min.js', dest: 'dist/chrome-extension/angular.min.js'},
-          {src: 'bower_components/momentjs/min/moment.min.js', dest: 'dist/chrome-extension/scripts/moment.min.js'},
-          {src: 'bower_components/bootstrap/dist/css/bootstrap.min.css', dest: 'dist/chrome-extension/bootstrap.min.css'},
-          {src: 'bower_components/components-font-awesome/css/font-awesome.min.css', dest: 'dist/chrome-extension/font-awesome.min.css'},
-          {src: 'node_modules/chance/chance.js', dest: 'dist/chrome-extension/scripts/chance.js'}
+
+      release: {
+        files:[
+          {cwd: 'src', src: '**', dest: 'dist/', expand: true},
         ]
-      }
-    },
-    includes: {
-      chromeextension: {
-        src: ["gen/chrome-extension/*.js"],
-        dest: "gen/chrome-extension",
-        flatten: true
-      }
+      },
     },
     uglify: {
-      chromeextension: {
+      newBuild: {
         files: {
-          'dist/chrome-extension/scripts/fillForms.min.js': ['gen/chrome-extension/fillForms.js']
+          'dist/scripts/fillForms.min.js': ['dist/scripts/fillForms.js']
         }
       },
       options: {
@@ -56,33 +41,19 @@ module.exports = function(grunt) {
         banner: "javascript:"
       }
     },
-    processhtml: {
-      chromeextension: {
-        files: {
-          'gen/chrome-extension/options.html': ['src/chrome-extension/options.html'],
-          'gen/chrome-extension/popup.html': ['src/chrome-extension/popup.html']
-        }
-      }
-    },
-    watch: {
-      chromeextension: {
-        files: ['**/*.js', '**/*.html', '**/*.css', '**/*.json'],
-        tasks: ['build'],
-        options: {
-          spawn: false
-        }
-      }
-    },
-    chromeManifest: {
-      dist: {
-        options: {
-          buildnumber: 'both',
-          background: 'src/chrome-extension/background.js'
-        },
-        src: 'src/chrome-extension',
-        dest: 'dist/chrome-extension'
-      }
-    },
+
+    // chromeManifest: {
+    //   dist: {
+    //     options: {
+    //       buildnumber: 'both',
+    //       background: {
+    //         target: "scripts/*.js"
+    //       }
+    //     },
+    //     src: 'src',
+    //     dest: 'dist'
+    //   }
+    // },
     compress: {
       dist: {
         options: {
@@ -96,17 +67,14 @@ module.exports = function(grunt) {
     }
   });
 
-  grunt.registerTask('build', [
-    'copy:chromeextension',
-    'processhtml:chromeextension',
-    'includes:chromeextension',
-    'uglify:chromeextension',
-    'copy:chromeextensiondist'
-    // 'jshint:chromeextension'
+  grunt.registerTask('newBuild', [
+    'clean',
+    'copy:newBuild',
+    'copy:release',
+    'uglify:newBuild'
     ]);
 
-  grunt.registerTask('release', ['chromeManifest:dist', 'compress:dist']);
-
-  // Default task(s).
-  grunt.registerTask('serve', ['build','watch:chromeextension']);
+  grunt.registerTask('release', [
+    //'chromeManifest:dist', 
+    'compress:dist']);
 };

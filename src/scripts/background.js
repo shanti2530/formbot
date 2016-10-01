@@ -4,6 +4,18 @@ chrome.browserAction.onClicked.addListener(function() {
   chrome.tabs.executeScript(null, {file: 'scripts/fillForms.min.js'});
 });
 
+//Google analytics specific code, we load up the library so that when a message arrives we could send it through
+/* jshint ignore:start */
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-49960543-2']);
+_gaq.push(['_trackPageview']);
+(function() {
+  var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+  ga.src = 'https://ssl.google-analytics.com/ga.js';
+  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+/* jshint ignore:end */
+
 var utils = {
   getDateFormat:
     function(format) {
@@ -123,15 +135,13 @@ chrome.runtime.onMessage.addListener(
 
       // values array structure
       // [{type: 'ID', value:'aa'}, {type: 'NAME', value: 'bb'}]
-
       if (!values || values.length === 0) {
-        _gaq.push(['_trackEvent', 'input-type', 'TEXT', 'TYPE|' + request.type]);
-        sendResponse({key: checkText('TEXT')});
+        return;
+      } else {
+        //get the first piece of data and try to find a valid value to fill with
+        var value = values[0];
       }
-
-      //get the first piece of data and try to find a valid value to fill with
-      var value = values[0];
-
+      
       checkText(value.value).then(
         //success function .. a value has been found to fill the input with
         function (data) {
@@ -155,6 +165,7 @@ chrome.runtime.onMessage.addListener(
         {type: 'PLACEHOLDER', value: request._placeholder},
         {type: 'TYPE', value: request.type}
       ];
+      valueArray.push({type:'TYPE', value:'TEXT'});
 
       //call function which would async send the response back
       valueFiller(valueArray);
@@ -394,17 +405,5 @@ chrome.runtime.onInstalled.addListener(function() {
     var val = defaults[i];
     setValue(val);
   }
-
-//Google analytics specific code, we load up the library so that when a message arrives we could send it through
-  /* jshint ignore:start */
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-49960543-2']);
-  _gaq.push(['_trackPageview']);
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = 'https://ssl.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
-  /* jshint ignore:end */
 
 });
