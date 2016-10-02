@@ -106,6 +106,7 @@ chrome.runtime.onMessage.addListener(
           chrome.storage.sync.get(null, function(data){
             var validKeys = [];
             var keys = Object.keys(data);
+            keys.remove('USERPROFILE');
 
             for (var i=0; i < keys.length; i++) {
               var key = keys[i];
