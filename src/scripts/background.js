@@ -16,9 +16,15 @@ _gaq.push(['_trackPageview']);
 })();
 /* jshint ignore:end */
 
-chrome.identity.getAuthToken({ 'interactive': true }, function(token) {
-  // Use the token.
-  console.log(token);
+
+//check if there is a token already stored, if not, try to get it and store it
+chrome.storage.sync.get('USERPROFILE', function(data) {
+  if (utils.isEmpty(data) || data.USERPROFILE == undefined || data.USERPROFILE.TOKEN == undefined) {
+    chrome.identity.getAuthToken({ 'interactive': false }, function(token) {
+      //store token
+      chrome.storage.sync.set({USERPROFILE:{TOKEN:token}});
+    });    
+  }
 });
 
 var utils = {
