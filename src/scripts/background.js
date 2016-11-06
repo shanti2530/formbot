@@ -189,32 +189,7 @@ chrome.runtime.onMessage.addListener(
       _gaq.push(['_trackEvent', request.category, request.action, request.label]);
     }
   }
-
 );
-
-//required by typekit in order to always send the referer
-chrome.webRequest.onBeforeSendHeaders.addListener(function(details) {
-  'use strict';
-  var requestHeaders = details.requestHeaders;
-  for (var i=0; i<requestHeaders.length; ++i) {
-    if (requestHeaders[i].name.toLowerCase() === 'referer') {
-      // The request was certainly not initiated by a Chrome extension...
-      return;
-    }
-  }
-  // Set Referer
-  requestHeaders.push({
-    name: 'referer',
-    // Host must match the domain in your Typekit kit settings
-    value: 'https://fekpdndhlbaagbhmlfhahnknjjcdjppd/'
-  });
-  return {
-    requestHeaders: requestHeaders
-  };
-}, {
-  urls: ['*://use.typekit.net/*'],
-  types: ['stylesheet']
-}, ['requestHeaders','blocking']);
 
 ////create the context menu item
 //chrome.contextMenus.create({title: 'Formbot Save data'});
