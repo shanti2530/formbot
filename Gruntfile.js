@@ -14,7 +14,7 @@ module.exports = function(grunt) {
     },
     clean: ['dist/**'],
     copy: {
-      newBuild: {
+      build: {
         files: [
           {src: 'bower_components/momentjs/min/moment.min.js', dest: 'src/scripts/moment.min.js'},
           {src: 'node_modules/chance/chance.js', dest: 'src/scripts/chance.js'},
@@ -31,7 +31,7 @@ module.exports = function(grunt) {
       },
     },
     uglify: {
-      newBuild: {
+      build: {
         files: {
           'dist/scripts/fillForms.min.js': ['dist/scripts/fillForms.js']
         }
@@ -67,11 +67,11 @@ module.exports = function(grunt) {
     }
   });
 
-  grunt.registerTask('newBuild', [
+  grunt.registerTask('build', [
     'clean',
-    'copy:newBuild',
+    'copy:build',
     'copy:release',
-    'uglify:newBuild'
+    'uglify:build'
     ]);
 
   grunt.registerTask('release', [
