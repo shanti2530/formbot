@@ -38,6 +38,17 @@ var utils = {
       }
     }
     return false;
+  },
+  remove: function (array, toRemove) {
+    if (array && array.length > 0) {
+    
+      var index = array.indexOf(toRemove);
+      if (index > -1) {
+        array.splice(index, 1);
+      }
+
+    }
+    return array;
   }
 };
 
@@ -106,7 +117,7 @@ chrome.runtime.onMessage.addListener(
           chrome.storage.sync.get(null, function(data){
             var validKeys = [];
             var keys = Object.keys(data);
-            keys.remove('USERPROFILE');
+            utils.remove(keys, 'USERPROFILE');
 
             for (var i=0; i < keys.length; i++) {
               var key = keys[i];
