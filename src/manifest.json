@@ -9,8 +9,7 @@
         "storage",
         "tabs",
         "webRequest",
-        "webRequestBlocking",
-        "contextMenus"
+        "webRequestBlocking"
     ],
     "background": {
         "scripts": [
