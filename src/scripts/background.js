@@ -117,6 +117,7 @@ chrome.runtime.onMessage.addListener(
           chrome.storage.sync.get(null, function(data){
             var validKeys = [];
             var keys = Object.keys(data);
+            //the userprofile field should not be considered as data to compare with
             utils.remove(keys, 'USERPROFILE');
 
             for (var i=0; i < keys.length; i++) {
