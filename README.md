@@ -23,7 +23,7 @@ For Developers
 
 - In order to build the extension, Grunt is required, the installation guide could be found [here](http://gruntjs.com/installing-grunt). 
 - Code modifications should be made in the [src] folder of the repository.
-- In order to test the new changes, run the [chromeextension] grunt task which will build the source files and refresh the [dist] folder.
+- In order to test the new changes, run the [build] grunt task which will build the source files and refresh the [dist] folder.
 - To manually test the extension, click on the [Load Unpacked extension] and select the [dist] folder of the repository in chrome's extnsions page. (Developer mode has to be selected in order to be able to use the extension)
 
 How to contribute
