@@ -29,6 +29,10 @@ myApp.controller('optionsController', ['$scope', function($scope) {
     var keys = Object.keys(data);
     for(var i= 0; i < keys.length; i++) {
       var key = keys[i];
+      //the userprofile is not a valid key for input prefils
+      if (key == 'USERPROFILE') {
+        continue;
+      }
       var obj = {name: key, value : JSON.parse(data[key])};
       $scope.options.push(obj);
     }
