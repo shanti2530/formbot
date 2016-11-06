@@ -8,10 +8,8 @@
         "activeTab",
         "storage",
         "tabs",
-        "*://use.typekit.net/*",
         "webRequest",
-        "webRequestBlocking",
-        "contextMenus"
+        "webRequestBlocking"
     ],
     "background": {
         "scripts": [
@@ -28,7 +26,7 @@
             "128": "image128.png"
         }
     },
-    "content_security_policy": "script-src 'self' 'unsafe-eval' https://ssl.google-analytics.com https://*.uservoice.com https://use.typekit.net; object-src 'self'",
+    "content_security_policy": "script-src 'self' 'unsafe-eval' https://ssl.google-analytics.com https://*.uservoice.com; object-src 'self'",
     "icons": {
         "16": "image16.png",
         "48": "image48.png",
