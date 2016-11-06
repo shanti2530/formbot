@@ -16,6 +16,30 @@ _gaq.push(['_trackPageview']);
 })();
 /* jshint ignore:end */
 
+var utils = {
+  getDateFormat: function(format) {
+    'use strict';
+    if (typeof moment === 'function') {
+      return moment().format(format);
+    }
+  },
+  isEmpty: function(obj) {
+    return Object.keys(obj).length === 0;
+  },
+  contains: function (array, needle) {
+    'use strict';
+    if (!array || array === undefined || array.length === 0) {
+      return false;
+    }
+
+    for(var i = 0; i < array.length; i++) {
+      if(needle.toLowerCase().indexOf(array[i]) > -1) {
+        return true;
+      }
+    }
+    return false;
+  }
+};
 
 //check if there is a token already stored, if not, try to get it and store it
 chrome.storage.sync.get('USERPROFILE', function(data) {
@@ -26,30 +50,6 @@ chrome.storage.sync.get('USERPROFILE', function(data) {
     });    
   }
 });
-
-var utils = {
-  getDateFormat:
-    function(format) {
-      'use strict';
-      if (typeof moment === 'function') {
-        return moment().format(format);
-      }
-    },
-  contains:
-    function (array, needle) {
-      'use strict';
-      if (!array || array === undefined || array.length === 0) {
-        return false;
-      }
-
-      for(var i = 0; i < array.length; i++) {
-        if(needle.toLowerCase().indexOf(array[i]) > -1) {
-          return true;
-        }
-      }
-      return false;
-    }
-};
 
 chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
@@ -205,32 +205,6 @@ chrome.runtime.onMessage.addListener(
 chrome.runtime.onInstalled.addListener(function() {
   'use strict';
   console.log('on installed');
-
-  var utils = {
-    getDateFormat:
-      function(format) {
-        if (typeof moment === 'function') {
-          return moment().format(format);
-        }
-      },
-    isEmpty:
-      function(obj) {
-        return Object.keys(obj).length === 0;
-      },
-    contains:
-      function (array, needle) {
-        if (!array || array === undefined || array.length === 0) {
-          return false;
-        }
-
-        for(var i = 0; i < array.length; i++) {
-          if(needle.toLowerCase().indexOf(array[i]) > -1) {
-            return true;
-          }
-        }
-        return false;
-      }
-  };
 
   var setValue = function(val) {
 
