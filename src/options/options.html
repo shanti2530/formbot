@@ -1,65 +1,121 @@
-<html>
-<body ng-app="FormbotApp">
-<div ng-controller="optionsController">
-  <h2 class="header">Formbot options page</h2>
-  <div class="configuration">
-    <div class="option row" ng-repeat="option in options | orderBy:'+value.priority'"
-         ng-class="{bottom: $last, even: $even}">
-      <div class="config setting col-md-1 col-sm-1 col-xs-1" ng-class="{green: option.value.unique}"
-           ng-click="changeChecked(option)" title="use random value">
-        <i class="fa fa-random fa-2x"></i>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bootstrap Product Page Template</title>
+
+<!-- Bootstrap -->
+<link rel="stylesheet" href="css/vendor/bootstrap.min.css">
+<link href="css/options.css" rel="stylesheet" type="text/css">
+<link href="css/vendor/bootstrap-tagsinput.css" rel="stylesheet" type="text/css">
+<link href="css/vendor/bootstrap-switch.min.css" rel="stylesheet" type="text/css">
+<link href="css/vendor/font-awesome.min.css" rel="stylesheet" type="text/css">
+<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body class="site-body" style="padding-top: 70px">
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#topFixedNavbar1"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
+      <a class="navbar-brand" href="#">Formbot</a></div>
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="topFixedNavbar1">
+      <ul class="nav navbar-nav">
+        <li class="active"></li>
+        <li></li>
+        <li class="dropdown">
+<ul class="dropdown-menu" role="menu">
+            <li><a href="#">Action</a></li>
+            <li><a href="#">Another action</a></li>
+            <li><a href="#">Something else here</a></li>
+            <li class="divider"></li>
+            <li><a href="#">Separated link</a></li>
+            <li class="divider"></li>
+            <li><a href="#">One more separated link</a></li>
+          </ul>
+        </li>
+      </ul>
+<ul class="nav navbar-nav navbar-right">
+        <li></li>
+        <li class="dropdown">
+<ul class="dropdown-menu" role="menu">
+            <li><a href="#">Action</a></li>
+            <li><a href="#">Another action</a></li>
+            <li><a href="#">Something else here</a></li>
+            <li class="divider"></li>
+            <li><a href="#">Separated link</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+    <!-- /.navbar-collapse -->
+  </div>
+  <!-- /.container-fluid -->
+</nav>
+<div class="container">
+	<div class="config-container ">
+    <div class="row table-row">
+    	<div class="col-md-4 col-sm-6 config-tile">
+      	<div class="well">
+        	<h3>Username</h3>
+          <div class="row">
+          	<h5>Matching keywords</h5>
+          </div>
+          <div class="row">
+            <input type="text" value="username, userId" data-role="tagsinput" />
+          </div>
+          <hr>
+          <div class="row">
+            <h5>Excluded keywords</h5>
+          </div>
+          <div class="row">
+            <input type="text" value="" data-role="tagsinput" />          
+          </div>
+          <hr>
+          <div class="row">
+          	<h5 class="pull-left">Value to use</h5>
+			      <input id="switch-size" type="checkbox" checked name="switch" class="pull-right switch"
+                      data-on-text="Random" data-off-text="Default" data-on-color="info" data-off-color="info" data-size="small">
+          </div>
+          <div class="row">
+            <input type="text" value="john" disabled="disabled" class="col-md-12">          
+          </div>
+        </div>
       </div>
-      <div class="config col-md-1 col-sm-1 col-xs-1 setting" ng-class="{green: !option.value.unique}"
-           ng-click="changeChecked(option)" title="use default value">
-        <i class="fa fa-pencil fa-2x"></i>
+      <div class="col-md-4 col-sm-6 config-tile new">
+      <div class="well">
+        <a href=""><i class="fa fa-plus-circle fa-5x"></i></a>
       </div>
-      <div class="col-md-2 col-sm-2 col-xs-2 setting"><h4>{{option.name}}</h4></div>
-      <div class="col-md-4 col-sm-4 col-xs-4 settings">
-        <div class="col-md-12 col-sm-12 col-xs-12 row">
-          <div class="col-md-4">Matches:</div>
-          <div class="col-md-8">
-            <input type="text" value="{{option.value.includes | displayArray}}"
-                   ng-model="option.value.includes"/>
-          </div>
-        </div>
-        <div class="col-md-12 col-sm-12 col-xs-12 row">
-          <div class="col-md-4">Excludes:</div>
-          <div class="col-md-8">
-            <input type="text" value="{{option.value.excludes | displayArray}}"
-                   ng-model="option.value.excludes"/>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4 col-sm-4 col-xs-4 settings">
-        <div class="col-md-12 col-sm-12 col-xs-12 row">
-          <div class="col-md-6">Default Value:</div>
-          <div class="col-md-6">
-            <input type="text" ng-model="option.value.defaultValue" />
-          </div>
-        </div>
-        <div class="col-md-12 col-sm-12 col-xs-12 row">
-          <div class="col-md-6">Random Type:</div>
-          <div class="col-md-6">
-            {{option.value.uniqueConfig.type}}
-          </div>
-        </div>
       </div>
     </div>
   </div>
 </div>
-<footer>
-  If you have any suggestions how to make this extension better, or find any issues, please send me an <a target="_blank" href="mailto:mariacamilleri@gmail.com">email</a>.
-  <br /><br />
+<hr>
+<footer class="text-center">
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12">
+        <p>Copyright © Maria Stellini. All rights reserved.</p>
+      </div>
+    </div>
+  </div>
 </footer>
-
-<script type="text/javascript" src="angular.min.js"></script>
-<script type="text/javascript" src="optionsController.js"></script>
-<script src="https://widget.uservoice.com/2zd17UX6LjTX7V5WNyqrlw.js" defer></script>
-<script type="text/javascript" defer src="externalScripts.js"></script>
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) --> 
+<script src="js/vendor/jquery.min.js"></script> 
+<!-- Include all compiled plugins (below), or include individual files as needed --> 
+<script src="js/vendor/bootstrap.min.js"></script>
+<script src="js/vendor/bootstrap-tagsinput.min.js"></script>
+<script src="js/vendor/bootstrap-switch.min.js"></script>
+<script type="text/javascript" src="js/options.js"></script>
 </body>
-<head>
-  <link href='options.css' rel='stylesheet' type='text/css'>
-  <link href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css' rel='stylesheet' type='text/css'>
-  <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
-</head>
 </html>
