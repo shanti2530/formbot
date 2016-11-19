@@ -9,8 +9,8 @@
 <!-- Bootstrap -->
 <link rel="stylesheet" href="css/vendor/bootstrap.min.css">
 <link href="css/options.css" rel="stylesheet" type="text/css">
-<link href="css/vendor/bootstrap-tagsinput.css" rel="stylesheet" type="text/css">
-<link href="css/vendor/bootstrap-switch.min.css" rel="stylesheet" type="text/css">
+<link href="css/vendor/ng-tags-input.min.css" rel="stylesheet" type="text/css">
+<!-- <link href="css/vendor/bootstrap-switch.min.css" rel="stylesheet" type="text/css"> -->
 <link href="css/vendor/font-awesome.min.css" rel="stylesheet" type="text/css">
 <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
 
@@ -29,33 +29,44 @@
   </div>
   <!-- /.container-fluid -->
 </nav>
-<div class="container">
-	<div class="config-container ">
+<div class="container" ng-app="FormbotApp">
+	<div class="config-container " ng-controller="optionsController">
     <div class="row table-row">
-    	<div class="col-md-4 col-sm-6 config-tile">
+    	<div class="col-md-4 col-sm-6 config-tile" ng-repeat="option in options | orderBy: 'value.priority'">
       	<div class="well">
-        	<h3>Username</h3>
+        	<h3>{{option.name}}</h3>
           <div class="row">
           	<h5>Matching keywords</h5>
           </div>
           <div class="row">
-            <input type="text" value="username, userId" data-role="tagsinput" />
+            <tags-input ng-model="option.value.includes">
           </div>
           <hr>
           <div class="row">
             <h5>Excluded keywords</h5>
           </div>
           <div class="row">
-            <input type="text" value="" data-role="tagsinput" />          
+            <tags-input ng-model="option.value.excludes">
           </div>
           <hr>
           <div class="row">
-          	<h5 class="pull-left">Value to use</h5>
-			      <input id="switch-size" type="checkbox" checked name="switch" class="pull-right switch"
-                      data-on-text="Random" data-off-text="Default" data-on-color="info" data-off-color="info" data-size="small">
+          	<h5 class="pull-left">Data to use</h5>
+			      <input
+              bs-switch
+              ng-model="option.value.unique"
+              type="checkbox"
+              switch-on-text="'Random'"
+              switch-off-text="'Defined'"
+              switch-on-color="{{ on }}"
+              switch-off-color="{{ off }}"
+              switch-radio-off="{{ radioOff }}"
+              switch-change="changeChecked(option)">
+            <!-- <input id="switch-size" type="checkbox" checked name="switch" class="pull-right switch"
+                      data-on-text="Random" data-off-text="Default" data-on-color="info" data-off-color="info" data-size="small"> -->
           </div>
+          <hr>
           <div class="row">
-            <input type="text" value="john" disabled="disabled" class="col-md-12">          
+            <input type="text" value="john" ng-disabled="" class="col-md-12">          
           </div>
         </div>
       </div>
@@ -77,17 +88,15 @@
     </div>
   </div>
 </footer>
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script type="text/javascript" src="js/vendor/angular.min.js"></script>
+
 <script type="text/javascript" src="js/app/optionsController.js"></script>
 <script src="https://widget.uservoice.com/2zd17UX6LjTX7V5WNyqrlw.js" defer></script>
 <script type="text/javascript" defer src="js/externalScripts.js"></script>
 
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) --> 
-<script src="js/vendor/jquery.min.js"></script> 
 <!-- Include all compiled plugins (below), or include individual files as needed --> 
-<script src="js/vendor/bootstrap.min.js"></script>
-<script src="js/vendor/bootstrap-tagsinput.min.js"></script>
-<script src="js/vendor/bootstrap-switch.min.js"></script>
-<script type="text/javascript" src="js/options.js"></script>
+<script src="js/vendor/ng-tags-input.min.js"></script>
+<script src="js/vendor/angular-bootstrap-switch.min.js"></script>
 </body>
 </html>

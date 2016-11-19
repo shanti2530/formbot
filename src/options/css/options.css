@@ -34,7 +34,7 @@ body {
 	color: #32465b !important;
 }
 
-input {
+/*input {
 	background-color: #fff;
     border: 1px solid #ccc;
     box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
@@ -46,6 +46,15 @@ input {
     max-width: 100%;
     line-height: 22px;
     cursor: text;
+}*/
+
+.tag-item {
+	background: #337AB7 !important;
+	color: white; 
+}
+
+tags-input .tags .tag-item .remove-button {
+	color: white !important;
 }
 
 hr {

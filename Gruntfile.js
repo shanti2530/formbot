@@ -22,13 +22,13 @@ module.exports = function(grunt) {
           {src: 'bower_components/bootstrap/dist/js/bootstrap.min.js', dest: 'src/options/js/vendor/bootstrap.min.js'},
           {src: 'bower_components/angular/angular.min.js', dest: 'src/options/js/vendor/angular.min.js'},
           {src: 'bower_components/jquery/dist/jquery.min.js', dest: 'src/options/js/vendor/jquery.min.js'},
-          {src: 'bower_components/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js', dest: 'src/options/js/vendor/bootstrap-tagsinput.min.js'},
-          {src: 'bower_components/bootstrap-switch/dist/js/bootstrap-switch.min.js', dest: 'src/options/js/vendor/bootstrap-switch.min.js'},
+          {src: 'bower_components/ng-tags-input/ng-tags-input.min.js', dest: 'src/options/js/vendor/ng-tags-input.min.js'},
+          {src: 'bower_components/angular-bootstrap-switch/dist/angular-bootstrap-switch.js', dest: 'src/options/js/vendor/angular-bootstrap-switch.min.js'},
 
           {src: 'bower_components/bootstrap/dist/css/bootstrap.min.css', dest: 'src/options/css/vendor/bootstrap.min.css'},
           {src: 'bower_components/font-awesome/css/font-awesome.min.css', dest: 'src/options/css/vendor/font-awesome.min.css'},
           {src: 'bower_components/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.min.css', dest: 'src/options/css/vendor/bootstrap-switch.min.css'},
-          {src: 'bower_components/bootstrap-tagsinput/dist/bootstrap-tagsinput.css', dest: 'src/options/css/vendor/bootstrap-tagsinput.css'},
+          {src: 'bower_components/ng-tags-input/ng-tags-input.min.css', dest: 'src/options/css/vendor/ng-tags-input.min.css'},
 
           {cwd:"bower_components/font-awesome/fonts", src: '*', dest: 'src/options/css/fonts/', expand:true},
         ]
