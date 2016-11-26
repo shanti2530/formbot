@@ -5,7 +5,7 @@
  * Time: 14:49
  */
 
-var myApp = angular.module('FormbotApp', ['ngTagsInput', 'frapontillo.bootstrap-switch']);
+var myApp = angular.module('FormbotApp', ['ngTagsInput', 'toggle-switch']);
 
 myApp.controller('optionsController', ['$scope', function($scope) {
 

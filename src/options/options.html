@@ -13,6 +13,7 @@
 <!-- <link href="css/vendor/bootstrap-switch.min.css" rel="stylesheet" type="text/css"> -->
 <link href="css/vendor/font-awesome.min.css" rel="stylesheet" type="text/css">
 <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="css/vendor/angular-toggle-switch.css">
 
 <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -51,22 +52,10 @@
           <hr>
           <div class="row">
           	<h5 class="pull-left">Data to use</h5>
-			      <input
-              bs-switch
-              ng-model="option.value.unique"
-              type="checkbox"
-              switch-on-text="'Random'"
-              switch-off-text="'Defined'"
-              switch-on-color="{{ on }}"
-              switch-off-color="{{ off }}"
-              switch-radio-off="{{ radioOff }}"
-              switch-change="changeChecked(option)">
-            <!-- <input id="switch-size" type="checkbox" checked name="switch" class="pull-right switch"
-                      data-on-text="Random" data-off-text="Default" data-on-color="info" data-off-color="info" data-size="small"> -->
+			      <toggle-switch ng-model="option.value.uniqueConfig" on-label="Random" off-label="Pre-Set" class="pull-right"><toggle-switch>
           </div>
-          <hr>
           <div class="row">
-            <input type="text" value="john" ng-disabled="" class="col-md-12">          
+            <input type="text" value="john" ng-disabled="option.value.uniqueConfig" class="col-md-12">          
           </div>
         </div>
       </div>
@@ -97,6 +86,6 @@
 
 <!-- Include all compiled plugins (below), or include individual files as needed --> 
 <script src="js/vendor/ng-tags-input.min.js"></script>
-<script src="js/vendor/angular-bootstrap-switch.min.js"></script>
+<script src="js/vendor/angular-toggle-switch.min.js"></script>
 </body>
 </html>
