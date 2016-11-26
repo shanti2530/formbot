@@ -19,7 +19,6 @@ module.exports = function(grunt) {
           {src: 'bower_components/momentjs/min/moment.min.js', dest: 'src/scripts/moment.min.js'},
           {src: 'node_modules/chance/chance.js', dest: 'src/scripts/chance.js'},
 
-          {src: 'bower_components/bootstrap/dist/js/bootstrap.min.js', dest: 'src/options/js/vendor/bootstrap.min.js'},
           {src: 'bower_components/angular/angular.min.js', dest: 'src/options/js/vendor/angular.min.js'},
           {src: 'bower_components/ng-tags-input/ng-tags-input.min.js', dest: 'src/options/js/vendor/ng-tags-input.min.js'},
 

@@ -34,6 +34,10 @@ body {
 	color: #32465b !important;
 }
 
+.toggle-switch .switch-left {
+	background: #337AB7 !important;
+}
+
 /*input {
 	background-color: #fff;
     border: 1px solid #ccc;
