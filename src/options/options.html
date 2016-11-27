@@ -30,7 +30,7 @@
   <!-- /.container-fluid -->
 </nav>
 <div class="container" ng-app="FormbotApp">
-	<div class="config-container " ng-controller="optionsController">
+	<div class="config-container ng-cloak" ng-controller="optionsController">
     <div class="row table-row">
     	<div class="col-md-4 col-sm-6 config-tile" ng-repeat="option in options | orderBy: 'value.priority'">
       	<div class="well">
