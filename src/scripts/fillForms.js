@@ -4,6 +4,13 @@
   //Everytime the fill forms script is executed, send an event to google analytics
   chrome.extension.sendMessage({method: 'analytics', category: 'chrome-extension', action: location.host});
 
+  var isHidden = function(input) {
+    if (input.type === 'hidden' || input.offsetParent === null) {
+      return true;
+    }
+    return false;
+  }
+
   var fillInput = function(input) {
 
     chrome.extension.sendMessage({method: 'checkInput',
@@ -42,7 +49,7 @@
     for(var i = 0; i < inputs.length; i++) {
       var input = inputs[i];
 
-      if (input.type === 'radio' || input.type === 'hidden' || input.type === 'button' ||
+      if (input.type === 'radio' || isHidden(input) || input.type === 'button' ||
         input.type === 'submit' || input.type === 'file') {
         /*hidden inputs should not be altered .. they are hidden for a reason*/
         /*radio buttons are handled separately in the function processRadioButtonGroupElements*/
