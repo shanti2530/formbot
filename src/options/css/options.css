@@ -38,6 +38,10 @@ body {
 	background: #337AB7 !important;
 }
 
+.toggle-switch { 
+ border: 1px solid #a9a9a9 !important;
+}
+
 /*input {
 	background-color: #fff;
     border: 1px solid #ccc;
