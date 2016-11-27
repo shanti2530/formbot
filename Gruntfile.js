@@ -63,6 +63,16 @@ module.exports = function(grunt) {
     //     dest: 'dist'
     //   }
     // },
+    watch: {
+      scripts: {
+        files: ['src/**/**','!src/options/**/vendor/**'],
+        tasks: ['build'],
+        options: {
+          spawn: false,
+        },
+      },
+    },
+
     compress: {
       dist: {
         options: {
@@ -80,7 +90,8 @@ module.exports = function(grunt) {
     'clean',
     'copy:build',
     'copy:release',
-    'uglify:build'
+    'uglify:build',
+    'watch'
     ]);
 
   grunt.registerTask('release', [
