@@ -48,35 +48,39 @@ myApp.controller('optionsController', ['$scope', function($scope) {
   var splitter = /(?=\S)[^,]+?(?=\s*(,|$))/g;
 
   //save updates
-  $scope.$watch('options', function() {
-    if (angular.isDefined($scope.options)) {
+  $scope.$watch('options', function(newValue, oldValue) {
+    console.log('New');
+    console.log(newValue);
+    console.log('Old');
+    console.log(oldValue);
 
-      for(var i=0; i<$scope.options.length; i++) {
-        var option = $scope.options[i];
+    for(var i=0; i<newValue.length; i++) {
+      var option = newValue[i];
 
-        var includes;
-        if (option.value.includes && !Array.isArray(option.value.includes)) {
-          includes = option.value.includes.match(splitter);
-        } else {
-          includes = option.value.includes;
-        }
-
-        if (option.value.excludes && !Array.isArray(option.value.excludes)) {
-          var excludes = option.value.excludes.match(splitter);
-        } else {
-          excludes = option.value.excludes;
-        }
-
-        var obj = new Object();
-        obj[option.name] = JSON.stringify({unique: option.value.unique,
-          defaultValue: option.value.defaultValue,
-          includes: includes,
-          excludes: excludes,
-          uniqueConfig: option.value.uniqueConfig,
-          priority: option.value.priority});
-
-        chrome.storage.sync.set(obj);
+      var includes;
+      if (option.value.includes && !Array.isArray(option.value.includes)) {
+        includes = option.value.includes.match(splitter);
+        console.log('not array' + option.value.includes);
+      } else {
+        includes = option.value.includes;
       }
+
+      var excludes;
+      if (option.value.excludes && !Array.isArray(option.value.excludes)) {
+        excludes = option.value.excludes.match(splitter);
+      } else {
+        excludes = option.value.excludes;
+      }
+
+      var obj = new Object();
+      obj[option.name] = JSON.stringify({unique: option.value.unique,
+        defaultValue: option.value.defaultValue,
+        includes: includes,
+        excludes: excludes,
+        uniqueConfig: option.value.uniqueConfig,
+        priority: option.value.priority});
+
+      chrome.storage.sync.set(obj);
     }
 
   }, true);
